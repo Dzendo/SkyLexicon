@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -52,6 +53,29 @@ dependencies {
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.3'
+
+    // Retrofit2, https://square.github.io/retrofit/
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-scalars:2.9.0"
+    // Этот конвертер позволяет Retrofit возвращать результат JSON в виде файла String
+
+    // 8.8.1 Retrofit with Moshi Converter
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+
+    // 8.8.1 Moshi https://github.com/square/moshi
+    implementation "com.squareup.moshi:moshi:1.11.0"
+    implementation "com.squareup.moshi:moshi-kotlin:1.11.0"
+
+    // 8.9.1 Coroutines поддержка основных библиотек сопрограмм Kotlin
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
+
+    // 8.9.1 Retrofit Coroutines Support библиотеки сопрограмм Retrofit:
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2"
+    //implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0"
+
+    // 11.1.1 Glide https://github.com/bumptech/glide https://bumptech.github.io/glide/
+    implementation "com.github.bumptech.glide:glide:4.12.0"
 
     // Logging
     implementation "com.jakewharton.timber:timber:4.7.1"
