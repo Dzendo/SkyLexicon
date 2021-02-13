@@ -31,7 +31,7 @@ import retrofit2.Response
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class FirstViewModel : ViewModel() {
+class SecondViewModel : ViewModel() {
 
     // The internal MutableLiveData String that stores the most recent response
     private val _response = MutableLiveData<String>()
@@ -50,8 +50,8 @@ class FirstViewModel : ViewModel() {
     /**
      * Sets the value of the status LiveData to the Mars API status.
      */
-     fun onSlovoClicked(view:View)= getSkySearch((view as EditText).text.toString())
-     fun getSkySearch(slovo:String) {
+     fun onIdsClicked(view:View)= getSkyMeanings((view as EditText).text.toString())
+     fun getSkyMeanings(ids:String) {
         // 8.7 Не забудьте удалить местозаполнитель присвоения ответа, иначе вы не увидите свои результаты!
         // _response.value = "Set the Mars API Response here!"
 
@@ -71,7 +71,7 @@ class FirstViewModel : ViewModel() {
         // Метод возвращает объект. Затем вы можете вызвать этот объект, чтобы запустить сетевой запрос в фоновом потоке.
         // 8.8.7 чтобы обрабатывать список MarsProperty вместо String.
 
-        SkyApi.retrofitService.getSearch(slovo).enqueue( object: Callback<String> { //<String> {  // Callback - обратный вызов передается в качестве параметра
+        SkyApi.retrofitService.getMeanings(ids).enqueue( object: Callback<String> { //<String> {  // Callback - обратный вызов передается в качестве параметра
             override fun onFailure(call: Call<String>, t: Throwable) {  //<String>, t: Throwable) {
                 _response.value = "Failure: " + t.message
 

@@ -3,6 +3,8 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    // Необходимо для класса передачи параметров в навигации проекта
+    id "androidx.navigation.safeargs.kotlin"
 }
 
 android {

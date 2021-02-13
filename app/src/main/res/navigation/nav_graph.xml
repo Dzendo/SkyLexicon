@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.dinadurykina.skylexicon.FirstFragment"
-        android:label="first_fragment_label"
+        android:label="SkyLexicon Translate"
         tools:layout="@layout/fragment_first">
 
         <action
@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.dinadurykina.skylexicon.SecondFragment"
-        android:label="second_fragment_label"
+        android:label="SkyLexicon Meaning"
         tools:layout="@layout/fragment_second">
 
         <action

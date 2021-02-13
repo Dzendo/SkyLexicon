@@ -43,9 +43,8 @@ import retrofit2.http.Query
 // https://dictionary.skyeng.ru/api/public/v1/words/search?search=TABLE
 private const val BASE_URL = "https://dictionary.skyeng.ru/"
 // https://dictionary.skyeng.ru/api/public/v1/meanings?ids=109140
-private const val BASE_URL_MEANINGS = "https://dictionary.skyeng.ru/api/public/v1/meanings"
 // 16.1 определяет константы для соответствия значениям запроса, которые ожидает наш веб-сервис
-enum class SkyApiFilter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all") }
+//enum class SkyApiFilter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all") }
 // 8.8.4 используйте Moshi Builder для создания объекта Moshi с KotlinJsonAdapterFactory:
 // преобразует Json с полями в объекты Kotlin data class c с полями объектов
 private val moshi = Moshi.Builder()
@@ -66,8 +65,9 @@ private val retrofit = Retrofit.Builder()
 // Это аналогично интерфейсу DAO для ROOM типа концепьуально того же
 interface SkyApiService {
     //@GET("realestate")
-    @GET("api/public/v1/words/search?search=TABLE")
-    fun getProperties():
+
+    @GET("api/public/v1/words/search")
+    fun getSearch(@Query("search") type: String):
 // 16.2 @Query("filter") параметр, getProperties() чтобы мы могли фильтровать свойства на основе MarsApiFilter значений перечисления
 //    fun getProperties(@Query("filter") type: String):
 // Deferred - штатная функция коруимн котлина обладающая await - т.е приостановкой потока для обработки результата try / cath            
@@ -75,6 +75,17 @@ interface SkyApiService {
 // Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и 
 // естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...  
             //Call<List<MarsProperty>> // 8.8.6 возвращал список MarsProperty объектов вместо String
+            Call<String>
+
+    @GET("api/public/v1/meanings")
+    fun getMeanings(@Query("ids") type: String):
+// 16.2 @Query("filter") параметр, getProperties() чтобы мы могли фильтровать свойства на основе MarsApiFilter значений перечисления
+//    fun getProperties(@Query("filter") type: String):
+// Deferred - штатная функция коруимн котлина обладающая await - т.е приостановкой потока для обработки результата try / cath
+//            Deferred<List<SkySearchAnswer>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
+// Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и
+// естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...
+    //Call<List<MarsProperty>> // 8.8.6 возвращал список MarsProperty объектов вместо String
             Call<String>
 }
 //8.5 Передав API сервиса, который вы только что определили,
