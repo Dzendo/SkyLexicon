@@ -19,12 +19,11 @@ package com.dinadurykina.skylexicon
 
 import android.view.View
 import android.widget.EditText
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dinadurykina.skylexicon.network.SkyApi
-import com.dinadurykina.skylexicon.network.SkyMeaningsAnswer
+import com.dinadurykina.skylexicon.network.Meaning
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -45,7 +44,7 @@ class SecondViewModel : ViewModel() {
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
      */
     init {
-       // getSkySearch("Chair")
+       // getSkyMeanings("1938")
     }
 
     /**
@@ -72,12 +71,12 @@ class SecondViewModel : ViewModel() {
         // Метод возвращает объект. Затем вы можете вызвать этот объект, чтобы запустить сетевой запрос в фоновом потоке.
         // 8.8.7 чтобы обрабатывать список MarsProperty вместо String.
 
-        SkyApi.retrofitService.getMeanings(ids).enqueue( object: Callback<List<SkyMeaningsAnswer>> { //<String> {  // Callback - обратный вызов передается в качестве параметра
-            override fun onFailure(call: Call<List<SkyMeaningsAnswer>>, t: Throwable) {  //<String>, t: Throwable) {
+        SkyApi.retrofitService.getMeanings(ids).enqueue( object: Callback<List<Meaning>> { //<String> {  // Callback - обратный вызов передается в качестве параметра
+            override fun onFailure(call: Call<List<Meaning>>, t: Throwable) {  //<String>, t: Throwable) {
                 _response.value = "Failure: " + t.message
 
             }
-            override fun onResponse(call: Call<List<SkyMeaningsAnswer>>, response: Response<List<SkyMeaningsAnswer>>) {  //<String>, response: Response<String>) {
+            override fun onResponse(call: Call<List<Meaning>>, response: Response<List<Meaning>>) {  //<String>, response: Response<String>) {
                // _response.value = response.body()  //Mars properties retrieved" //response.body()
                // _response.value = "Success: ${response.body()?.size} Sky properties retrieved"
                 _response.value = "Meanings ${response.body()?.size} : \n ${response.body()?.toString()} End Sky Meanings \n \n"

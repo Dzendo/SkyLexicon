@@ -14,7 +14,7 @@ android {
     buildFeatures {
         // построит из xml спецклассы java см. java (generated)
         dataBinding true
-        viewBinding true  // будем использовать для других
+        viewBinding true  // Используем в Activity
     }
     defaultConfig {
         applicationId "com.dinadurykina.skylexicon"

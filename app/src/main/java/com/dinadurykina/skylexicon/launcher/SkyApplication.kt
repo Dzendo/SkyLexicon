@@ -28,9 +28,7 @@ import timber.log.Timber
 //@HiltAndroidApp
 class SkyApplication : Application() {
 
-
     override fun onCreate() {
-
         super.onCreate()
 
         CoroutineScope(Dispatchers.Default).launch {

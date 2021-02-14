@@ -27,7 +27,7 @@ class SecondFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentSecondBinding.inflate(inflater)
 
@@ -47,8 +47,5 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
         binding.textviewJson.movementMethod = ScrollingMovementMethod()
-        //  binding.slovo.setOnClickListener {
-        //      viewModel.getSkySearch(binding.slovo.text.toString())
-        //  }
     }
 }

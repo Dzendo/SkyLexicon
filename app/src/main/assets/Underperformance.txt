@@ -1,0 +1,4 @@
+13.02.2021 Не смог поставить в network\SkyAnswer.kt тип-class URL вместо String для Parcer
+14.02.2021 Надо в SkyMeaningsAnswer.kt встроить enum class PartOfSpeechCode из launcher\SkyConstants.kt
+13.02.2021 Хорошо бы Meaning2 объединить / наследовать от Meaning
+13.02.2021 Объявить правильно: difficultyLevel: Int, //1, There are 6 difficultyLevels: 1, 2, 3, 4, 5, 6.

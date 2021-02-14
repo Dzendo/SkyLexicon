@@ -46,7 +46,6 @@ class SkyActivity : AppCompatActivity() {
         // setupActionBarWithNavController(navController, appBarConfiguration) // Альтернатива skyapp
         // Полю @+id/nav_view ему звать navController, когда на него нажмут, что бы перейти куда нажали
         mainBinding.navView.setupWithNavController(navController)
-        //mainBinding.bottomNavView.setupWithNavController(navController) перенесен в фрагмент
 
         // отправляет в логкат SkyMainActivity onCreate
         Timber.i("SkyMainActivity onCreate ")
@@ -68,7 +67,7 @@ class SkyActivity : AppCompatActivity() {
         // По уму этот обработчик надо бы переместить в SkyActivityViewModel, но технологии биндинг для меню не создано
         // Обещают сделать, тогда перемещу
         return when (item.itemId) {
-            R.id.action_settings -> {Toast.makeText(applicationContext, "Пошел вон", Toast.LENGTH_LONG).show(); true }
+            R.id.action_settings -> {Toast.makeText(applicationContext, "Пошел Settings", Toast.LENGTH_LONG).show(); true }
             else -> super.onOptionsItemSelected(item)
         }
     }

@@ -16,6 +16,7 @@
  */
 
 package com.dinadurykina.skylexicon.network
+// Это файл для хранения сетевого уровня API, который будет использовать наша модель ViewModel представления
 
 //import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -29,12 +30,9 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-// Это файл для хранения сетевого уровня API, который будет использовать наша модель ViewModel представления
-
 // 8.1 В app/build.gradle добавление зависимостей библиотеки Retrofit.
 
-
-// MarsApiService Класс содержит слой сети для приложения; то есть это API,
+// SkyApiService Класс содержит слой сети для приложения; то есть это API,
 // который вы ViewModel будете использовать для связи с веб-сервисом.
 // Это класс, в котором вы будете реализовывать API службы Retrofit.
 // 8.2 Мы предоставили переменную для корневого веб-адреса конечной точки сервера Mars:
@@ -54,16 +52,16 @@ private val moshi = Moshi.Builder()
 
 // 8.3 Используйте Retrofit.Builder для создания объекта Retrofit.
 private val retrofit = Retrofit.Builder()
-    //.addConverterFactory(ScalarsConverterFactory.create())
+    //.addConverterFactory(ScalarsConverterFactory.create())    // Выдает непреобразованный Json
     .addConverterFactory(MoshiConverterFactory.create(moshi))  // 8.8.5 измените с нашим moshi Object:
     //.addCallAdapterFactory(CoroutineCallAdapterFactory()) // 8.9.2 добавьте к Retrofit строителю
     .baseUrl(BASE_URL)
     .build()
 // 8.4 Создайте MarsApiService интерфейс и определите getProperties() метод для запроса строки ответа JSON.
-// Аннотируйте метод с помощью @GET, указав конечную точку для ответа по недвижимости JSON,
+// Аннотируйте метод с помощью @GET, указав конечную точку для ответа по skyeng JSON,
 // и создайте Call объект Retrofit , который запустит HTTP-запрос.
 // В Основном через него приложение и обращается через API к интернету а он возращает ответ через фабрику конверторы
-// Это аналогично интерфейсу DAO для ROOM типа концепьуально того же
+// Это аналогично интерфейсу DAO для ROOM типа концептуально того же
 interface SkyApiService {
     //@GET("realestate")
 
@@ -72,10 +70,10 @@ interface SkyApiService {
 // 16.2 @Query("filter") параметр, getProperties() чтобы мы могли фильтровать свойства на основе MarsApiFilter значений перечисления
 //    fun getProperties(@Query("filter") type: String):
 // Deferred - штатная функция коруимн котлина обладающая await - т.е приостановкой потока для обработки результата try / cath            
-//            Deferred<List<SkySearchAnswer>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
+//            Deferred<List<Word>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
 // Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и 
 // естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...  
-            Call<List<SkySearchAnswer>> // 8.8.6 возвращал список MarsProperty объектов вместо String
+            Call<List<Word>> // 8.8.6 возвращал список MarsProperty объектов вместо String
             //Call<String>
 
     @GET("api/public/v1/meanings")
@@ -83,12 +81,13 @@ interface SkyApiService {
 // 16.2 @Query("filter") параметр, getProperties() чтобы мы могли фильтровать свойства на основе MarsApiFilter значений перечисления
 //    fun getProperties(@Query("filter") type: String):
 // Deferred - штатная функция коруимн котлина обладающая await - т.е приостановкой потока для обработки результата try / cath
-//            Deferred<List<SkySearchAnswer>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
+//            Deferred<List<Word>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
 // Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и
 // естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...
-    Call<List<SkyMeaningsAnswer>> // 8.8.6 возвращал список MarsProperty объектов вместо String
+    Call<List<Meaning>> // 8.8.6 возвращал список MarsProperty объектов вместо String
      //       Call<String>
 }
+
 //8.5 Передав API сервиса, который вы только что определили,
 // создайте публичный объект, который называется MarsApi
 // для предоставления Retrofit сервиса остальной части приложения:

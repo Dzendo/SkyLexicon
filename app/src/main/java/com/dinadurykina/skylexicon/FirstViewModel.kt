@@ -24,7 +24,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dinadurykina.skylexicon.network.SkyApi
-import com.dinadurykina.skylexicon.network.SkySearchAnswer
+import com.dinadurykina.skylexicon.network.Word
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -72,12 +72,12 @@ class FirstViewModel : ViewModel() {
         // Метод возвращает объект. Затем вы можете вызвать этот объект, чтобы запустить сетевой запрос в фоновом потоке.
         // 8.8.7 чтобы обрабатывать список MarsProperty вместо String.
 
-        SkyApi.retrofitService.getSearch(slovo).enqueue( object: Callback<List<SkySearchAnswer>> { //<String> {  // Callback - обратный вызов передается в качестве параметра
-            override fun onFailure(call: Call<List<SkySearchAnswer>>, t: Throwable) {  //<String>, t: Throwable) {
+        SkyApi.retrofitService.getSearch(slovo).enqueue( object: Callback<List<Word>> { //<String> {  // Callback - обратный вызов передается в качестве параметра
+            override fun onFailure(call: Call<List<Word>>, t: Throwable) {  //<String>, t: Throwable) {
                 _response.value = "Failure: " + t.message
 
             }
-            override fun onResponse(call: Call<List<SkySearchAnswer>>, response: Response<List<SkySearchAnswer>>) {  //<String>, response: Response<String>) {
+            override fun onResponse(call: Call<List<Word>>, response: Response<List<Word>>) {  //<String>, response: Response<String>) {
                // _response.value = response.body()  //Mars properties retrieved" //response.body()
                // _response.value = "Success: ${response.body()?.size} Sky properties retrieved"
                 _response.value = "Search ${response.body()?.size} : \n ${response.body()?.toString()} End Sky Search \n \n"
