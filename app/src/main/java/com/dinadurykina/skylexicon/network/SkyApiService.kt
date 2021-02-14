@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-
+// https://classroom.udacity.com/courses/ud9012/lessons/2be0ed85-721d-4a8d-a484-909b5c98336c/concepts/b36af08e-1bce-48e8-9a31-2e268907d2f0
 package com.dinadurykina.skylexicon.network
 // Это файл для хранения сетевого уровня API, который будет использовать наша модель ViewModel представления
 
@@ -66,7 +66,8 @@ interface SkyApiService {
     //@GET("realestate")
 
     @GET("api/public/v1/words/search")
-    fun getSearch(@Query("search") type: String):
+    suspend fun getSearch(@Query("search") type: String): List<Word>
+ /*   fun getSearch(@Query("search") type: String):
 // 16.2 @Query("filter") параметр, getProperties() чтобы мы могли фильтровать свойства на основе MarsApiFilter значений перечисления
 //    fun getProperties(@Query("filter") type: String):
 // Deferred - штатная функция коруимн котлина обладающая await - т.е приостановкой потока для обработки результата try / cath            
@@ -75,9 +76,10 @@ interface SkyApiService {
 // естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...  
             Call<List<Word>> // 8.8.6 возвращал список MarsProperty объектов вместо String
             //Call<String>
-
+*/
     @GET("api/public/v1/meanings")
-    fun getMeanings(@Query("ids") type: String):
+   suspend fun getMeanings(@Query("ids") type: String): List<Meaning>
+   /* fun getMeanings(@Query("ids") type: String):
 // 16.2 @Query("filter") параметр, getProperties() чтобы мы могли фильтровать свойства на основе MarsApiFilter значений перечисления
 //    fun getProperties(@Query("filter") type: String):
 // Deferred - штатная функция коруимн котлина обладающая await - т.е приостановкой потока для обработки результата try / cath
@@ -86,6 +88,8 @@ interface SkyApiService {
 // естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...
     Call<List<Meaning>> // 8.8.6 возвращал список MarsProperty объектов вместо String
      //       Call<String>
+
+    */
 }
 
 //8.5 Передав API сервиса, который вы только что определили,

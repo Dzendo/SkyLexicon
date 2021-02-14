@@ -22,8 +22,10 @@ import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.dinadurykina.skylexicon.network.SkyApi
 import com.dinadurykina.skylexicon.network.Meaning
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -71,7 +73,18 @@ class SecondViewModel : ViewModel() {
         // Метод возвращает объект. Затем вы можете вызвать этот объект, чтобы запустить сетевой запрос в фоновом потоке.
         // 8.8.7 чтобы обрабатывать список MarsProperty вместо String.
 
-        SkyApi.retrofitService.getMeanings(ids).enqueue( object: Callback<List<Meaning>> { //<String> {  // Callback - обратный вызов передается в качестве параметра
+         // Use coroutines with Retrofit
+         viewModelScope.launch {
+             try {
+                 val skyResult = SkyApi.retrofitService.getMeanings(ids)
+                 _response.value = "Search ${skyResult.size} : \n ${skyResult .toString()} End Sky Search \n \n"
+             } catch (e: Exception) {
+                 _response.value = "Failure: ${e.message}"
+             }
+         }
+
+         // без coroutines
+     /*   SkyApi.retrofitService.getMeanings(ids).enqueue( object: Callback<List<Meaning>> { //<String> {  // Callback - обратный вызов передается в качестве параметра
             override fun onFailure(call: Call<List<Meaning>>, t: Throwable) {  //<String>, t: Throwable) {
                 _response.value = "Failure: " + t.message
 
@@ -81,7 +94,7 @@ class SecondViewModel : ViewModel() {
                // _response.value = "Success: ${response.body()?.size} Sky properties retrieved"
                 _response.value = "Meanings ${response.body()?.size} : \n ${response.body()?.toString()} End Sky Meanings \n \n"
             }
-        })
+        })*/
         // 8.8.8 Создайте и запустите приложение. Вы должны увидеть одно сообщение, показывающее количество свойств в ответе. - 838 участков
         // при вызове из программы этот код поставит ст. объект Callback<String> к себе там в очередь
         // когда MarsApi.retrofitService выполнит getProperties() то он вызовет обратным вызовом

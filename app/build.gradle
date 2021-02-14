@@ -50,7 +50,7 @@ dependencies {
 
     // Coroutines for getting off the UI thread
     // implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.2"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
+    //implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
 
     // Navigation
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.3'
