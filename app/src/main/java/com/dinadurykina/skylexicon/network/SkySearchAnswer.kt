@@ -19,6 +19,7 @@ package com.dinadurykina.skylexicon.network
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.RawValue
 import kotlinx.parcelize.Parcelize
 //import kotlinx.android.parcel.Parcelize
 
@@ -34,6 +35,26 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SkySearchAnswer(
     val id: String,
+    val text: String,
+    val meanings: List<@RawValue Meaning2>
+) : Parcelable
+
+data class Meaning2(
+    val id: String,
+    val partOfSpeechCode: String,
+    val translation: @RawValue Translation,
+    val  previewUrl: String, //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=96&h=72",
+    val imageUrl: String, //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=640&h=480",
+    val transcription: String, //"ʧeə",
+    val soundUrl: String //"//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair"
+)
+
+data class Translation(
+    val text: String,
+    val note: String?
+)
+/*data class SkySearchAnswer(
+    val id: String,
     @Json(name = "img_src")  // это название на сайте (в Json)
     val imgSrcUrl: String,   // это название для нас использовать
     val type: String,
@@ -41,7 +62,7 @@ data class SkySearchAnswer(
 // 15.6.1  isRental логическое значение и установите его значение в зависимости от того, является ли тип свойства «арендным»
     val isRental
         get() = type == "rent"
-}
+}*/
 // Порядок полей не совпадает с порядеом на сайте - разбор по именам
 /*см. src\main\assets
 там данные о собсвенности на марсе, кот будем считывать

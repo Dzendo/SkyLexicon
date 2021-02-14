@@ -19,6 +19,7 @@ package com.dinadurykina.skylexicon.network
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.android.parcel.RawValue
 import kotlinx.parcelize.Parcelize
 //import kotlinx.android.parcel.Parcelize
 
@@ -33,6 +34,63 @@ import kotlinx.parcelize.Parcelize
 // 15.4.1 сделайте класс доступным, расширив его Parcelable и добавив @Parcelize аннотацию:
 @Parcelize
 data class SkyMeaningsAnswer(
+    val id: String, // "1938",
+    val wordId: Long, // 838,
+    val difficultyLevel: Int, //1,
+    val partOfSpeechCode: String, // "n",
+    val prefix: String, // "a",
+    val text: String, // "chair",
+    val soundUrl: String, // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair",
+    val transcription: String, //"ʧeə",
+    val properties: @RawValue  Properties,
+    val updatedAt: String, //"2021-02-10 04:49:35",
+    val mnemonics: String?, //null,
+    val translation: @RawValue Translation,
+    val images: List<@RawValue Image>,  // "//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50"
+    val definition: @RawValue Definition,
+    val examples: List<@RawValue Example>,
+    val meaningsWithSimilarTranslation: List<@RawValue MeaningsWithSimilarTranslation>,
+    val alternativeTranslations: List<@RawValue AlternativeTranslations>
+) : Parcelable
+
+data class Properties(
+    val collocation: Boolean, // false,
+   val  countability: String, //"c",
+    val irregularPlural: Boolean, //false,
+    val falseFriends: List<String> //[]
+)
+
+data class Definition(
+    val text: String, // "A separate seat for one person, with four legs and a support for the back.",
+    val soundUrl: String // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=a+separate+seat+for+one+person+with+four+legs+and+a+support+for+the+back"
+)
+
+data class Example(
+    val text: String, // "Put an additional [chair], please.",
+    val soundUrl: String // //d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=Put+an+additional+chair+please."
+)
+
+data class MeaningsWithSimilarTranslation(
+    val meaningId: Long, //1938,
+    val frequencyPercent: String, // "50.0",
+    val partOfSpeechAbbreviation: String, // "сущ.",
+    val translation: @RawValue Translation
+)
+
+data class AlternativeTranslations(
+    val text: String, //"company",
+    val translation: @RawValue Translation
+)
+data class Image(
+    val url: String // "//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50"
+)
+
+
+
+data class Url (
+    val url: String  // // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=a+separate+seat+for+one+person+with+four+legs+and+a+support+for+the+back"
+        )
+/*data class SkyMeaningsAnswer(
     val id: String,
     @Json(name = "img_src")  // это название на сайте (в Json)
     val imgSrcUrl: String,   // это название для нас использовать
@@ -41,7 +99,7 @@ data class SkyMeaningsAnswer(
 // 15.6.1  isRental логическое значение и установите его значение в зависимости от того, является ли тип свойства «арендным»
     val isRental
         get() = type == "rent"
-}
+}*/
 // Порядок полей не совпадает с порядеом на сайте - разбор по именам
 /*см. src\main\assets
 там данные о собсвенности на марсе, кот будем считывать

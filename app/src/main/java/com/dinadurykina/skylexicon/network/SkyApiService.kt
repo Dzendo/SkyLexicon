@@ -41,8 +41,9 @@ import retrofit2.http.Query
 //private const val BASE_URL = "https://mars.udacity.com/"
 //private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.com/"
 // https://dictionary.skyeng.ru/api/public/v1/words/search?search=TABLE
-private const val BASE_URL = "https://dictionary.skyeng.ru/"
 // https://dictionary.skyeng.ru/api/public/v1/meanings?ids=109140
+private const val BASE_URL = "https://dictionary.skyeng.ru/"
+
 // 16.1 определяет константы для соответствия значениям запроса, которые ожидает наш веб-сервис
 //enum class SkyApiFilter(val value: String) { SHOW_RENT("rent"), SHOW_BUY("buy"), SHOW_ALL("all") }
 // 8.8.4 используйте Moshi Builder для создания объекта Moshi с KotlinJsonAdapterFactory:
@@ -53,8 +54,8 @@ private val moshi = Moshi.Builder()
 
 // 8.3 Используйте Retrofit.Builder для создания объекта Retrofit.
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
-    //.addConverterFactory(MoshiConverterFactory.create(moshi))  // 8.8.5 измените с нашим moshi Object:
+    //.addConverterFactory(ScalarsConverterFactory.create())
+    .addConverterFactory(MoshiConverterFactory.create(moshi))  // 8.8.5 измените с нашим moshi Object:
     //.addCallAdapterFactory(CoroutineCallAdapterFactory()) // 8.9.2 добавьте к Retrofit строителю
     .baseUrl(BASE_URL)
     .build()
@@ -74,8 +75,8 @@ interface SkyApiService {
 //            Deferred<List<SkySearchAnswer>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
 // Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и 
 // естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...  
-            //Call<List<MarsProperty>> // 8.8.6 возвращал список MarsProperty объектов вместо String
-            Call<String>
+            Call<List<SkySearchAnswer>> // 8.8.6 возвращал список MarsProperty объектов вместо String
+            //Call<String>
 
     @GET("api/public/v1/meanings")
     fun getMeanings(@Query("ids") type: String):
@@ -85,8 +86,8 @@ interface SkyApiService {
 //            Deferred<List<SkySearchAnswer>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
 // Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и
 // естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...
-    //Call<List<MarsProperty>> // 8.8.6 возвращал список MarsProperty объектов вместо String
-            Call<String>
+    Call<List<SkyMeaningsAnswer>> // 8.8.6 возвращал список MarsProperty объектов вместо String
+     //       Call<String>
 }
 //8.5 Передав API сервиса, который вы только что определили,
 // создайте публичный объект, который называется MarsApi
