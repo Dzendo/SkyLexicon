@@ -20,7 +20,7 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:onClick="@{(view) -> viewModel.onSlovoClicked(view)}"
-        android:text="Chair"
+        android:text="Cup"
         tools:layout_editor_absoluteX="96dp"
         tools:layout_editor_absoluteY="13dp"
         tools:ignore="MissingConstraints" />
@@ -41,15 +41,17 @@
         app:layout_constraintTop_toBottomOf="@id/slovo" />
     <!--до 11.1.5  android:text="@{viewModel.response}" выводила количество-->
     <!-- android:text="@{viewModel.property.imgSrcUrl}" -->
-    <Button
-        android:id="@+id/button_first"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="go to Meaning"
+
+    <ImageView
+        android:id="@+id/sky_image"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:adjustViewBounds="true"
+        android:padding="2dp"
+        android:scaleType="centerCrop"
+        app:imageUrl="@{viewModel.property.meanings[0].imageUrl}"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:src="@tools:sample/backgrounds/scenic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

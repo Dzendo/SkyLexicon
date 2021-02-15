@@ -53,9 +53,9 @@ data class Meaning2(
 data class Meaning(
     val id: String, // "1938", Meaning id.
     val wordId: Long, // 838, - это id из Word Слово-это группа значений. Мы объединяем значения словом сущность.
-    val difficultyLevel: Int, //1, There are 6 difficultyLevels: 1, 2, 3, 4, 5, 6.
+    val difficultyLevel: Int?, //1, There are 6 difficultyLevels: 1, 2, 3, 4, 5, 6.
     val partOfSpeechCode: String, // "n", enum class PartOfSpeechCode
-    val prefix: String, // "a", Infinitive particle (to) or articles (a, the).
+    val prefix: String?, // "a", Infinitive particle (to) or articles (a, the).
     val text: String, // "chair",  Meaning text.
     val soundUrl: String, // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair", URL to meaning sound.
     val transcription: String, //"ʧeə", IPA phonetic transcription.
@@ -76,10 +76,10 @@ data class Translation(
 )
 
 data class Properties(
-    val collocation: Boolean, // false,
-   val  countability: String, //"c",
-    val irregularPlural: Boolean, //false,
-    val falseFriends: List<String> //[]
+    val collocation: Boolean = false, // false,
+   val  countability: String = "", //"c",
+    val irregularPlural: Boolean = false, //false,
+    val falseFriends: List<String> = arrayListOf() //[]
 )
 
 data class Definition(

@@ -23,12 +23,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dinadurykina.skylexicon.network.SkyApi
 import com.dinadurykina.skylexicon.network.Meaning
+import com.dinadurykina.skylexicon.network.SkyApi
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+//import retrofit2.Call
+//import retrofit2.Callback
+//import retrofit2.Response
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
@@ -41,6 +41,15 @@ class SecondViewModel : ViewModel() {
     // The external immutable LiveData for the response String
     val response: LiveData<String>
         get() = _response
+
+    // 11.1.3 Добавьте инкапсулированное LiveData<MarsProperty>свойство:
+    private val _property = MutableLiveData<Meaning>()  // Данные для одного изображения
+    val property: LiveData<Meaning>
+        get() = _property
+    // 12.1.2  переименованы _property к _properties, и назначьте его List на MarsProperty:
+    private val _properties = MutableLiveData<List<Meaning>>()  // Содержит все данные
+    val properties: LiveData<List<Meaning>>
+        get() = _properties
 
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.
@@ -77,7 +86,9 @@ class SecondViewModel : ViewModel() {
          viewModelScope.launch {
              try {
                  val skyResult = SkyApi.retrofitService.getMeanings(ids)
-                 _response.value = "Search ${skyResult.size} : \n ${skyResult .toString()} End Sky Search \n \n"
+                 _response.value = "Search ${skyResult.size} : \n ${skyResult} End Sky Search \n \n"
+                 if (skyResult.size > 0)
+                     _property.value = skyResult[0]
              } catch (e: Exception) {
                  _response.value = "Failure: ${e.message}"
              }
