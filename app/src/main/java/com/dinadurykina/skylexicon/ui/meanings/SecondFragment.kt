@@ -1,4 +1,4 @@
-package com.dinadurykina.skylexicon
+package com.dinadurykina.skylexicon.ui.meanings
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
@@ -9,27 +9,27 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.dinadurykina.skylexicon.databinding.FragmentFirstBinding
-
+import com.dinadurykina.skylexicon.databinding.FragmentSecondBinding
 
 /**
- * A simple [Fragment] subclass as the default destination in the navigation.
+ * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class FirstFragment : Fragment() {
-    private val args: FirstFragmentArgs by navArgs()
-    lateinit var binding: FragmentFirstBinding
+class SecondFragment : Fragment() {
+    private val args: SecondFragmentArgs by navArgs()
+    lateinit var binding: FragmentSecondBinding
     /**
-     * Lazily initialize our [FirstViewMode].
+     * Lazily initialize our [SecondViewModel].
      */
-    private val viewModel: FirstViewModel by lazy {
-        ViewModelProvider(this).get(FirstViewModel::class.java)
+    private val viewModel: SecondViewModel by lazy {
+        ViewModelProvider(this).get(SecondViewModel::class.java)
     }
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFirstBinding.inflate(inflater)
+        // Inflate the layout for this fragment
+        binding = FragmentSecondBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
@@ -43,13 +43,15 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.slovo.setText(args.slovo)
+        binding.ids.setText(args.id)
 
         binding.skyImage.setOnClickListener {
-            val id = viewModel.property.value?.meanings?.get(0)?.id?:"1938"
+            val slovo = viewModel.property.value?.text?: "Table"
             findNavController().navigate(
-                FirstFragmentDirections.actionFirstFragmentToSecondFragment(id))
+                SecondFragmentDirections.actionSecondFragmentToFirstFragment(slovo)
+            )
         }
+
         binding.textviewJson.movementMethod = ScrollingMovementMethod()
     }
 }

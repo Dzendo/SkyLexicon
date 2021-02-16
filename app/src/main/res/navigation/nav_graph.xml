@@ -3,12 +3,41 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/SkySearchFragment">
+    <fragment
+        android:id="@+id/SkySearchFragment"
+        android:name="com.dinadurykina.skylexicon.ui.search.SkySearchFragment"
+        android:label="SkyLexicon Translate"
+        tools:layout="@layout/fragment_first">
+
+        <action
+            android:id="@+id/action_SkySearchFragment_to_SkyMeaningsFragment"
+            app:destination="@id/SkyMeaningsFragment" />
+        <argument
+            android:name="slovo"
+            app:argType="string"
+            android:defaultValue="Chair" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/SkyMeaningsFragment"
+        android:name="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsFragment"
+        android:label="SkyLexicon Meaning"
+        tools:layout="@layout/fragment_second">
+
+        <action
+            android:id="@+id/action_SkyMeaningsFragment_to_SkySearchFragment"
+            app:destination="@id/SkySearchFragment" />
+        <argument
+            android:name="id"
+            app:argType="string"
+            android:defaultValue="1938" />
+    </fragment>
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.dinadurykina.skylexicon.FirstFragment"
-        android:label="SkyLexicon Translate"
+        android:name="com.dinadurykina.skylexicon.ui.search.FirstFragment"
+        android:label="Debug Translate"
         tools:layout="@layout/fragment_first">
 
         <action
@@ -17,12 +46,12 @@
         <argument
             android:name="slovo"
             app:argType="string"
-            android:defaultValue="Chair" />
+            android:defaultValue="table" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.dinadurykina.skylexicon.SecondFragment"
-        android:label="SkyLexicon Meaning"
+        android:name="com.dinadurykina.skylexicon.ui.meanings.SecondFragment"
+        android:label="Debug Meaning"
         tools:layout="@layout/fragment_second">
 
         <action
@@ -31,6 +60,6 @@
         <argument
             android:name="id"
             app:argType="string"
-            android:defaultValue="1938" />
+            android:defaultValue="109140" />
     </fragment>
 </navigation>

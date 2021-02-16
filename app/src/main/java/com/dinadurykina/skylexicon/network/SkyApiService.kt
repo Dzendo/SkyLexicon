@@ -18,12 +18,8 @@
 package com.dinadurykina.skylexicon.network
 // Это файл для хранения сетевого уровня API, который будет использовать наша модель ViewModel представления
 
-//import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
-//import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-//import kotlinx.coroutines.Deferred
-//import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 //import retrofit2.converter.scalars.ScalarsConverterFactory
@@ -63,13 +59,10 @@ private val retrofit = Retrofit.Builder()
 // В Основном через него приложение и обращается через API к интернету а он возращает ответ через фабрику конверторы
 // Это аналогично интерфейсу DAO для ROOM типа концептуально того же
 interface SkyApiService {
-    //@GET("realestate")
 
     @GET("api/public/v1/words/search")
     suspend fun getSearch(@Query("search") type: String): List<Word>
  /*   fun getSearch(@Query("search") type: String):
-// 16.2 @Query("filter") параметр, getProperties() чтобы мы могли фильтровать свойства на основе MarsApiFilter значений перечисления
-//    fun getProperties(@Query("filter") type: String):
 // Deferred - штатная функция коруимн котлина обладающая await - т.е приостановкой потока для обработки результата try / cath            
 //            Deferred<List<Word>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
 // Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и 

@@ -7,14 +7,24 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/SkySearchFragment"
+            android:icon="@drawable/ic_home"
+            android:title="sky поиск слова --> Recycler" />
+
+        <item
+            android:id="@+id/SkyMeaningsFragment"
+            android:icon="@drawable/ic_home"
+            android:title="sky значение слова --> Form" />
+
+        <item
             android:id="@+id/FirstFragment"
             android:icon="@drawable/ic_home"
-            android:title="sky поиск слова" />
+            android:title="sky поиск слова --> Json" />
 
         <item
             android:id="@+id/SecondFragment"
             android:icon="@drawable/ic_home"
-            android:title="sky значение слова" />
+            android:title="sky значение слова --> Json" />
 
     </group>
 

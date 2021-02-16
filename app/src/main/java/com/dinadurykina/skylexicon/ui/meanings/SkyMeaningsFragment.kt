@@ -1,7 +1,6 @@
-package com.dinadurykina.skylexicon
+package com.dinadurykina.skylexicon.ui.meanings
 
 import android.os.Bundle
-import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +8,19 @@ import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.dinadurykina.skylexicon.databinding.FragmentSecondBinding
+import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SecondFragment : Fragment() {
-    private val args: SecondFragmentArgs by navArgs()
-    lateinit var binding: FragmentSecondBinding
+class SkyMeaningsFragment : Fragment() {
+    private val args: SkyMeaningsFragmentArgs by navArgs()
+    lateinit var binding: FragmentSkyMeaningsBinding
     /**
-     * Lazily initialize our [OverviewViewModel].
+     * Lazily initialize our [SkyMeaningsViewModel].
      */
-    private val viewModel: SecondViewModel by lazy {
-        ViewModelProvider(this).get(SecondViewModel::class.java)
+    private val viewModel: SkyMeaningsViewModel by lazy {
+        ViewModelProvider(this).get(SkyMeaningsViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -29,12 +28,13 @@ class SecondFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSecondBinding.inflate(inflater)
+        binding = FragmentSkyMeaningsBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
+        binding.meaning = viewModel.meaning.value
 
         // Inflate the layout for this fragment
         return binding.root
@@ -46,11 +46,9 @@ class SecondFragment : Fragment() {
         binding.ids.setText(args.id)
 
         binding.skyImage.setOnClickListener {
-            val slovo = viewModel.property.value?.text?: "Table"
+            val slovo = viewModel.meaning.value?.text?: "Table"
             findNavController().navigate(
-                SecondFragmentDirections.actionSecondFragmentToFirstFragment(slovo))
+                SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
         }
-
-        binding.textviewJson.movementMethod = ScrollingMovementMethod()
     }
 }
