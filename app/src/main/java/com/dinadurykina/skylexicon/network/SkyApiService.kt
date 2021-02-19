@@ -18,6 +18,7 @@
 package com.dinadurykina.skylexicon.network
 // Это файл для хранения сетевого уровня API, который будет использовать наша модель ViewModel представления
 
+import androidx.lifecycle.LiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
@@ -43,7 +44,7 @@ private const val BASE_URL = "https://dictionary.skyeng.ru/"
 // 8.8.4 используйте Moshi Builder для создания объекта Moshi с KotlinJsonAdapterFactory:
 // преобразует Json с полями в объекты Kotlin data class c с полями объектов
 private val moshi = Moshi.Builder()
-    .add(KotlinJsonAdapterFactory())
+    .addLast(KotlinJsonAdapterFactory())
     .build()
 
 // 8.3 Используйте Retrofit.Builder для создания объекта Retrofit.

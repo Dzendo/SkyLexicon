@@ -43,9 +43,30 @@ class SkyMeaningsViewModel : ViewModel() {
         get() = _meaning
     // Для списка значений слова расшифрованного
     private val _meanings = MutableLiveData<List<Meaning>>()  // Содержит все данные
-    val properties: LiveData<List<Meaning>>
+    val meanings: LiveData<List<Meaning>>
         get() = _meanings
 
+    lateinit var oneMeanig: Meaning
+
+    val examples: MutableList<String?> =  arrayListOf()
+    val meaningsWithSimilarTranslation: MutableList<String?> =  arrayListOf()
+    val alternativeTranslations: MutableList<String?> =  arrayListOf()
+    val images: MutableList<String?> =  arrayListOf()
+
+    // Объявляю живой флажок, надо ли обновить адапреты ListView из фрагмента, (по умолчанию нет - null)
+    private val _refresh: MutableLiveData<Boolean?> = MutableLiveData<Boolean?>(null)
+    val refresh: LiveData<Boolean?>
+        get() = _refresh
+    private fun refreshTrue() {
+        _refresh.value = true
+    }
+    fun refreshNull() {
+        _refresh.value = null
+    }
+
+    init {
+
+    }
     /**
      * Sets the value of the status LiveData to the Sky API status.
      */
@@ -54,12 +75,34 @@ class SkyMeaningsViewModel : ViewModel() {
          viewModelScope.launch {
              try {
                  val skyResult = skyRepository.getSkyMeanings(ids)
-                 _response.value = "Search ${skyResult.size} : \n ${skyResult} \n End Sky Search  \n"
-                 if (skyResult.isNotEmpty())
-                     _meaning.value = skyResult[0]
+                 _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Search  \n"
+                 if (skyResult.value?.size?:0 > 0) {
+                     _meaning.value = skyResult.value?.get(0)
+                     oneMeanig = skyResult.value?.get(0)!!
+
+                     examples.clear()
+                     examples.addAll( oneMeanig.examples.map{it.text}) //.toTypedArray()
+                     meaningsWithSimilarTranslation.clear()
+                     meaningsWithSimilarTranslation.addAll( oneMeanig.meaningsWithSimilarTranslation
+                         .map{it.meaningId.toString() + " " + it.translation.text + " " +
+                                 (it.translation.note ?: "") + " " +
+                                 it.partOfSpeechAbbreviation + it.frequencyPercent + "%"
+                         })
+                     alternativeTranslations.clear()
+                     alternativeTranslations.addAll( oneMeanig.alternativeTranslations
+                         .map{it.text + " " + it.translation.text + " " +
+                                 (it.translation.note ?: "")
+                         })
+                     images.clear()
+                     images.addAll( oneMeanig.images.map{it.url})
+                     refreshTrue()
+                 }
+
+                 _meanings.value = skyResult.value
              } catch (e: Exception) {
                  _response.value = "Failure: ${e.message}"
              }
          }
+       // notifyDataSetChanged()
     }
 }

@@ -16,6 +16,8 @@
 
 package com.dinadurykina.skylexicon.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.network.SkyApi
 import com.dinadurykina.skylexicon.network.Word
@@ -28,11 +30,28 @@ import kotlinx.coroutines.withContext
  * вызывается из всех ViewModels сам вызывает SkyApiService функции
  */
 //@Singleton - в образце не указывается, кто-то указывает похоже достаточно в Module
-class SkyRepository {
-
-    suspend fun getSkySearch(slovo: String): List<Word> =
+class SkyRepository {// Для списка найденных слов расшифрованного
+    private val _listWord = MutableLiveData<List<Word>>()  // Содержит все данные
+      //  val listWord: LiveData<List<Word>>
+      //      get() = _listWord
+    suspend fun getSkySearch(slovo: String): LiveData<List<Word>> {
+        val rezult: List<Word>
         withContext(Dispatchers.IO) {
-            SkyApi.retrofitService.getSearch(slovo)
+            rezult = SkyApi.retrofitService.getSearch(slovo)
         }
-    suspend fun getSkyMeanings(ids:String): List<Meaning> = SkyApi.retrofitService.getMeanings(ids)
+        _listWord.value = rezult
+        return _listWord
+    }
+
+    private val _ListMeaning = MutableLiveData<List<Meaning>>()  // Содержит все данные
+       // val ListMeaning: LiveData<List<Meaning>>
+       //     get() = _ListMeaning
+    suspend fun getSkyMeanings(ids:String): LiveData<List<Meaning>> {  // = SkyApi.retrofitService.getMeanings(ids)
+        val rezult: List<Meaning>
+        withContext(Dispatchers.IO) {
+            rezult = SkyApi.retrofitService.getMeanings(ids)
+        }
+        _ListMeaning.value = rezult
+        return _ListMeaning
+    }
 }

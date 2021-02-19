@@ -53,10 +53,16 @@ class FirstViewModel : ViewModel() {
         val slovo = (view as EditText).text.toString()
         viewModelScope.launch {
             try {
-                val skyResult = skyRepository.getSkySearch(slovo)
+              /*  val skyResult = skyRepository.getSkySearch(slovo)
                 _response.value = "Search ${skyResult.size} : \n ${skyResult} End Sky Search \n \n"
                 if (skyResult.isNotEmpty())
                     _property.value = skyResult[0]
+               */
+                val skyResult = skyRepository.getSkySearch(slovo)
+                _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} End Sky Search \n \n"
+                if (skyResult.value?.size?:0 > 0)
+                    _property.value = skyResult.value?.get(0)
+                _properties.value = skyResult.value
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }

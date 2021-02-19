@@ -54,9 +54,13 @@ class SecondViewModel : ViewModel() {
          viewModelScope.launch {
              try {
                  val skyResult = skyRepository.getSkyMeanings(ids)
-                 _response.value = "Search ${skyResult.size} : \n ${skyResult} End Sky Search \n \n"
+                 _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Search  \n"
+                 if (skyResult.value?.size?:0 > 0)
+                     _property.value = skyResult.value?.get(0)
+                 _properties.value = skyResult.value
+                 /*_response.value = "Search ${skyResult.size} : \n ${skyResult} End Sky Search \n \n"
                  if (skyResult.isNotEmpty())
-                     _property.value = skyResult[0]
+                     _property.value = skyResult[0]*/
              } catch (e: Exception) {
                  _response.value = "Failure: ${e.message}"
              }

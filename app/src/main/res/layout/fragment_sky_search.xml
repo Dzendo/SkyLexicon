@@ -44,13 +44,16 @@
 
     <ImageView
         android:id="@+id/sky_image"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
+        android:layout_width="200dp"
+        android:layout_height="150dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginLeft="32dp"
         android:adjustViewBounds="true"
         android:padding="2dp"
         android:scaleType="centerCrop"
         app:imageUrl="@{viewModel.property.meanings[0].imageUrl}"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

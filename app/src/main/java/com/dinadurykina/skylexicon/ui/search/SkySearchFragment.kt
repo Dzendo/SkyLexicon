@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -23,6 +25,10 @@ class SkySearchFragment : Fragment() {
     private val viewModel: SkySearchViewModel by lazy {
         ViewModelProvider(this).get(SkySearchViewModel::class.java)
     }
+
+    private val _backup: MutableLiveData<Boolean?> = MutableLiveData<Boolean?>(null)
+    val backup: LiveData<Boolean?>
+        get() = _backup
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +49,7 @@ class SkySearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.slovo.setText(args.slovo)
+        viewModel.onSlovoClicked(binding.slovo)
 
         binding.skyImage.setOnClickListener {
             val id = viewModel.property.value?.meanings?.get(0)?.id?:"1938"
