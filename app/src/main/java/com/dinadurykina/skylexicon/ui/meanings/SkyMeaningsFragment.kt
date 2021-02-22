@@ -3,6 +3,7 @@ package com.dinadurykina.skylexicon.ui.meanings
 import android.R
 import android.content.Context
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -23,9 +24,8 @@ class SkyMeaningsFragment : Fragment() {
     /**
      * Lazily initialize our [SkyMeaningsViewModel].
      */
-    private val viewModel: SkyMeaningsViewModel by lazy {
-        ViewModelProvider(this).get(SkyMeaningsViewModel::class.java)
-    }
+   // private val viewModel: SkyMeaningsViewModel by lazy {
+   //     ViewModelProvider(this).get(SkyMeaningsViewModel::class.java)}
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -33,6 +33,10 @@ class SkyMeaningsFragment : Fragment() {
     ): View {
         if (container != null) thiscontext = container.context
 
+       val viewModel = ViewModelProvider(
+            this,
+            MeaningsViewModelFactory(args.id)
+        ).get(SkyMeaningsViewModel::class.java)
         // Inflate the layout for this fragment
         binding = FragmentSkyMeaningsBinding.inflate(inflater)
 
@@ -43,7 +47,7 @@ class SkyMeaningsFragment : Fragment() {
         binding.meaning = viewModel.meaning.value
 
         binding.ids.setText(args.id)
-        viewModel.onIdsClicked(binding.ids)
+        viewModel.meaningsIds(args.id)
 
         val examplesAdapter = ArrayAdapter<String?>(thiscontext, R.layout.simple_list_item_1, viewModel.examples)
         binding.examples.adapter = examplesAdapter
@@ -72,6 +76,13 @@ class SkyMeaningsFragment : Fragment() {
             }
         }
 
+        binding.skyImage.setOnClickListener {
+            val slovo = viewModel.meaning.value?.text?: "Table"
+            findNavController().navigate(
+                SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
+        }
+
+        binding.textviewJson.movementMethod = ScrollingMovementMethod()
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -79,10 +90,6 @@ class SkyMeaningsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.skyImage.setOnClickListener {
-            val slovo = viewModel.meaning.value?.text?: "Table"
-            findNavController().navigate(
-                SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
-        }
+
     }
 }

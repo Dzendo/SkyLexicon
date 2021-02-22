@@ -8,7 +8,7 @@ package com.dinadurykina.skylexicon.launcher
 // val skyRepository = SkyRepository()
 // String representation of a part of speech
 // Строковое представление части речи
-enum class PartOfSpeechCode(val partOfSpeechCodeEng: String = " ",partOfSpeechCodeRus: String = " "){
+enum class PartOfSpeechCode(val partOfSpeechCodeEng: String = " ", partOfSpeechCodeRus: String = " "){
     n ("noun","существительное"),
     v ("verb","глагол"),
     j ("adjective","прилагательное"),

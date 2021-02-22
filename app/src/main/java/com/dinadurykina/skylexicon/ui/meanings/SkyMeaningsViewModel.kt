@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class SkyMeaningsViewModel : ViewModel() {
+class SkyMeaningsViewModel(val ids:String) : ViewModel() {
      private val skyRepository = SkyRepository()
     // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
@@ -65,17 +65,20 @@ class SkyMeaningsViewModel : ViewModel() {
     }
 
     init {
-
+   //     meaningsIds(ids)
     }
     /**
      * Sets the value of the status LiveData to the Sky API status.
      */
      fun onIdsClicked(view:View) {
         val ids = (view as EditText).text.toString()
+        meaningsIds(ids)
+    }
+     fun meaningsIds(ids: String) {
          viewModelScope.launch {
              try {
                  val skyResult = skyRepository.getSkyMeanings(ids)
-                 _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Search  \n"
+                 _response.value = "Meanings ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Meanings  \n"
                  if (skyResult.value?.size?:0 > 0) {
                      _meaning.value = skyResult.value?.get(0)
                      oneMeanig = skyResult.value?.get(0)!!

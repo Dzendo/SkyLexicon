@@ -23,6 +23,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dinadurykina.skylexicon.network.Meaning2
 import com.dinadurykina.skylexicon.network.Word
 import com.dinadurykina.skylexicon.repository.SkyRepository
 import kotlinx.coroutines.launch
@@ -30,7 +31,7 @@ import kotlinx.coroutines.launch
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class SkySearchViewModel : ViewModel() {
+class SkySearchViewModel(val slovo:String) : ViewModel() {
     private val skyRepository = SkyRepository()
    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
@@ -38,27 +39,42 @@ class SkySearchViewModel : ViewModel() {
         get() = _response
 
     // Для одного найденного слова расшифрованного
-    private val _property = MutableLiveData<Word>()  // Данные для одного изображения
-    val property: LiveData<Word>
-        get() = _property
+    private val _word = MutableLiveData<Word>()  // Данные для одного изображения
+    val word: LiveData<Word>
+        get() = _word
     // Для списка найденных слов расшифрованного
-    private val _properties = MutableLiveData<List<Word>>()  // Содержит все данные
-    val properties: LiveData<List<Word>>
-        get() = _properties
+    private val _words = MutableLiveData<List<Word>>()  // Содержит все данные
+    val words: LiveData<List<Word>>
+        get() = _words
 
-    /**
-     * Sets the value of the status LiveData to the Mars API status.
-     */
+    lateinit var oneWord: Word
+
+    val meanings2: MutableList<Meaning2> = arrayListOf()
+    val meanings20: MutableList<Meaning2> = arrayListOf()
+
+    // Объявляю живой флажок, надо ли обновить адапреты ListView из фрагмента, (по умолчанию нет - null)
+    private val _refresh: MutableLiveData<Boolean?> = MutableLiveData<Boolean?>(null)
+    val refresh: LiveData<Boolean?>
+        get() = _refresh
+    private fun refreshTrue() {
+        _refresh.value = true
+    }
+    fun refreshNull() {
+        _refresh.value = null
+    }
 
      fun onSlovoClicked(view:View) {
-        val slovo = (view as EditText).text.toString()
+         val slovo = (view as EditText).text.toString()
+         searchSlovo(slovo)
+     }
+    fun searchSlovo(slovo:String) {
         viewModelScope.launch {
             try {
                 val skyResult = skyRepository.getSkySearch(slovo)
-                _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} End Sky Search \n \n"
+                _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Search \n "
                 if (skyResult.value?.size?:0 > 0)
-                    _property.value = skyResult.value?.get(0)
-                _properties.value = skyResult.value
+                    _word.value = skyResult.value?.get(0)
+                _words.value = skyResult.value
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
