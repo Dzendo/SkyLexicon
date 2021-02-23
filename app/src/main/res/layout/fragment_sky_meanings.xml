@@ -30,6 +30,12 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <!--каждое поле название и значение в строку примитив, поменять на материал Edit -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
             <EditText
                 android:id="@+id/ids"
                 android:layout_width="wrap_content"
@@ -43,6 +49,16 @@
                 tools:layout_editor_absoluteY="13dp" />
             <!-- android:onClick="@{(view) -> viewModel.onIdsClicked(view)}" -->
             <!-- android:onClick="@{viewModel::onIdsClicked}" -->
+
+            <TextView
+                android:id="@+id/slovo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_weight="1"
+                android:layout_gravity="end"
+                android:text="@{viewModel.meaning.text}" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textview_json"

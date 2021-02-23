@@ -76,36 +76,38 @@ class SkyMeaningsViewModel(val ids:String) : ViewModel() {
     }
      fun meaningsIds(ids: String) {
          viewModelScope.launch {
+             _response.value = "empty"
+             //_meaning.value = Meaning()
+             // oneMeanig =
+             examples.clear()
+             meaningsWithSimilarTranslation.clear()
+             alternativeTranslations.clear()
+             images.clear()
              try {
                  val skyResult = skyRepository.getSkyMeanings(ids)
                  _response.value = "Meanings ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Meanings  \n"
+                 _meanings.value = skyResult.value
                  if (skyResult.value?.size?:0 > 0) {
                      _meaning.value = skyResult.value?.get(0)
                      oneMeanig = skyResult.value?.get(0)!!
 
-                     examples.clear()
-                     examples.addAll( oneMeanig.examples.map{it.text}) //.toTypedArray()
-                     meaningsWithSimilarTranslation.clear()
+                     examples.addAll( oneMeanig.examples.map{it.text})
                      meaningsWithSimilarTranslation.addAll( oneMeanig.meaningsWithSimilarTranslation
                          .map{it.meaningId.toString() + " " + it.translation.text + " " +
                                  (it.translation.note ?: "") + " " +
                                  it.partOfSpeechAbbreviation + it.frequencyPercent + "%"
                          })
-                     alternativeTranslations.clear()
                      alternativeTranslations.addAll( oneMeanig.alternativeTranslations
                          .map{it.text + " " + it.translation.text + " " +
                                  (it.translation.note ?: "")
                          })
-                     images.clear()
-                     images.addAll( oneMeanig.images.map{it.url})
-                     refreshTrue()
-                 }
 
-                 _meanings.value = skyResult.value
+                     images.addAll( oneMeanig.images.map{it.url})
+                 }
              } catch (e: Exception) {
                  _response.value = "Failure: ${e.message}"
              }
+             refreshTrue()    // notifyDataSetChanged()
          }
-       // notifyDataSetChanged()
     }
 }

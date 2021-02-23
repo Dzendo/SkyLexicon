@@ -8,7 +8,7 @@
         android:id="@+id/SkySearchFragment"
         android:name="com.dinadurykina.skylexicon.ui.search.SkySearchFragment"
         android:label="SkyLexicon Translate"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_sky_search">
 
         <action
             android:id="@+id/action_SkySearchFragment_to_SkyMeaningsFragment"
@@ -23,7 +23,7 @@
         android:id="@+id/SkyMeaningsFragment"
         android:name="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsFragment"
         android:label="SkyLexicon Meaning"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_sky_meanings">
 
         <action
             android:id="@+id/action_SkyMeaningsFragment_to_SkySearchFragment"
@@ -34,32 +34,5 @@
             android:defaultValue="1938" />
     </fragment>
 
-    <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.dinadurykina.skylexicon.ui.search.FirstFragment"
-        android:label="Debug Translate"
-        tools:layout="@layout/fragment_first">
 
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <argument
-            android:name="slovo"
-            app:argType="string"
-            android:defaultValue="table" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.dinadurykina.skylexicon.ui.meanings.SecondFragment"
-        android:label="Debug Meaning"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-        <argument
-            android:name="id"
-            app:argType="string"
-            android:defaultValue="109140" />
-    </fragment>
 </navigation>

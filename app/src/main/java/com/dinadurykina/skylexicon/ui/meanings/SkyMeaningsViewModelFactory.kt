@@ -3,7 +3,7 @@ package com.dinadurykina.skylexicon.ui.meanings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class MeaningsViewModelFactory (
+class SkyMeaningsViewModelFactory (
     private val ids: String
 ): ViewModelProvider.NewInstanceFactory() {
     override fun <T: ViewModel> create(SkyMeaningsViewModel:Class<T>): T {

@@ -16,16 +16,6 @@
             android:icon="@drawable/ic_home"
             android:title="sky значение слова --> Form" />
 
-        <item
-            android:id="@+id/FirstFragment"
-            android:icon="@drawable/ic_home"
-            android:title="sky поиск слова --> Json" />
-
-        <item
-            android:id="@+id/SecondFragment"
-            android:icon="@drawable/ic_home"
-            android:title="sky значение слова --> Json" />
-
     </group>
 
 </menu>

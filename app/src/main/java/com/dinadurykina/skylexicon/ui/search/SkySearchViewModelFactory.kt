@@ -3,7 +3,7 @@ package com.dinadurykina.skylexicon.ui.search
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
-class SearchViewModelFactory (
+class SkySearchViewModelFactory (
     private val slovo: String
 ): ViewModelProvider.NewInstanceFactory() {
     override fun <T: ViewModel> create(SkySearchViewModel:Class<T>): T {

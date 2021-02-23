@@ -47,10 +47,10 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
     val words: LiveData<List<Word>>
         get() = _words
 
-    lateinit var oneWord: Word
+    lateinit var oneWord0: Word
 
-    val meanings2: MutableList<Meaning2> = arrayListOf()
-    val meanings20: MutableList<Meaning2> = arrayListOf()
+    val meanings02: MutableList<String?> = arrayListOf()
+    val meanings20: MutableList<String?> = arrayListOf()
 
     // Объявляю живой флажок, надо ли обновить адапреты ListView из фрагмента, (по умолчанию нет - null)
     private val _refresh: MutableLiveData<Boolean?> = MutableLiveData<Boolean?>(null)
@@ -69,15 +69,30 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
      }
     fun searchSlovo(slovo:String) {
         viewModelScope.launch {
+            _response.value = "empty"
+            meanings02.clear()
+            meanings20.clear()
             try {
                 val skyResult = skyRepository.getSkySearch(slovo)
                 _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Search \n "
-                if (skyResult.value?.size?:0 > 0)
-                    _word.value = skyResult.value?.get(0)
                 _words.value = skyResult.value
+                if (skyResult.value?.size?:0 > 0) {
+                    _word.value = skyResult.value?.get(0)
+                    oneWord0 = skyResult.value?.get(0)!!
+                    meanings02.addAll(oneWord0.meanings
+                        .map{it.id.toString() + " " + it.translation.text + " " +
+                               (it.translation.note ?: "") + " " + it.transcription
+                            })
+                    meanings20.addAll(words.value!!
+                        .map{it.text + " " + it.meanings[0].id.toString() + " " + it.meanings[0].translation.text + " " +
+                                (it.meanings[0].translation.note ?: "") + " " + it.meanings[0].transcription
+                        })
+
+                }
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
+            refreshTrue()
         }
      }
 }
