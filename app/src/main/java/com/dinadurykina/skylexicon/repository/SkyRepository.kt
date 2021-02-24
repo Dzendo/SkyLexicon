@@ -18,9 +18,7 @@ package com.dinadurykina.skylexicon.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.dinadurykina.skylexicon.network.Meaning
-import com.dinadurykina.skylexicon.network.SkyApi
-import com.dinadurykina.skylexicon.network.Word
+import com.dinadurykina.skylexicon.network.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -30,10 +28,16 @@ import kotlinx.coroutines.withContext
  * вызывается из всех ViewModels сам вызывает SkyApiService функции
  */
 //@Singleton - в образце не указывается, кто-то указывает похоже достаточно в Module
-class SkyRepository {// Для списка найденных слов расшифрованного
+class SkyRepository {
+    // Для списка найденных слов расшифрованного
     private val _listWord = MutableLiveData<List<Word>>()  // Содержит все данные
-      //  val listWord: LiveData<List<Word>>
-      //      get() = _listWord
+    //  val listWord: LiveData<List<Word>>
+    //      get() = _listWord
+
+    private val _listWordRecycler = MutableLiveData<List<WordRecycler>>()  // Содержит все данные
+    //  val listWordRecycler: LiveData<List<WordRecycler>>
+    //      get() = _listWordRecycler
+
     suspend fun getSkySearch(slovo: String): LiveData<List<Word>> {
         val rezult: List<Word>
         withContext(Dispatchers.IO) {
@@ -43,15 +47,41 @@ class SkyRepository {// Для списка найденных слов расш
         return _listWord
     }
 
-    private val _ListMeaning = MutableLiveData<List<Meaning>>()  // Содержит все данные
-       // val ListMeaning: LiveData<List<Meaning>>
-       //     get() = _ListMeaning
-    suspend fun getSkyMeanings(ids:String): LiveData<List<Meaning>> {  // = SkyApi.retrofitService.getMeanings(ids)
+    private val _listMeaning = MutableLiveData<List<Meaning>>()  // Содержит все данные
+    val listMeaning: LiveData<List<Meaning>>
+        get() = _listMeaning
+
+    suspend fun getSkyMeanings(ids: String): LiveData<List<Meaning>> {  // = SkyApi.retrofitService.getMeanings(ids)
         val rezult: List<Meaning>
         withContext(Dispatchers.IO) {
             rezult = SkyApi.retrofitService.getMeanings(ids)
         }
-        _ListMeaning.value = rezult
-        return _ListMeaning
+        _listMeaning.value = rezult
+        return listMeaning
+    }
+
+    suspend fun getSkySearchRecycler(slovo: String): LiveData<List<WordRecycler>> {
+        val mutableListRecycler: MutableList<WordRecycler> = arrayListOf()
+        val result = getSkySearch(slovo)
+        //_listWordRecycler.value = result.value.map {it.  }
+        for (word: Word in result.value!!)
+            for (meaning2: Meaning2 in word.meanings) {
+                mutableListRecycler.add(WordRecycler(
+                    idEng = word.id,
+                    textEng = word.text,
+                    idRus = meaning2.id,
+                    partOfSpeechCode = meaning2.partOfSpeechCode,
+                    textRus = meaning2.translation.text,
+                    note = meaning2.translation.note,
+                    previewUrl = meaning2.previewUrl,
+                    imageUrl = meaning2.imageUrl,
+                    transcription = meaning2.transcription,
+                    soundUrl = meaning2.soundUrl
+                ))
+            }
+        _listWordRecycler.value = mutableListRecycler
+        return _listWordRecycler
     }
 }
+
+

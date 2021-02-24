@@ -6,12 +6,12 @@
     <data>
         <variable
             name="viewModel"
-            type="com.dinadurykina.skylexicon.ui.search.SkySearchViewModel" />
+            type="com.dinadurykina.skylexicon.ui.search.SkySearchViewModelDebug" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.search.FirstFragment">
+    tools:context=".ui.search.SkySearchFragmentDebug">
 
     <EditText
         android:id="@+id/slovo"

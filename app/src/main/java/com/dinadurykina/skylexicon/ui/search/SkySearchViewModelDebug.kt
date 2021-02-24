@@ -31,9 +31,9 @@ import kotlinx.coroutines.launch
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class SkySearchViewModel(val slovo:String) : ViewModel() {
+class SkySearchViewModelDebug(val slovo:String) : ViewModel() {
     private val skyRepository = SkyRepository()
-   // Для Json нерасшифрованного (отладка)
+    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
         get() = _response
@@ -72,10 +72,10 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
         _refresh.value = null
     }
 
-     fun onSlovoClicked(view:View) {
-         val slovo = (view as EditText).text.toString()
-         searchSlovo(slovo)
-     }
+    fun onSlovoClicked(view:View) {
+        val slovo = (view as EditText).text.toString()
+        searchSlovo(slovo)
+    }
     fun searchSlovo(slovo:String) {
         viewModelScope.launch {
             _response.value = "empty"
@@ -101,14 +101,14 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
                         })
                 }
 
-                    skyResultRecycler.value?.let {
-                        meanings21.addAll(
-                            skyResultRecycler.value!!
-                                .map{it.idRus.toString() + " " + it.textEng + " --> " +
-                                        it.textRus + "," +
-                                        (it.note ?: "")
-                                })
-                    }
+                skyResultRecycler.value?.let {
+                    meanings21.addAll(
+                        skyResultRecycler.value!!
+                            .map{it.idRus.toString() + " " + it.textEng + " --> " +
+                                    it.textRus + "," +
+                                    (it.note ?: "")
+                            })
+                }
 
 
             } catch (e: Exception) {
@@ -116,5 +116,5 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
             }
             refreshTrue()
         }
-     }
+    }
 }

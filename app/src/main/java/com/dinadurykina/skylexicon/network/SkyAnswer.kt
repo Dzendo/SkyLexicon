@@ -18,7 +18,6 @@
 package com.dinadurykina.skylexicon.network
 
 import android.os.Parcelable
-import com.squareup.moshi.Json
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -121,3 +120,25 @@ data class Url (
     val isRental
         get() = type == "rent"
 }*/
+
+data class WordRecycler(
+    val idEng: String, // word.id 838 непонятное число неизвестно зачем wordId Слово-это группа значений. Мы объединяем значения словом сущность.
+    val textEng: String, // word.text "chair"
+
+    //val meanings: List<@RawValue Meaning2>  // и таких 6 штук стульев Кисы Воробьянинова
+    val idRus: String, // 1938 - вообще-то это не String а Long
+    val partOfSpeechCode: String,  // "n"
+
+    //val translation: @RawValue Translation,  // "стул" null
+    val textRus: String,  // meaning2.translation.text "стул" A text of a translation.
+    val note: String?,  // null   A note about translation.
+
+    val previewUrl: String, //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=96&h=72",
+    val imageUrl: String, //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=640&h=480",
+    val transcription: String, //"ʧeə",
+    val soundUrl: String //"//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair"
+)  {     // все числовые (без кавычек) объявлять Double
+    // 15.6.1  isRental логическое значение и установите его значение в зависимости от того, является ли тип свойства «арендным»
+    val isNote  // true - есть false - нет
+        get() = (note == "") or (note == null)
+}

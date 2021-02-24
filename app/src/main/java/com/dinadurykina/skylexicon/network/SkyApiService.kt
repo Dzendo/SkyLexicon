@@ -18,7 +18,6 @@
 package com.dinadurykina.skylexicon.network
 // Это файл для хранения сетевого уровня API, который будет использовать наша модель ViewModel представления
 
-import androidx.lifecycle.LiveData
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit

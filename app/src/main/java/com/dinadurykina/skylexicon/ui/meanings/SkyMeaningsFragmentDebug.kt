@@ -13,16 +13,16 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
+import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsDebugBinding
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
  */
-class SkyMeaningsFragment : Fragment() {
+class SkyMeaningsFragmentDebug : Fragment() {
     private lateinit var thiscontext: Context
-    private val args: SkyMeaningsFragmentArgs by navArgs()
-    lateinit var binding: FragmentSkyMeaningsBinding
-    lateinit var viewModel: SkyMeaningsViewModel
+    private val args: SkyMeaningsFragmentDebugArgs by navArgs()
+    lateinit var binding: FragmentSkyMeaningsDebugBinding
+    lateinit var viewModel: SkyMeaningsViewModelDebug
     /**
      * Lazily initialize our [SkyMeaningsViewModel].
      */
@@ -37,10 +37,10 @@ class SkyMeaningsFragment : Fragment() {
 
        viewModel = ViewModelProvider(
             this,
-            SkyMeaningsViewModelFactory(args.id)
-        ).get(SkyMeaningsViewModel::class.java)
+            SkyMeaningsViewModelFactoryDebug(args.id)
+        ).get(SkyMeaningsViewModelDebug::class.java)
         // Inflate the layout for this fragment
-        binding = FragmentSkyMeaningsBinding.inflate(inflater)
+        binding = FragmentSkyMeaningsDebugBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
@@ -54,7 +54,7 @@ class SkyMeaningsFragment : Fragment() {
         binding.slovo.setOnClickListener {
             val slovo = viewModel.meaning.value?.text?: "Table"
             findNavController().navigate(
-                SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
+                SkyMeaningsFragmentDebugDirections.actionSkyMeaningsFragmentDebugToSkySearchFragmentDebug(slovo))
         }
 
         binding.textviewJson.movementMethod = ScrollingMovementMethod()
@@ -90,7 +90,7 @@ class SkyMeaningsFragment : Fragment() {
         binding.alternativeTranslations.setOnItemClickListener { parent, itemClicked, position, id ->
             val slovo = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.text ?: "NoNoNo"
             findNavController().navigate(
-                SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
+                SkyMeaningsFragmentDebugDirections.actionSkyMeaningsFragmentDebugToSkySearchFragmentDebug(slovo))
         }
         binding.meaningsWithSimilarTranslation.setOnItemClickListener { parent, itemClicked, position, id ->
             val ids = viewModel.meanings.value?.get(0)?.meaningsWithSimilarTranslation?.get(position)?.meaningId.toString()

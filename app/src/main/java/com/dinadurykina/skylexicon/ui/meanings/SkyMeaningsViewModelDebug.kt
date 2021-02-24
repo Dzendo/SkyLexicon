@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class SkyMeaningsViewModel(val ids:String) : ViewModel() {
+class SkyMeaningsViewModelDebug(val ids:String) : ViewModel() {
      private val skyRepository = SkyRepository()
     // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()

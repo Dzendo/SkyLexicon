@@ -15,17 +15,17 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
+import com.dinadurykina.skylexicon.databinding.FragmentSkySearchDebugBinding
 
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
-class SkySearchFragment : Fragment() {
+class SkySearchFragmentDebug : Fragment() {
     private lateinit var thiscontext: Context
-    private val args: SkySearchFragmentArgs by navArgs()
-    lateinit var binding: FragmentSkySearchBinding
-    lateinit var viewModel: SkySearchViewModel
+    private val args: SkySearchFragmentDebugArgs by navArgs()
+    lateinit var binding: FragmentSkySearchDebugBinding
+    lateinit var viewModel: SkySearchViewModelDebug
     /**
      * Lazily initialize our [SkySearchViewMode].
      */
@@ -43,11 +43,11 @@ class SkySearchFragment : Fragment() {
         if (container != null) thiscontext = container.context
          viewModel = ViewModelProvider(
              this,
-             SkySearchViewModelFactory(args.slovo)
-         ).get(SkySearchViewModel::class.java)
+             SkySearchViewModelFactoryDebug(args.slovo)
+         ).get(SkySearchViewModelDebug::class.java)
 
         // Inflate the layout for this fragment
-        binding = FragmentSkySearchBinding.inflate(inflater)
+        binding = FragmentSkySearchDebugBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = this
@@ -60,7 +60,7 @@ class SkySearchFragment : Fragment() {
         binding.ids.setOnClickListener {
             val id = viewModel.word.value?.meanings?.get(0)?.id?:"1938"
             findNavController().navigate(
-                SkySearchFragmentDirections.actionSkySearchFragmentToSkyMeaningsFragment(id)
+                SkySearchFragmentDebugDirections.actionSkySearchFragmentDebugToSkyMeaningsFragmentDebug(id)
             )
         }
         binding.textviewJson.movementMethod = ScrollingMovementMethod()
@@ -92,6 +92,7 @@ class SkySearchFragment : Fragment() {
             viewModel.meanings21
         )
         binding.meanings21.adapter = meanings21Adapter
+
 
         viewModel.refresh.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true. Наблюдаемое состояние истинно.
@@ -133,7 +134,6 @@ class SkySearchFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
         binding.meanings21.setOnItemClickListener { parent, itemClicked, position, id ->
             val slovo = viewModel.wordsRecycler.value?.get(position)?.textEng ?: "NoNoNo"
             binding.slovo.setText(slovo)
@@ -144,6 +144,5 @@ class SkySearchFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-
     }
 }
