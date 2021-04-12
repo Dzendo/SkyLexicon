@@ -72,6 +72,11 @@ class SkySearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val skySearchAdapter = SkySearchAdapter(
+            viewModel.meanings02Recycler
+        )
+        binding.recyclerViewSky.adapter = skySearchAdapter
+
         val meanings02Adapter = ArrayAdapter<String?>(
             thiscontext,
             android.R.layout.simple_list_item_1,
@@ -95,6 +100,10 @@ class SkySearchFragment : Fragment() {
 
         viewModel.refresh.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true. Наблюдаемое состояние истинно.
+
+                binding.recyclerSize.text = " всего recycler_size: ${viewModel.meanings02Recycler.size.toString()} уже"
+
+                skySearchAdapter.notifyDataSetChanged()
 
                 binding.meanings02Size.text = " всего переводов: ${viewModel.meanings02.size.toString()} теперь"
                 meanings02Adapter.notifyDataSetChanged()

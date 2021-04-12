@@ -4,4 +4,7 @@
     <string name="nav_header_title">SkyEng</string>
     <string name="nav_header_subtitle">Sky.ASdzenDO@app4web.com</string>
     <string name="nav_header_desc">Navigation header</string>
+
+    <string name="empty_text">empty_text</string>
+
 </resources>

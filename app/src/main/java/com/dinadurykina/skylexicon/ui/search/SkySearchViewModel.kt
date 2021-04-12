@@ -49,6 +49,7 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
 
     private lateinit var oneWord0: Word
 
+    val meanings02Recycler: MutableList<String?> = arrayListOf()
     val meanings02: MutableList<String?> = arrayListOf()
     val meanings20: MutableList<String?> = arrayListOf()
     val meanings21: MutableList<String?> = arrayListOf()
@@ -79,6 +80,7 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
     fun searchSlovo(slovo:String) {
         viewModelScope.launch {
             _response.value = "empty"
+            meanings02Recycler.clear()
             meanings02.clear()
             meanings20.clear()
             meanings21.clear()
@@ -88,6 +90,31 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
                 _response.value = "Search ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Search \n "
                 _words.value = skyResult.value
                 _wordsRecycler.value = skyResultRecycler.value
+
+                // Формирую данные - лист строк - для Recycler методом склейки всех трех списков
+                // Пока он просто перечень строк
+                if (skyResult.value?.size?:0 > 0) {
+                    _word.value = skyResult.value?.get(0)
+                    oneWord0 = skyResult.value?.get(0)!!
+                    meanings02Recycler.addAll(oneWord0.meanings
+                        .map{it.id.toString() + " " + it.translation.text + "," +
+                                (it.translation.note ?: "")
+                        })
+                    meanings02Recycler.addAll(words.value!!
+                        .map{it.text + " " + it.meanings[0].id.toString() + " " + it.meanings[0].translation.text + "," +
+                                (it.meanings[0].translation.note ?: "")
+                        })
+                }
+                skyResultRecycler.value?.let {
+                    meanings02Recycler.addAll(
+                        skyResultRecycler.value!!
+                            .map{it.idRus.toString() + " " + it.textEng + " --> " +
+                                    it.textRus + "," +
+                                    (it.note ?: "")
+                            })
+                }
+
+
                 if (skyResult.value?.size?:0 > 0) {
                     _word.value = skyResult.value?.get(0)
                     oneWord0 = skyResult.value?.get(0)!!
