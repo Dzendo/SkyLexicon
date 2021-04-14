@@ -17,8 +17,43 @@ import com.dinadurykina.skylexicon.R
  */
 
 class SkySearchAdapter(private val dataSet: MutableList<String?>) :
-    RecyclerView.Adapter<SkySearchAdapter.ViewHolder>() {
+    RecyclerView.Adapter<SkyViewHolder>() {
 
+
+    // Create new views (invoked by the layout manager)
+    // вызывается, когда RecyclerView требуется держатель представления
+    // Эта функция принимает два параметра и возвращает ViewHolder.
+    // parent Параметр, который является вид группы , которая удерживает держатель вида, всегда RecyclerView.
+    // viewType Параметр используется , когда есть несколько представлений в том же самом RecyclerView.
+    // Например, если вы поместите список текстовых представлений, изображение и видео
+    // в одно и то же RecyclerView, onCreateViewHolder()функция должна будет знать,
+    // какой тип представления использовать.
+    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): SkyViewHolder {
+        return SkyViewHolder.from(viewGroup)
+    }
+
+    // Replace the contents of a view (invoked by the layout manager)
+    // Замените содержимое представления (вызывается менеджером компоновки)
+    // Функция вызывается RecyclerView для отображения данных для одного элемента списка в заданном положении.
+    // Таким образом, onBindViewHolder()метод принимает два аргумента:
+    // держатель представления и позицию данных для привязки.
+    override fun onBindViewHolder(skyViewHolder: SkyViewHolder, position: Int) {
+
+        // Get element from your dataset at this position and replace the
+        // contents of the view with that element
+        // Получить элемент из вашего набора данных в этой позиции и заменить
+        // содержимое представления этим элементом
+        val item = dataSet[position]
+        skyViewHolder.bind(item)
+        //ViewHolder.bind(viewHolder, position)
+        // здесь же устанавливаются значения других полей и рисунков
+    }
+
+
+    // Return the size of your dataset (invoked by the layout manager)
+    // Возвращает размер вашего набора данных (вызывается менеджером компоновки)
+    override fun getItemCount() = dataSet.size
+}
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
@@ -29,7 +64,7 @@ class SkySearchAdapter(private val dataSet: MutableList<String?>) :
      * Держатели представлений также добавляют информацию, которая RecyclerView используется
      * для эффективного перемещения представлений по экрану.
      */
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class SkyViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView: TextView
 
         init {
@@ -37,42 +72,19 @@ class SkySearchAdapter(private val dataSet: MutableList<String?>) :
             // Определите прослушиватель щелчков для представления Viewholder.
             textView = itemView.findViewById(R.id.textView)
         }
+        fun bind(item: String?) {
+            textView.text = item
+        }
+        companion object {
+            fun from(viewGroup: ViewGroup): SkyViewHolder {
+                // Create a new view, which defines the UI of the list item
+                val layoutInflater = LayoutInflater.from(viewGroup.context)
+                val view = layoutInflater
+                    .inflate(R.layout.text_row_item_sky_search, viewGroup, false)
+
+                return SkyViewHolder(view)
+            }
+        }
     }
 
-    // Create new views (invoked by the layout manager)
-    // вызывается, когда RecyclerView требуется держатель представления
-    // Эта функция принимает два параметра и возвращает ViewHolder.
-    // parent Параметр, который является вид группы , которая удерживает держатель вида, всегда RecyclerView.
-    // viewType Параметр используется , когда есть несколько представлений в том же самом RecyclerView.
-    // Например, если вы поместите список текстовых представлений, изображение и видео
-    // в одно и то же RecyclerView, onCreateViewHolder()функция должна будет знать,
-    // какой тип представления использовать.
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        // Create a new view, which defines the UI of the list item
-        val layoutInflater = LayoutInflater.from(viewGroup.context)
-        val view = layoutInflater
-            .inflate(R.layout.text_row_item_sky_search, viewGroup, false)
 
-        return ViewHolder(view)
-    }
-
-    // Replace the contents of a view (invoked by the layout manager)
-    // Замените содержимое представления (вызывается менеджером компоновки)
-    // Функция вызывается RecyclerView для отображения данных для одного элемента списка в заданном положении.
-    // Таким образом, onBindViewHolder()метод принимает два аргумента:
-    // держатель представления и позицию данных для привязки.
-    override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        // Получить элемент из вашего набора данных в этой позиции и заменить
-        // содержимое представления этим элементом
-        viewHolder.textView.text = dataSet[position]
-        // здесь же устанавливаются значения других полей и рисунков
-    }
-
-    // Return the size of your dataset (invoked by the layout manager)
-    // Возвращает размер вашего набора данных (вызывается менеджером компоновки)
-    override fun getItemCount() = dataSet.size
-
-}
