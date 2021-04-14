@@ -49,6 +49,19 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
 
     private lateinit var oneWord0: Word
 
+    // Чтобы сообщить, RecyclerView когда данные, которые он отображает, изменились,
+    // добавьте настраиваемый установщик к data переменной,
+    // которая находится в верхней части SleepNightAdapter класса.
+    // В установщике задайте data новое значение, затем вызовите, notifyDataSetChanged()
+    // чтобы запустить перерисовку списка с новыми данными.
+    /*
+    var data =  listOf<SleepNight>()
+   set(value) {
+       field = value
+       notifyDataSetChanged()
+   }
+     */
+
     val meanings02Recycler: MutableList<String?> = arrayListOf()
     val meanings02: MutableList<String?> = arrayListOf()
     val meanings20: MutableList<String?> = arrayListOf()

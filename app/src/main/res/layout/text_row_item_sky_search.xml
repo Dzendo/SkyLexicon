@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Макет для одного элемента данных -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/list_item_height"
@@ -8,7 +9,10 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/empty_text"/>
 </FrameLayout>
+<!--Если все элементы списка выглядят одинаково,
+    вы можете использовать один и тот же макет для всех,
+     но это не обязательно-->

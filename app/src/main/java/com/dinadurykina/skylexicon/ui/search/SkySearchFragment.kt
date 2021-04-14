@@ -26,6 +26,7 @@ class SkySearchFragment : Fragment() {
     private val args: SkySearchFragmentArgs by navArgs()
     lateinit var binding: FragmentSkySearchBinding
     lateinit var viewModel: SkySearchViewModel
+
     /**
      * Lazily initialize our [SkySearchViewMode].
      */
@@ -71,6 +72,13 @@ class SkySearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        /* A layout manager
+            Диспетчер компоновки обрабатывает организацию (компоновку)
+             компонентов пользовательского интерфейса в представлении.
+         */
+        // Говорит можно объявить и в RecyclerView XML
+       // val manager = GridLayoutManager(activity, nStolbov)
+       // binding.sleepList.layoutManager = manager
 
         val skySearchAdapter = SkySearchAdapter(
             viewModel.meanings02Recycler
@@ -98,9 +106,24 @@ class SkySearchFragment : Fragment() {
         )
         binding.meanings21.adapter = meanings21Adapter
 
+
+        // чтобы запустить перерисовку списка с новыми данными.
+
         viewModel.refresh.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true. Наблюдаемое состояние истинно.
 
+                // Чтобы сообщить, RecyclerView когда данные, которые он отображает, изменились,
+                // добавьте настраиваемый установщик к data переменной,
+                // которая находится в верхней части SleepNightAdapter класса.
+                // В установщике задайте data новое значение,
+                // затем вызовите, notifyDataSetChanged() чтобы запустить перерисовку списка с новыми данными.
+                    /*
+                    var data =  listOf<SleepNight>()
+                            set(value) {
+                                field = value
+                                notifyDataSetChanged()
+                            }
+                     */
                 binding.recyclerSize.text = " всего recycler_size: ${viewModel.meanings02Recycler.size.toString()} уже"
 
                 skySearchAdapter.notifyDataSetChanged()
