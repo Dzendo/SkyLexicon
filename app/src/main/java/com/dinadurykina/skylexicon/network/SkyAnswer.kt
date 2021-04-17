@@ -110,16 +110,7 @@ data class Image(
 data class Url (
     val url: String  // // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=a+separate+seat+for+one+person+with+four+legs+and+a+support+for+the+back"
         )
-/*data class Mars(
-    val id: String,
-    @Json(name = "img_src")  // это название на сайте (в Json)
-    val imgSrcUrl: String,   // это название для нас использовать
-    val type: String,
-    val price: Double) : Parcelable {     // все числовые (без кавычек) объявлять Double
-// 15.6.1  isRental логическое значение и установите его значение в зависимости от того, является ли тип свойства «арендным»
-    val isRental
-        get() = type == "rent"
-}*/
+
 
 data class WordRecycler(
     val idEng: String, // word.id 838 непонятное число неизвестно зачем wordId Слово-это группа значений. Мы объединяем значения словом сущность.

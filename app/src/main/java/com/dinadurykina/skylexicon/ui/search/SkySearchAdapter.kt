@@ -1,11 +1,12 @@
 package com.dinadurykina.skylexicon.ui.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.dinadurykina.skylexicon.R
+import com.dinadurykina.skylexicon.databinding.TextRowItemSkySearchBinding
+import com.dinadurykina.skylexicon.network.WordRecycler
 
 /** An adapter
  * The adapter connects your data to the RecyclerView.
@@ -15,76 +16,41 @@ import com.dinadurykina.skylexicon.R
  * Он адаптирует данные так, чтобы их можно было отображать в формате ViewHolder.
  * A RecyclerView использует адаптер, чтобы выяснить, как отображать данные на экране.
  */
+class SkySearchAdapter: ListAdapter<WordRecycler, SkySearchAdapter.ViewHolder>(SkyDiffCallback()) {
 
-class SkySearchAdapter(private val dataSet: MutableList<String?>) :
-    RecyclerView.Adapter<SkyViewHolder>() {
-
-
-    // Create new views (invoked by the layout manager)
-    // вызывается, когда RecyclerView требуется держатель представления
-    // Эта функция принимает два параметра и возвращает ViewHolder.
-    // parent Параметр, который является вид группы , которая удерживает держатель вида, всегда RecyclerView.
-    // viewType Параметр используется , когда есть несколько представлений в том же самом RecyclerView.
-    // Например, если вы поместите список текстовых представлений, изображение и видео
-    // в одно и то же RecyclerView, onCreateViewHolder()функция должна будет знать,
-    // какой тип представления использовать.
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): SkyViewHolder {
-        return SkyViewHolder.from(viewGroup)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder.from(parent)
     }
 
-    // Replace the contents of a view (invoked by the layout manager)
-    // Замените содержимое представления (вызывается менеджером компоновки)
-    // Функция вызывается RecyclerView для отображения данных для одного элемента списка в заданном положении.
-    // Таким образом, onBindViewHolder()метод принимает два аргумента:
-    // держатель представления и позицию данных для привязки.
-    override fun onBindViewHolder(skyViewHolder: SkyViewHolder, position: Int) {
-
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
-        // Получить элемент из вашего набора данных в этой позиции и заменить
-        // содержимое представления этим элементом
-        val item = dataSet[position]
-        skyViewHolder.bind(item)
-        //ViewHolder.bind(viewHolder, position)
-        // здесь же устанавливаются значения других полей и рисунков
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = getItem(position)
+        holder.bind(item)
     }
 
+    class ViewHolder private constructor(val binding: TextRowItemSkySearchBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
-    // Return the size of your dataset (invoked by the layout manager)
-    // Возвращает размер вашего набора данных (вызывается менеджером компоновки)
-    override fun getItemCount() = dataSet.size
-}
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder).
-     * The view holder extends the ViewHolder class.
-     * It contains the view information for displaying one item from the item's layout.
-     * View holders also add information that RecyclerView uses to efficiently move views around the screen
-     * Он содержит информацию о просмотре для отображения одного элемента из макета элемента.
-     * Держатели представлений также добавляют информацию, которая RecyclerView используется
-     * для эффективного перемещения представлений по экрану.
-     */
-    class SkyViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textView: TextView
+        fun bind(item: WordRecycler) {
+            binding.word = item
 
-        init {
-            // Define click listener for the ViewHolder's View.
-            // Определите прослушиватель щелчков для представления Viewholder.
-            textView = itemView.findViewById(R.id.textView)
         }
-        fun bind(item: String?) {
-            textView.text = item
-        }
+
         companion object {
-            fun from(viewGroup: ViewGroup): SkyViewHolder {
-                // Create a new view, which defines the UI of the list item
-                val layoutInflater = LayoutInflater.from(viewGroup.context)
-                val view = layoutInflater
-                    .inflate(R.layout.text_row_item_sky_search, viewGroup, false)
-
-                return SkyViewHolder(view)
+            fun from(parent: ViewGroup): ViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding =
+                    TextRowItemSkySearchBinding.inflate(layoutInflater, parent, false)
+                return ViewHolder(binding)
             }
         }
     }
+}
+
+class SkyDiffCallback : DiffUtil.ItemCallback<WordRecycler>() {
+    override fun areItemsTheSame(oldItem: WordRecycler, newItem: WordRecycler): Boolean =
+        oldItem.idEng == newItem.idEng
+    override fun areContentsTheSame(oldItem: WordRecycler, newItem: WordRecycler): Boolean =
+        oldItem == newItem
+}
 
 

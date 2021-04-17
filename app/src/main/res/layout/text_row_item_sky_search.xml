@@ -1,18 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Макет для одного элемента данных -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="@dimen/list_item_height"
-    android:layout_marginLeft="@dimen/margin_medium"
-    android:layout_marginRight="@dimen/margin_medium"
-    android:gravity="center_vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+    <data>
+        <!--import type="com.app4web.asdzendo.todo.ui.BindingConverters"  alias="BC"/-->
+
+        <variable
+            name="word"
+            type="com.dinadurykina.skylexicon.network.WordRecycler"/>
+        <variable
+            name="viewmodel"
+            type="com.dinadurykina.skylexicon.ui.search.SkySearchViewModel" />
+    </data>
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/empty_text"/>
-</FrameLayout>
-<!--Если все элементы списка выглядят одинаково,
-    вы можете использовать один и тот же макет для всех,
-     но это не обязательно-->
+        android:textSize="@dimen/text_size"
+
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:orientation="horizontal">
+        <!--android:onClick="@{() -> viewmodel.onWordClicked(word.idRus)}"-->
+
+        <TextView
+            android:id="@+id/id"
+            android:textSize="@dimen/text_size"
+            android:layout_width= "wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{word.idRus}" />
+
+        <TextView
+            android:id="@+id/text_eng"
+            android:textSize="@dimen/text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="@{word.textEng}"  />
+
+        <TextView
+            android:id="@+id/text_rus"
+            android:textSize="@dimen/text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="@{word.textRus}" />
+
+        <TextView
+            android:id="@+id/note"
+            android:textSize="@dimen/text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="@{word.note}" />
+
+        <TextView
+            android:id="@+id/transcription"
+            android:textSize="@dimen/text_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:textAppearance="?attr/textAppearanceListItem"
+            android:text="@{word.transcription}"  />
+
+
+        <!--ImageView
+            android:id="@+id/sky_image"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginBottom="32dp"
+            android:layout_marginLeft="32dp"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{viewModel.word.meanings[0].imageUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" /-->
+
+    </LinearLayout>
+</layout>
+
+    <!--Если все элементы списка выглядят одинаково,
+        вы можете использовать один и тот же макет для всех,
+         но это не обязательно-->
