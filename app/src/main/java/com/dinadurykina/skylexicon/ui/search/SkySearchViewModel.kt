@@ -37,14 +37,24 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
     val response: LiveData<String>
         get() = _response
 
+    // Основной список для RecyclerView
     private val _wordsListRecycler = MutableLiveData<List<WordRecycler>>()
         val wordsListRecycler: LiveData<List<WordRecycler>>
             get() = _wordsListRecycler
 
-    var ids:String? = null
-
     init {
         searchSlovo(slovo)
+    }
+    private val _navigateToSkyMeanings = MutableLiveData<String?>()
+    val navigateToSkyMeanings
+        get() = _navigateToSkyMeanings
+
+    // для варианта codelabs SkySearchListener и Вариант SkySearchViewModel
+    fun onSkySearchClicked(id:String) {
+        _navigateToSkyMeanings.value = id
+    }
+    fun onSkyMeaningsNavigated() {
+        _navigateToSkyMeanings.value = null
     }
 
      fun onSlovoClicked(view:View) {
@@ -58,16 +68,9 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
             try {
                 val skyResultRecycler = skyRepository.getSkySearchRecycler(slovo)
                 _wordsListRecycler.value = skyResultRecycler.value
-
-                ids = wordsListRecycler.value?.get(0)?.idRus
-
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
         }
      }
-    fun onWordClicked(view:View) {
-        val slovo = (view as EditText).text.toString()
-        searchSlovo(slovo)
-    }
 }

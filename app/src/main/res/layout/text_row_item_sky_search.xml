@@ -8,9 +8,14 @@
         <variable
             name="word"
             type="com.dinadurykina.skylexicon.network.WordRecycler"/>
+        <!--Вариант SkySearchViewModel-->
         <variable
             name="viewmodel"
             type="com.dinadurykina.skylexicon.ui.search.SkySearchViewModel" />
+        <!--Вариант SkySearchListener-->
+        <!--variable
+            name="clickListener"
+            type="com.dinadurykina.skylexicon.ui.search.SkySearchListener" /-->
     </data>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -19,8 +24,10 @@
 
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
-        <!--android:onClick="@{() -> viewmodel.onWordClicked(word.idRus)}"-->
+        android:orientation="horizontal"
+        android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}">
+        <!--Вариант SkySearchListener-->
+        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
 
         <TextView
             android:id="@+id/id"

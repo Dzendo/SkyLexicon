@@ -16,7 +16,11 @@ import com.dinadurykina.skylexicon.network.WordRecycler
  * Он адаптирует данные так, чтобы их можно было отображать в формате ViewHolder.
  * A RecyclerView использует адаптер, чтобы выяснить, как отображать данные на экране.
  */
-class SkySearchAdapter: ListAdapter<WordRecycler, SkySearchAdapter.ViewHolder>(SkyDiffCallback()) {
+//<!--Вариант SkySearchListener-->
+//class SkySearchAdapter(val clickListener: SkySearchListener):
+//<!--Вариант SkySearchViewModel-->
+class SkySearchAdapter(val skySearchViewModel: SkySearchViewModel):
+    ListAdapter<WordRecycler, SkySearchAdapter.ViewHolder>(SkyDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
@@ -24,15 +28,21 @@ class SkySearchAdapter: ListAdapter<WordRecycler, SkySearchAdapter.ViewHolder>(S
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        //<!--Вариант SkySearchListener-->
+        //holder.bind(item, clickListener)
+        holder.bind(item, skySearchViewModel)
     }
 
     class ViewHolder private constructor(val binding: TextRowItemSkySearchBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: WordRecycler) {
+        //<!--Вариант SkySearchListener-->
+       // fun bind(item: WordRecycler, clickListener: SkySearchListener) {
+        fun bind(item: WordRecycler, skySearchViewModel: SkySearchViewModel) {
             binding.word = item
-
+            //<!--Вариант SkySearchListener-->
+            //binding.clickListener = clickListener
+           binding.viewmodel = skySearchViewModel
         }
 
         companion object {
@@ -52,5 +62,13 @@ class SkyDiffCallback : DiffUtil.ItemCallback<WordRecycler>() {
     override fun areContentsTheSame(oldItem: WordRecycler, newItem: WordRecycler): Boolean =
         oldItem == newItem
 }
+
+// Вызывается из XML при нажатии на элемент списка RecyclerView через лямбду
+// вариант codelabs через аргумент обратного вызова
+//<!--Вариант SkySearchListener-->
+/*class SkySearchListener(val clickListener: (sleepId: String) -> Unit) {
+    // сюда item пригонит Word на который нажали а отгоним его id
+    fun onClick(night: WordRecycler) = clickListener(night.idRus)
+}*/
 
 

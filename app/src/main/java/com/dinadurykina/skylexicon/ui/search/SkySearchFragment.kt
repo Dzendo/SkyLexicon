@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
 
@@ -18,7 +21,7 @@ class SkySearchFragment : Fragment() {
     private lateinit var thiscontext: Context
     private val args: SkySearchFragmentArgs by navArgs()
     lateinit var binding: FragmentSkySearchBinding
-    lateinit var viewModel: SkySearchViewModel
+    lateinit var skySearchViewModel: SkySearchViewModel
 
     /**
      * Lazily initialize our [SkySearchViewMode].
@@ -31,7 +34,7 @@ class SkySearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         if (container != null) thiscontext = container.context
-         viewModel = ViewModelProvider(
+        skySearchViewModel = ViewModelProvider(
              this,
              SkySearchViewModelFactory(args.slovo)
          ).get(SkySearchViewModel::class.java)
@@ -42,19 +45,19 @@ class SkySearchFragment : Fragment() {
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
         binding.lifecycleOwner = viewLifecycleOwner
         // Giving the binding access to the OverviewViewModel
-        binding.viewModel = viewModel
+        binding.viewModel = skySearchViewModel
 
         binding.slovo.setText(args.slovo)
-        viewModel.searchSlovo(args.slovo)
+        skySearchViewModel.searchSlovo(args.slovo)
 
-
-
-        /*binding.ids.setOnClickListener {
-            val id = viewModel.word.value?.meanings?.get(0)?.id?:"1938"
-            findNavController().navigate(
-                SkySearchFragmentDirections.actionSkySearchFragmentToSkyMeaningsFragment(id)
-            )
-        }*/
+        skySearchViewModel.navigateToSkyMeanings.observe(viewLifecycleOwner){ id ->
+            id?.let {
+                this.findNavController().navigate(
+                    SkySearchFragmentDirections.actionSkySearchFragmentToSkyMeaningsFragment(id)
+                )
+                skySearchViewModel.onSkyMeaningsNavigated()
+            }
+        }
 
         // Inflate the layout for this fragment
         return binding.root
@@ -63,12 +66,19 @@ class SkySearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val adapter = SkySearchAdapter()
-        binding.recyclerViewSky.adapter = adapter
+        //<!--Вариант SkySearchListener-->
+        /*val skySearchAdapter = SkySearchAdapter(SkySearchListener { id ->
+            Toast.makeText(context, id, Toast.LENGTH_LONG).show()
+            skySearchViewModel.onSkySearchClicked(id)
+        })*/
 
-        viewModel.wordsListRecycler.observe(viewLifecycleOwner) {
+        //<!--Вариант SkySearchViewModel-->
+        val skySearchAdapter = SkySearchAdapter(skySearchViewModel)
+        binding.recyclerViewSky.adapter = skySearchAdapter
+
+        skySearchViewModel.wordsListRecycler.observe(viewLifecycleOwner) {
             it?.let {
-                adapter.submitList(it)
+                skySearchAdapter.submitList(it)
             }
         }
     }
