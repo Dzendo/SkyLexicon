@@ -1,13 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Макет для одного элемента данных -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<?xml version="1.0" encoding="utf-8"?><!-- Макет для одного элемента данных -->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <!--import type="com.app4web.asdzendo.todo.ui.BindingConverters"  alias="BC"/-->
 
         <variable
             name="word"
-            type="com.dinadurykina.skylexicon.network.WordRecycler"/>
+            type="com.dinadurykina.skylexicon.network.WordRecycler" />
         <!--Вариант SkySearchViewModel-->
         <variable
             name="viewmodel"
@@ -17,77 +19,105 @@
             name="clickListener"
             type="com.dinadurykina.skylexicon.ui.search.SkySearchListener" /-->
     </data>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size"
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/teal_200"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal"
-        android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}">
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"
+        android:textSize="@dimen/text_size"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="5dp">
         <!--Вариант SkySearchListener-->
         <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
 
-        <TextView
-            android:id="@+id/id"
-            android:textSize="@dimen/text_size"
-            android:layout_width= "wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{word.idRus}" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/text_eng"
-            android:textSize="@dimen/text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.textEng}"  />
+            <TextView
+                android:id="@+id/id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{word.idRus}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:textSize="@dimen/text_size" />
+            <LinearLayout
+                android:id="@+id/linear_temp1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/text_eng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@{word.textEng}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="@dimen/text_size" />
 
-        <TextView
-            android:id="@+id/text_rus"
-            android:textSize="@dimen/text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.textRus}" />
+            <TextView
+                android:id="@+id/text_rus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@{word.textRus}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="@dimen/text_size" />
 
-        <TextView
-            android:id="@+id/note"
-            android:textSize="@dimen/text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.note}" />
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@{word.note}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textSize="@dimen/text_size" />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/transcription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:text="@{word.transcription}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linear_temp1"
+                android:textSize="@dimen/text_size" />
 
-        <TextView
-            android:id="@+id/transcription"
-            android:textSize="@dimen/text_size"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/text_margin"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.transcription}"  />
+            <ImageButton
+                android:id="@+id/sky_image_previewUrl"
+                android:layout_width="96dp"
+                android:layout_height="72dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="64dp"
+                android:adjustViewBounds="true"
+                android:onClick="@{() -> viewmodel.onSkyImageClicked(word.imageUrl)}"
+                android:padding="2dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{word.previewUrl}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:src="@tools:sample/backgrounds/scenic" />
 
+            <ImageButton
+                android:id="@+id/button_sound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_baseline_volume_up_24" />
 
-        <!--ImageView
-            android:id="@+id/sky_image"
-            android:layout_width="200dp"
-            android:layout_height="150dp"
-            android:layout_marginBottom="32dp"
-            android:layout_marginLeft="32dp"
-            android:adjustViewBounds="true"
-            android:padding="2dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{viewModel.word.meanings[0].imageUrl}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic" /-->
-
-    </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>
 
     <!--Если все элементы списка выглядят одинаково,

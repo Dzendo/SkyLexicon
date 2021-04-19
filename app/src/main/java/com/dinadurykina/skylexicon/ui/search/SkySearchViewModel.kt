@@ -49,6 +49,14 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
     val navigateToSkyMeanings
         get() = _navigateToSkyMeanings
 
+    private val _showImage = MutableLiveData<String?>()
+    val showImage
+        get() = _showImage
+
+    private val _listenSound = MutableLiveData<String?>()
+    val listenSound
+        get() = _listenSound
+
     // для варианта codelabs SkySearchListener и Вариант SkySearchViewModel
     fun onSkySearchClicked(id:String) {
         _navigateToSkyMeanings.value = id
@@ -73,4 +81,17 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
             }
         }
      }
+
+    fun onSkyImageClicked(imageUrl:String) {
+        _showImage.value = imageUrl
+    }
+    fun onSkyImageNavigated() {
+        _showImage.value = null
+    }
+    fun onListenSoundClicked(imageUrl:String) {
+        _listenSound.value = imageUrl
+    }
+    fun onSkySoundNavigated() {
+        _listenSound.value = null
+    }
 }
