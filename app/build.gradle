@@ -69,12 +69,12 @@ dependencies {
     // Этот конвертер позволяет Retrofit возвращать результат JSON в виде файла String
 
     // 8.8.1 Moshi https://github.com/square/moshi
-    implementation "com.squareup.moshi:moshi:1.11.0"
-    implementation "com.squareup.moshi:moshi-kotlin:1.11.0"
+    implementation "com.squareup.moshi:moshi:1.12.0"
+    implementation 'com.squareup.moshi:moshi-kotlin:1.12.0'
 
     // 11.1.1 Glide https://github.com/bumptech/glide https://bumptech.github.io/glide/
     implementation "com.github.bumptech.glide:glide:4.12.0"
-    implementation 'com.squareup.picasso:picasso:2.5.2'
+    //implementation 'com.squareup.picasso:picasso:2.71828'
 
     // Logging
     implementation "com.jakewharton.timber:timber:4.7.1"

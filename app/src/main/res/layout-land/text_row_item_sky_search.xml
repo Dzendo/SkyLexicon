@@ -100,12 +100,12 @@
 
         <ImageButton
             android:id="@+id/sky_image_previewUrl"
-            android:layout_width="96dp"
-            android:layout_height="72dp"
+            android:layout_width="48dp"
+            android:layout_height="36dp"
+            android:scaleType="fitXY"
             android:adjustViewBounds="true"
             android:onClick="@{() -> viewmodel.onSkyImageClicked(word.imageUrl)}"
             android:padding="2dp"
-            android:scaleType="centerCrop"
             app:imageUrl="@{word.previewUrl}"
             tools:src="@tools:sample/backgrounds/scenic" />
 
