@@ -1,6 +1,8 @@
 package com.dinadurykina.skylexicon.ui.search
 
 import android.content.Context
+import android.media.AudioAttributes
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -17,13 +19,14 @@ import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
  * A simple [Fragment] subclass as the default destination in the navigation.
  */
 class SkySearchFragment : Fragment() {
-    private lateinit var thiscontext: Context
+    private lateinit var thisContext: Context
     private val args: SkySearchFragmentArgs by navArgs()
     lateinit var binding: FragmentSkySearchBinding
     lateinit var skySearchViewModel: SkySearchViewModel
+    private var mediaPlayer: MediaPlayer? = null
 
     /**
-     * Lazily initialize our [SkySearchViewMode].
+     * Lazily initialize our [SkySearchViewModel].
      */
   //  private val viewModel: SkySearchViewModel by lazy {
   //      ViewModelProvider(this).get(SkySearchViewModel::class.java) }
@@ -32,7 +35,7 @@ class SkySearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        if (container != null) thiscontext = container.context
+        if (container != null) thisContext = container.context
         skySearchViewModel = ViewModelProvider(
              this,
              SkySearchViewModelFactory(args.slovo)
@@ -60,42 +63,47 @@ class SkySearchFragment : Fragment() {
 
         skySearchViewModel.showImage.observe(viewLifecycleOwner){ imageUrl ->
             imageUrl?.let {
-                val toast = Toast.makeText(thiscontext,"Image: $it", Toast.LENGTH_LONG)
+                val toast = Toast.makeText(thisContext,"Image: $it", Toast.LENGTH_LONG)
                 toast.setGravity(Gravity.CENTER, 0, 0)
 
                /* val toastContainer = toast.view as LinearLayout
-                val imageView = ImageView(thiscontext)
-                Picasso.with(thiscontext).load(it).into(imageView)
+                val imageView = ImageView(thisContext)
+                Picasso.with(thisContext).load(it).into(imageView)
                 //imageView.setImageURI(URI.parse(it))
                 toastContainer.addView(imageView, 0)
                 */
                 toast.show()
 
                 skySearchViewModel.onSkyImageNavigated()
-
-
             }
         }
 
-        skySearchViewModel.listenSound.observe(viewLifecycleOwner){ soundUrl ->
+        skySearchViewModel.listenSound.observe(viewLifecycleOwner) { soundUrl ->
             soundUrl?.let {
-                val toast = Toast.makeText(thiscontext,"Sound: $it", Toast.LENGTH_LONG)
+                val toast = Toast.makeText(thisContext, "Sound: $it", Toast.LENGTH_LONG)
                 toast.setGravity(Gravity.CENTER, 0, 0)
-
-                /* val toastContainer = toast.view as LinearLayout
-                 val imageView = ImageView(thiscontext)
-                 Picasso.with(thiscontext).load(it).into(imageView)
-                 //imageView.setImageURI(URI.parse(it))
-                 toastContainer.addView(imageView, 0)
-                 */
                 toast.show()
 
+                // работает Виноградов
+                mediaPlayer?.stop()
+                mediaPlayer?.release()
+                //val http = "https://firebasestorage.googleapis.com/v0/b/nmixer-97a91.appspot.com/o/musics%2FDark%20World.mp3?alt=media&token=f8564ca6-cf59-468d-bd98-13ff646a1752"
+                //val http = "https://d2fmfepycn0xw0.cloudfront.net/?gender=male&accent=british&text=chair"
+                val http = "https://$soundUrl"
+                mediaPlayer = MediaPlayer()
+                mediaPlayer?.setDataSource(http)
+                // необязательно:
+                mediaPlayer?.setAudioAttributes(
+                    AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .build()
+                )
+                mediaPlayer?.prepare()
+                mediaPlayer?.start()
+
                 skySearchViewModel.onSkySoundNavigated()
-
-
             }
         }
-
 
         // Inflate the layout for this fragment
         return binding.root
@@ -106,7 +114,7 @@ class SkySearchFragment : Fragment() {
 
         //<!--Вариант SkySearchListener-->
         /*val skySearchAdapter = SkySearchAdapter(SkySearchListener { id ->
-            Toast.makeText(context, id, Toast.LENGTH_LONG).show()
+            Toast.makeText(thisContext, id, Toast.LENGTH_LONG).show()
             skySearchViewModel.onSkySearchClicked(id)
         })*/
 
