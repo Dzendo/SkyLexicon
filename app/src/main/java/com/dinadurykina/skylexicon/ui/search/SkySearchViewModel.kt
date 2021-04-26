@@ -82,10 +82,10 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
         }
      }
 
-    fun onSkyImageClicked(imageUrl:String) {
-        _showImage.value = imageUrl
+    fun onSkyImageClicked(imageUri:String) {
+        _showImage.value = imageUri
     }
-    fun onSkyImageNavigated() {
+    fun onShowImageNavigated() {
         _showImage.value = null
     }
     fun onListenSoundClicked(imageUrl:String) {

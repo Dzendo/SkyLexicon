@@ -28,7 +28,7 @@ import com.dinadurykina.skylexicon.repository.SkyRepository
 import kotlinx.coroutines.launch
 
 /**
- * The [ViewModel] that is attached to the [OverviewFragment].
+ * The [ViewModel] that is attached to the [SkyMeaningsFragment].
  */
 class SkyMeaningsViewModel(val ids:String) : ViewModel() {
      private val skyRepository = SkyRepository()

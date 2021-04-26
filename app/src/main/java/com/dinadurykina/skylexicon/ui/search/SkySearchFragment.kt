@@ -8,12 +8,17 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
+import com.dinadurykina.skylexicon.launcher.SkyActivity
+import com.dinadurykina.skylexicon.ui.share.DialogImageFragment
+import com.squareup.picasso.Picasso
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -52,6 +57,29 @@ class SkySearchFragment : Fragment() {
         binding.slovo.setText(args.slovo)
         skySearchViewModel.searchSlovo(args.slovo)
 
+        //<!--Вариант SkySearchListener-->
+        /*val skySearchAdapter = SkySearchAdapter(SkySearchListener { id ->
+            Toast.makeText(thisContext, id, Toast.LENGTH_LONG).show()
+            skySearchViewModel.onSkySearchClicked(id)
+        })*/
+
+        //<!--Вариант SkySearchViewModel-->
+        val skySearchAdapter = SkySearchAdapter(skySearchViewModel)
+        binding.recyclerViewSky.adapter = skySearchAdapter
+
+        skySearchViewModel.wordsListRecycler.observe(viewLifecycleOwner) {
+            it?.let {
+                skySearchAdapter.submitList(it)
+            }
+        }
+
+        // Inflate the layout for this fragment
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         skySearchViewModel.navigateToSkyMeanings.observe(viewLifecycleOwner){ id ->
             id?.let {
                 this.findNavController().navigate(
@@ -60,21 +88,11 @@ class SkySearchFragment : Fragment() {
                 skySearchViewModel.onSkyMeaningsNavigated()
             }
         }
-
-        skySearchViewModel.showImage.observe(viewLifecycleOwner){ imageUrl ->
-            imageUrl?.let {
-                val toast = Toast.makeText(thisContext,"Image: $it", Toast.LENGTH_LONG)
-                toast.setGravity(Gravity.CENTER, 0, 0)
-
-               /* val toastContainer = toast.view as LinearLayout
-                val imageView = ImageView(thisContext)
-                Picasso.with(thisContext).load(it).into(imageView)
-                //imageView.setImageURI(URI.parse(it))
-                toastContainer.addView(imageView, 0)
-                */
-                toast.show()
-
-                skySearchViewModel.onSkyImageNavigated()
+        skySearchViewModel.showImage.observe(viewLifecycleOwner){ imageUri ->
+            imageUri?.let { uri ->
+                this.findNavController().navigate(
+                    SkySearchFragmentDirections.actionSkySearchFragmentToDialogImageFragment(uri)
+                )
             }
         }
 
@@ -102,29 +120,6 @@ class SkySearchFragment : Fragment() {
                 mediaPlayer?.start()
 
                 skySearchViewModel.onSkySoundNavigated()
-            }
-        }
-
-        // Inflate the layout for this fragment
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        //<!--Вариант SkySearchListener-->
-        /*val skySearchAdapter = SkySearchAdapter(SkySearchListener { id ->
-            Toast.makeText(thisContext, id, Toast.LENGTH_LONG).show()
-            skySearchViewModel.onSkySearchClicked(id)
-        })*/
-
-        //<!--Вариант SkySearchViewModel-->
-        val skySearchAdapter = SkySearchAdapter(skySearchViewModel)
-        binding.recyclerViewSky.adapter = skySearchAdapter
-
-        skySearchViewModel.wordsListRecycler.observe(viewLifecycleOwner) {
-            it?.let {
-                skySearchAdapter.submitList(it)
             }
         }
     }

@@ -20,6 +20,7 @@ class SkyActivity : AppCompatActivity() {
     // Выделяется место под эти переменные в созданном классе
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mainBinding: ActivitySkyBinding
+    val suppotfragmentManager = supportFragmentManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

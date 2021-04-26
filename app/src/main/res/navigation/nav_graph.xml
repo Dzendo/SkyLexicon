@@ -17,6 +17,9 @@
             android:name="slovo"
             app:argType="string"
             android:defaultValue="Chair" />
+        <action
+            android:id="@+id/action_SkySearchFragment_to_DialogImageFragment"
+            app:destination="@id/DialogImageFragment" />
     </fragment>
 
     <fragment
@@ -63,6 +66,17 @@
             app:argType="string"
             android:defaultValue="1938" />
     </fragment>
+
+    <dialog
+        android:id="@+id/DialogImageFragment"
+        android:name="com.dinadurykina.skylexicon.ui.share.DialogImageFragment"
+        android:label="DialogImageFragment" >
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="null" />
+    </dialog>
 
 
 </navigation>
