@@ -111,7 +111,6 @@ data class Url (
     val url: String  // // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=a+separate+seat+for+one+person+with+four+legs+and+a+support+for+the+back"
         )
 
-
 data class WordRecycler(
     val idEng: String, // word.id 838 непонятное число неизвестно зачем wordId Слово-это группа значений. Мы объединяем значения словом сущность.
     val textEng: String, // word.text "chair"

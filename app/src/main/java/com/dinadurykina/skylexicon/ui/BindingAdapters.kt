@@ -17,21 +17,22 @@
 
 package com.dinadurykina.skylexicon.ui
 
-//import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
-//import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dinadurykina.skylexicon.R
+import com.dinadurykina.skylexicon.network.WordRecycler
+import com.dinadurykina.skylexicon.ui.search.SkySearchAdapter
 
 // 11.2.1 В BindingAdapters создать BindingAdapter для преобразования imgUrl к URI со схемой HTTPS.
 // Внутри адаптера используйте Glide для загрузки изображения, отобразите его в imgView:
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        val imgUri = it.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
             .load(imgUri)
             // Добавьте простые изображения загрузки и ошибок
@@ -42,18 +43,18 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .into(imgView)
     }
 }
-// 11.3.1 примените RequestOptions к Glide вызову, чтобы добавить заполнитель,
-// который отображает изображение во время загрузки вашего изображения,
+// RequestOptions к Glide вызову, чтобы добавить заполнитель,
+// который отображает изображение во время загрузки изображения,
 // и изображение ошибки, если его невозможно получить.
-/*
-// 12.2.7  bindRecyclerView связывающий адаптер для listData, и он звонить submitList()на PhotosGridAdapter:
-// будет использоваться в layout\fragment_overview.xml для привязки / наблюдения за живыми данными viewModel.properties
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarsProperty>?) {
-    val adapter = recyclerView.adapter as PhotoGridAdapter  // приводим один адаптер к другому
-    adapter.submitList(data)
-}
 
+// bindRecyclerView связывающий адаптер для listData, и он звонить submitList()на SkySearchAdapter:
+// используется в layout\fragment_sky_search.xml
+// для привязки / наблюдения за живыми данными viewModel.wordsListRecycler
+@BindingAdapter("listData")
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<WordRecycler>?) {
+    (recyclerView.adapter as SkySearchAdapter).submitList(data)
+}
+/*
 // 13.4 добавьте адаптер привязки для отображения MarsApiStatus в ImageView
 // и установите видимость представления в зависимости от значения состояния:
 @BindingAdapter("marsApiStatus")

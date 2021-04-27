@@ -11,7 +11,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.search.FirstFragment">
+        tools:context=".ui.search.SkySearchFragment">
 
         <EditText
             android:id="@+id/slovo"
@@ -38,11 +38,18 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintTop_toBottomOf="@id/slovo"
-            app:layout_constraintBottom_toBottomOf= "parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@id/slovo"
+            app:layout_constraintVertical_bias="0.0"
+            app:listData="@{viewModel.wordsListRecycler}"
+            tools:itemCount="16"
+            tools:listitem="@layout/text_row_item_sky_search" />
+            <!-- app:listData зовется из BindingAdapters.kt
+            и заменяет skySearchAdapter.submitList(it) в фрагменте -->
+
         <!--
         Разместите, RecyclerView чтобы занять оставшуюся часть экрана внутри ConstraintLayout.
         Чтобы сделать это, ограничивают в верхней части RecyclerView на Пуск кнопки,

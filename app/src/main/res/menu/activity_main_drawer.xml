@@ -16,17 +16,6 @@
             android:icon="@drawable/ic_home"
             android:title="sky значение слова --> Form" />
 
-        <item
-            android:id="@+id/SkySearchFragmentDebug"
-            android:icon="@drawable/ic_home"
-            android:title="sky поиск слова --> Debug" />
-
-        <item
-            android:id="@+id/SkyMeaningsFragmentDebug"
-            android:icon="@drawable/ic_home"
-            android:title="sky значение слова --> Debug" />
-
-
     </group>
 
 </menu>

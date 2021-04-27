@@ -19,39 +19,38 @@ import com.dinadurykina.skylexicon.network.WordRecycler
 //<!--Вариант SkySearchListener-->
 //class SkySearchAdapter(val clickListener: SkySearchListener):
 //<!--Вариант SkySearchViewModel-->
-class SkySearchAdapter(val skySearchViewModel: SkySearchViewModel):
-    ListAdapter<WordRecycler, SkySearchAdapter.ViewHolder>(SkyDiffCallback()) {
+class SkySearchAdapter(private val skySearchViewModel: SkySearchViewModel):
+    ListAdapter<WordRecycler, SkyViewHolder>(SkyDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkyViewHolder {
+        return SkyViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SkyViewHolder, position: Int) {
         val item = getItem(position)
         //<!--Вариант SkySearchListener-->
         //holder.bind(item, clickListener)
         holder.bind(item, skySearchViewModel)
     }
+}
+class SkyViewHolder private constructor(private val binding: TextRowItemSkySearchBinding) :
+    RecyclerView.ViewHolder(binding.root) {
 
-    class ViewHolder private constructor(val binding: TextRowItemSkySearchBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-
+    //<!--Вариант SkySearchListener-->
+    // fun bind(item: WordRecycler, clickListener: SkySearchListener) {
+    fun bind(item: WordRecycler, skySearchViewModel: SkySearchViewModel) {
+        binding.word = item
         //<!--Вариант SkySearchListener-->
-       // fun bind(item: WordRecycler, clickListener: SkySearchListener) {
-        fun bind(item: WordRecycler, skySearchViewModel: SkySearchViewModel) {
-            binding.word = item
-            //<!--Вариант SkySearchListener-->
-            //binding.clickListener = clickListener
-           binding.viewmodel = skySearchViewModel
-        }
+        //binding.clickListener = clickListener
+        binding.viewmodel = skySearchViewModel
+    }
 
-        companion object {
-            fun from(parent: ViewGroup): ViewHolder {
-                val layoutInflater = LayoutInflater.from(parent.context)
-                val binding =
-                    TextRowItemSkySearchBinding.inflate(layoutInflater, parent, false)
-                return ViewHolder(binding)
-            }
+    companion object {
+        fun from(parent: ViewGroup): SkyViewHolder {
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val binding =
+                TextRowItemSkySearchBinding.inflate(layoutInflater, parent, false)
+            return SkyViewHolder(binding)
         }
     }
 }

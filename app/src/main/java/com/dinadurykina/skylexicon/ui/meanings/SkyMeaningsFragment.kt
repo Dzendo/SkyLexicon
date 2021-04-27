@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
+import com.dinadurykina.skylexicon.ui.playSound
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -21,24 +23,15 @@ import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
 class SkyMeaningsFragment : Fragment() {
     private lateinit var thiscontext: Context
     private val args: SkyMeaningsFragmentArgs by navArgs()
-    lateinit var binding: FragmentSkyMeaningsBinding
-    lateinit var viewModel: SkyMeaningsViewModel
-    /**
-     * Lazily initialize our [SkyMeaningsViewModel].
-     */
-   // private val viewModel: SkyMeaningsViewModel by lazy {
-   //     ViewModelProvider(this).get(SkyMeaningsViewModel::class.java)}
+    private lateinit var binding: FragmentSkyMeaningsBinding
+     val viewModel: SkyMeaningsViewModel by viewModels()
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        if (container != null) thiscontext = container.context
+        container?.let{ thiscontext = it.context }
 
-       viewModel = ViewModelProvider(
-            this,
-            SkyMeaningsViewModelFactory(args.id)
-        ).get(SkyMeaningsViewModel::class.java)
         // Inflate the layout for this fragment
         binding = FragmentSkyMeaningsBinding.inflate(inflater)
 
@@ -48,14 +41,14 @@ class SkyMeaningsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.meaning = viewModel.meaning.value
 
-        binding.ids.setText(args.id)
+        binding.ids.text = args.id
         viewModel.meaningsIds(args.id)
 
-        binding.slovo.setOnClickListener {
+        /*binding.slovo.setOnClickListener {
             val slovo = viewModel.meaning.value?.text?: "Table"
             findNavController().navigate(
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
-        }
+        }*/
 
         binding.textviewJson.movementMethod = ScrollingMovementMethod()
         // Inflate the layout for this fragment
@@ -89,16 +82,31 @@ class SkyMeaningsFragment : Fragment() {
         }
         binding.alternativeTranslations.setOnItemClickListener { parent, itemClicked, position, id ->
             val slovo = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.text ?: "NoNoNo"
-            findNavController().navigate(
-                SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
+            //val soundUri = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.
+         //   findNavController().navigate(
+         //       SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
         }
-        binding.meaningsWithSimilarTranslation.setOnItemClickListener { parent, itemClicked, position, id ->
+        binding.meaningsWithSimilarTranslation.setOnItemClickListener { _, itemClicked, position, id ->
             val ids = viewModel.meanings.value?.get(0)?.meaningsWithSimilarTranslation?.get(position)?.meaningId.toString()
-            binding.ids.setText(ids)
+            binding.ids.text = ids
             viewModel.meaningsIds(ids)
+            viewModel.ids = ids
             Toast.makeText(
                 thiscontext,
                 "Переход с ${(itemClicked as TextView).text} на $ids",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        binding.Definition.setOnClickListener {
+            val soundUri = viewModel.meanings.value?.get(0)?.definition?.soundUrl
+            playSound(soundUri)
+        }
+        binding.examples.setOnItemClickListener { _, itemClicked, position, id ->
+            val soundUri = viewModel.meanings.value?.get(0)?.examples?.get(position)?.soundUrl
+            playSound(soundUri)
+            Toast.makeText(
+                thiscontext,
+                soundUri,
                 Toast.LENGTH_SHORT
             ).show()
         }

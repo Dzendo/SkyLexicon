@@ -26,7 +26,7 @@ import timber.log.Timber
 
 //@HiltAndroidApp
 class SkyApplication : Application() {
-
+    val applicationContext = this
     override fun onCreate() {
         super.onCreate()
 

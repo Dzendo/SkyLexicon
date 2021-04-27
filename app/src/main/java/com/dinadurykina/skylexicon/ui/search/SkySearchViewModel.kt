@@ -30,7 +30,9 @@ import kotlinx.coroutines.launch
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
  */
-class SkySearchViewModel(val slovo:String) : ViewModel() {
+//class SkySearchViewModel(val slovo:String) : ViewModel() {
+class SkySearchViewModel : ViewModel() {
+    var slovo: String = "Chair"
     private val skyRepository = SkyRepository()
    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
@@ -71,11 +73,10 @@ class SkySearchViewModel(val slovo:String) : ViewModel() {
      }
     fun searchSlovo(slovo:String) {
         viewModelScope.launch {
-            _response.value = "good"
-
             try {
                 val skyResultRecycler = skyRepository.getSkySearchRecycler(slovo)
                 _wordsListRecycler.value = skyResultRecycler.value
+                _response.value = "good"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
