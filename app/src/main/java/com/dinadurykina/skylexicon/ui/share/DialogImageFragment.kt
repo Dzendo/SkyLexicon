@@ -16,11 +16,12 @@ class DialogImageFragment : DialogFragment() {
     private val args: DialogImageFragmentArgs by navArgs()
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val imageUri = ImageView(requireActivity())
+        imageUri.adjustViewBounds = true
+
         args.uri?.let {
             val imgUri = it.toUri().buildUpon().scheme("https").build()
             Glide.with(requireActivity())
                 .load(imgUri)
-                .override(1280, 960)
                 // Добавьте простые изображения загрузки и ошибок
                 .placeholder(R.drawable.loading_animation)
                 .error(R.drawable.ic_broken_image)
@@ -28,7 +29,7 @@ class DialogImageFragment : DialogFragment() {
         }
         imageUri.setOnClickListener{ dialog?.dismiss() }
         val builder = AlertDialog.Builder(requireActivity())
-                .setView(imageUri)
+        builder.setView(imageUri)
         return builder.create()
     }
 }
