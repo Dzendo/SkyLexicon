@@ -36,80 +36,98 @@
             name="clickListener"
             type="com.dinadurykina.skylexicon.ui.search.SkySearchListener" /-->
     </data>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size"
 
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
+        android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"
         android:orientation="horizontal"
-        android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}">
+        android:textSize="@dimen/text_size">
         <!--Вариант SkySearchListener-->
         <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
+        <!--Поставила GridLayout, что бы выровнять данные в строке-->
 
         <ImageButton
             android:id="@+id/sky_image_previewUrl"
-            android:layout_width="48dp"
-            android:layout_height="36dp"
-            android:scaleType="fitXY"
+            android:layout_width="53dp"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
+            android:baselineAligned="false"
             android:onClick="@{() -> viewmodel.onSkyImageClicked(word.imageUrl)}"
             android:padding="2dp"
+            android:scaleType="fitXY"
             app:imageUrl="@{word.previewUrl}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
 
         <TextView
             android:id="@+id/id"
-            android:textSize="@dimen/text_size"
-            android:layout_width= "wrap_content"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{word.idRus}" />
+            android:text="@{word.idRus}"
+            android:visibility="gone"
+            android:textSize="@dimen/text_size" />
 
         <TextView
             android:id="@+id/text_eng"
-            android:textSize="@dimen/text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:text="@{word.textEng}"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.textEng}"  />
+            android:textSize="@dimen/text_size"
+            tools:text="chair"/>
 
         <TextView
             android:id="@+id/text_rus"
-            android:textSize="@dimen/text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:text="@{word.textRus}"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.textRus}" />
+            android:textSize="@dimen/text_size"
+            tools:text="должность профессора"/>
 
         <TextView
             android:id="@+id/note"
-            android:textSize="@dimen/text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:text="@{word.note}"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.note}" />
+            android:textSize="@dimen/text_size"
+            tools:text="в оркестре"/>
 
         <TextView
             android:id="@+id/transcription"
-            android:textSize="@dimen/text_size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/text_margin"
+            android:text="@{word.transcription}"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:text="@{word.transcription}"  />
+            android:textSize="@dimen/text_size"
+            tools:text="bɑːθ ʧeə" />
 
         <ImageButton
             android:id="@+id/button_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_row="0"
+            android:layout_column="7"
+            android:layout_margin="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/white"
+            android:baselineAligned="false"
             android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
-            android:src="@drawable/ic_baseline_volume_up_24" />
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_volume_up_24"
+            android:tint="@color/purple_700" />
 
-    </LinearLayout>
+    </GridLayout>
 </layout>
 
     <!--Если все элементы списка выглядят одинаково,

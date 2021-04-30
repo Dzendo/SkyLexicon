@@ -1,7 +1,7 @@
-<h1 align="center"> SkyLexicon </h1> <br>
+<h1 align="center"> Sky Lexicon </h1> <br>
 <!--p align="center"-->
   <!--a href="https://gitpoint.co/"-->
-    <!--img alt="SkyLexicon" title="SkyLexicon"--> 
+    <!--img alt="Sky Lexicon" title="Sky Lexicon"--> 
     <!--src="http://i.imgur.com/VShxJHs.png" width="450"-->
   <!--/a-->
 <!--/p-->
@@ -44,7 +44,7 @@ Application architecture is built on [Jetpack](https://developer.android.com/jet
 **Available for Android.**
 
 <p align="center">
-  <img src = "prototype" width=350>
+  <img src = "https://github.com/Velinken/velinken.github.io/blob/main/2021-04-30-20-02-09.png" width=150>
 </p>
 
 ## Features
@@ -62,7 +62,7 @@ Here's what you can do with SkyLexicon:
 * View Alternate Meaning Usage
 
 <p align="center">
-  <img src = "prototype" width=700>
+  <img src = "prototip" width=700>
 </p>
 
 <p align="center">

@@ -15,14 +15,18 @@
 
         <EditText
             android:id="@+id/slovo"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:onClick="@{(view) -> viewModel.onSlovoClicked(view)}"
             android:text="Cup"
-            tools:layout_editor_absoluteX="96dp"
-            tools:layout_editor_absoluteY="13dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -45,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@id/slovo"
             app:layout_constraintVertical_bias="0.0"
             app:listData="@{viewModel.wordsListRecycler}"
-            tools:itemCount="16"
+            tools:itemCount="8"
             tools:listitem="@layout/text_row_item_sky_search" />
             <!-- app:listData зовется из BindingAdapters.kt
             и заменяет skySearchAdapter.submitList(it) в фрагменте -->
