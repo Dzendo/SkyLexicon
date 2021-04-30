@@ -1,7 +1,7 @@
-<h1 align="center"> SkyLexicon </h1> <br>
+<h1 align="center"> Sky Lexicon </h1> <br>
 <!--p align="center"-->
   <!--a href="https://gitpoint.co/"-->
-    <!--img alt="SkyLexicon" title="SkyLexicon"--> 
+    <!--img alt="Sky Lexicon" title="Sky Lexicon"--> 
     <!--src="http://i.imgur.com/VShxJHs.png" width="450"-->
   <!--/a-->
 <!--/p-->
