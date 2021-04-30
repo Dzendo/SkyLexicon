@@ -71,6 +71,7 @@
                     android:text="@{word.textEng}"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textSize="12dp"
+                    android:textColor="#7A8585"
                     tools:text="chair" />
 
                 <TextView
@@ -89,6 +90,7 @@
                     android:text="@{word.note}"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textSize="@dimen/text_size"
+                    android:textColor="#303F9F"
                     tools:text="в оркестре" />
             </LinearLayout>
 
@@ -126,8 +128,9 @@
                 android:id="@+id/button_sound"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
+                android:background="@color/teal_200"
                 android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
-                android:src="@android:drawable/ic_media_play"
+                android:src="@drawable/ic_baseline_volume_up_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
