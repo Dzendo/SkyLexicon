@@ -46,44 +46,49 @@
                 android:text="@{word.idRus}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textSize="@dimen/text_size" />
+                android:textSize="@dimen/text_size"
+                android:visibility="gone"
+                tools:text = "1938"/>
 
             <LinearLayout
                 android:id="@+id/linear_temp1"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:orientation="horizontal"
+                android:layout_marginBottom="8dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/sky_image_previewUrl"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <TextView
                     android:id="@+id/text_eng"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
                     android:text="@{word.textEng}"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_size"
+                    tools:text="chair" />
 
                 <TextView
                     android:id="@+id/text_rus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
                     android:text="@{word.textRus}"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_size"
+                    tools:text="место" />
 
                 <TextView
                     android:id="@+id/note"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/text_margin"
                     android:text="@{word.note}"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:textSize="@dimen/text_size" />
+                    android:textSize="@dimen/text_size"
+                    tools:text="в оркестре" />
             </LinearLayout>
 
             <TextView
@@ -97,12 +102,13 @@
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="@dimen/text_size"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/button_sound" />
+                app:layout_constraintTop_toBottomOf="@+id/button_sound"
+                android:visibility="gone"                tools:text = "[ bɑːθ ʧeə ]"/>
 
             <ImageButton
                 android:id="@+id/sky_image_previewUrl"
                 android:layout_width="96dp"
-                android:layout_height="72dp"
+                android:layout_height="match_parent"
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginBottom="2dp"
@@ -124,8 +130,10 @@
                 android:layout_height="38dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
                 android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
                 android:src="@drawable/ic_baseline_volume_up_24"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
