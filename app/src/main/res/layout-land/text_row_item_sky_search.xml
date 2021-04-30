@@ -47,6 +47,7 @@
         android:textSize="@dimen/text_size">
         <!--Вариант SkySearchListener-->
         <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
+        <!--Поставила GridLayout, что бы выровнять данные в строке-->
 
         <ImageButton
             android:id="@+id/sky_image_previewUrl"
