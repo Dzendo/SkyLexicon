@@ -16,92 +16,104 @@
             type="Meaning" />
     </data>
 
-    <!--androidx.core.widget.NestedScrollView
-        android:id="@+id/detail_scrollview"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:fillViewport="true"
-        tools:context=".ui.meanings.SkyMeaningsFragment"-->
+        tools:context=".ui.meanings.SkyMeaningsFragment">
+        <!--каждое поле название и значение в строку примитив, поменять на материал Edit -->
 
-        <!--LinearLayout-->
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:context=".ui.meanings.SkyMeaningsFragment">
-            <!--каждое поле название и значение в строку примитив, поменять на материал Edit -->
+        <ImageView
+            android:id="@+id/sky_image"
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:padding="2dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{viewModel.meaning.images[0].url}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <TextView
+            android:id="@+id/prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{ viewModel.meaning.prefix == null ? "" : viewModel.meaning.prefix + " "}'
+            android:textSize="22sp"
+            app:layout_constraintLeft_toRightOf="@id/sky_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="null" />
 
-            <TextView
-                android:id="@+id/ids"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:onClick="@{viewModel::onIdsClicked}"
-                android:text="@{viewModel.ids}"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="96dp"
-                tools:layout_editor_absoluteY="13dp" />
-            <!-- android:onClick="@{(view) -> viewModel.onIdsClicked(view)}" -->
-            <!-- android:onClick="@{viewModel::onIdsClicked}" -->
+        <TextView
+            android:id="@+id/slovo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.meaning.text}"
+            android:textSize="22sp"
+            app:layout_constraintLeft_toRightOf="@id/prefix"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Chair" />
 
-            <TextView
-                android:id="@+id/slovo"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:textSize="20sp"
-                android:layout_weight="1"
-                android:layout_gravity="end"
-                android:text="@{viewModel.meaning.text}" />
-            </LinearLayout>
+        <TextView
+            android:id="@+id/translation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{viewModel.meaning.translation.text + " "}'
+            android:textSize="22sp"
+            app:layout_constraintLeft_toRightOf="@id/sky_image"
+            app:layout_constraintTop_toBottomOf="@id/slovo"
+            tools:text="стул" />
 
-            <TextView
-                android:id="@+id/textview_json"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:text="@{viewModel.response}"
-                android:scrollbars = "vertical" />
+        <TextView
+            android:id="@+id/note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{ viewModel.meaning.translation.note == null ? "" : viewModel.meaning.translation.note}'
+            android:textSize="22sp"
+            app:layout_constraintLeft_toRightOf="@id/translation"
+            app:layout_constraintTop_toTopOf="@id/translation" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <TextView
+            android:id="@+id/ids"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="end"
+            android:text="@{viewModel.ids}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1938" />
+        <!-- android:onClick="@{(view) -> viewModel.onIdsClicked(view)}" -->
+        <!-- android:onClick="@{viewModel::onIdsClicked}" -->
 
-                <TextView
-                    android:id="@+id/prefix"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" prefix= " + viewModel.meaning.prefix}' />
+        <TextView
+            android:id="@+id/wordId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:gravity="end"
+            android:text='@{String.valueOf(viewModel.meaning.wordId)}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ids"
+            tools:text="838"/>
 
-                <TextView
-                    android:id="@+id/text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" text= " + viewModel.meaning.text}' />
+        <ImageButton
+            android:id="@+id/slovo_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onListenSoundClicked(viewModel.meaning.soundUrl)}"
+            android:src="@drawable/ic_baseline_volume_up_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sky_image" />
 
-                <TextView
-                    android:id="@+id/id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" id= " + viewModel.meaning.id}' />
-
-                <TextView
-                    android:id="@+id/wordId"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" wordId = " + String.valueOf(viewModel.meaning.wordId)}' />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+        <LinearLayout
+            android:id="@+id/linear3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:textSize="12sp"
+            app:layout_constraintTop_toTopOf="@id/slovo_sound"
+            app:layout_constraintStart_toEndOf="@id/slovo_sound">
 
             <TextView
                 android:id="@+id/partOfSpeechCode"
@@ -109,70 +121,73 @@
                 android:layout_height="wrap_content"
                 android:text='@{" partOfSpeechCode = " + viewModel.meaning.partOfSpeechCode}' />
 
-                <TextView
-                    android:id="@+id/transcription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" transcription= " + viewModel.meaning.transcription}' />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/transcription"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:text='@{" transcription= " + viewModel.meaning.transcription}' />
 
-                <TextView
-                    android:id="@+id/difficultyLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" difficultyLevel = " + String.valueOf(viewModel.meaning.difficultyLevel)}' />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/mnemonics"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" mnemonics= " + viewModel.meaning.mnemonics}' />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/translation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" translation= " + viewModel.meaning.translation.text}' />
-
-                <TextView
-                    android:id="@+id/note"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{ viewModel.meaning.translation.note == null ? "" : viewModel.meaning.translation.note}' />
-
-                <TextView
-                    android:id="@+id/updatedAt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text='@{" updatedAt= " + viewModel.meaning.updatedAt}' />
-
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linear4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@id/slovo_sound"
+            app:layout_constraintBottom_toBottomOf="@id/slovo_sound">
 
             <TextView
-                android:id="@+id/soundUrl"
-                android:layout_width="match_parent"
+                android:id="@+id/difficultyLevel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{" soundUrl= " + viewModel.meaning.soundUrl}' />
+                android:text='@{" difficultyLevel = " + String.valueOf(viewModel.meaning.difficultyLevel)}' />
+
+            <TextView
+                android:id="@+id/mnemonics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{" mnemonics= " + viewModel.meaning.mnemonics}' />
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/updatedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.meaning.updatedAt}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="2021-02-10 04:49:35"/>
+
+        <ImageButton
+            android:id="@+id/definition_sound"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{() -> viewModel.onListenSoundClicked(viewModel.meaning.definition.soundUrl)}"
+            android:src="@drawable/ic_baseline_volume_up_24"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/slovo_sound"/>
 
             <TextView
                 android:id="@+id/Definition"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text='@{" Definition text= " + viewModel.meaning.definition.text + "\n Definition soundUrl= " +viewModel.meaning.definition.soundUrl}' />
+                android:text='@{viewModel.meaning.definition.text}'
+                app:layout_constraintLeft_toRightOf="@id/definition_sound"
+                app:layout_constraintTop_toTopOf="@id/definition_sound"/>
+
+        <LinearLayout
+            android:id="@+id/linear6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/definition_sound"
+            >
 
             <TextView
                 android:id="@+id/examplessize"
@@ -183,7 +198,7 @@
             <ListView
                 android:id="@+id/examples"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="80dp" />
 
             <TextView
                 android:id="@+id/meaningsWithSimilarTranslationsize"
@@ -194,7 +209,7 @@
             <ListView
                 android:id="@+id/meaningsWithSimilarTranslation"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="80dp" />
 
             <TextView
                 android:id="@+id/alternativeTranslationssize"
@@ -205,7 +220,7 @@
             <ListView
                 android:id="@+id/alternativeTranslations"
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="80dp" />
 
             <TextView
                 android:id="@+id/imagessize"
@@ -213,22 +228,13 @@
                 android:layout_height="wrap_content"
                 android:text='@{" images= Список: " + viewModel.meaning.images.size + " шт"}' />
 
-            <ImageView
-                android:id="@+id/sky_image"
-                android:layout_width="200dp"
-                android:layout_height="150dp"
-                android:adjustViewBounds="true"
-                android:padding="2dp"
-                android:scaleType="centerCrop"
-                app:imageUrl="@{viewModel.meaning.images[0].url}"
-                tools:src="@tools:sample/backgrounds/scenic" />
-
             <ListView
                 android:id="@+id/images"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        <!--/LinearLayout-->
-    <!--/androidx.core.widget.NestedScrollView-->
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

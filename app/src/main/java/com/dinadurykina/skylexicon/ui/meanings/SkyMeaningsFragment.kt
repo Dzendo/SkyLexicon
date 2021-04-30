@@ -3,6 +3,7 @@ package com.dinadurykina.skylexicon.ui.meanings
 import android.content.Context
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -42,6 +43,7 @@ class SkyMeaningsFragment : Fragment() {
         binding.meaning = viewModel.meaning.value
 
         binding.ids.text = args.id
+        viewModel.ids = args.id
         viewModel.meaningsIds(args.id)
 
         /*binding.slovo.setOnClickListener {
@@ -50,7 +52,6 @@ class SkyMeaningsFragment : Fragment() {
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
         }*/
 
-        binding.textviewJson.movementMethod = ScrollingMovementMethod()
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -81,7 +82,13 @@ class SkyMeaningsFragment : Fragment() {
             }
         }
         binding.alternativeTranslations.setOnItemClickListener { parent, itemClicked, position, id ->
-            val slovo = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.text ?: "NoNoNo"
+            val engSlovo = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.text ?: "NoNoNo"
+            val rusSlovo = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.translation?.text ?: "Нет"
+            Toast.makeText(
+                thiscontext,
+                "Вы нажали $engSlovo -->  $rusSlovo",
+                Toast.LENGTH_SHORT
+            ).show()
             //val soundUri = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.
          //   findNavController().navigate(
          //       SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
@@ -97,10 +104,7 @@ class SkyMeaningsFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-        binding.Definition.setOnClickListener {
-            val soundUri = viewModel.meanings.value?.get(0)?.definition?.soundUrl
-            playSound(soundUri)
-        }
+
         binding.examples.setOnItemClickListener { _, itemClicked, position, id ->
             val soundUri = viewModel.meanings.value?.get(0)?.examples?.get(position)?.soundUrl
             playSound(soundUri)
@@ -109,6 +113,17 @@ class SkyMeaningsFragment : Fragment() {
                 soundUri,
                 Toast.LENGTH_SHORT
             ).show()
+        }
+
+
+        viewModel.listenSound.observe(viewLifecycleOwner) { soundUri ->
+            soundUri?.let { sounduri ->
+                val toast = Toast.makeText(thiscontext, "Sound: $sounduri", Toast.LENGTH_LONG)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+                playSound(sounduri)
+                viewModel.onSkySoundNavigated()
+            }
         }
     }
 }

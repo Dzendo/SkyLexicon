@@ -66,6 +66,10 @@ class SkyMeaningsViewModel : ViewModel() {
         _refresh.value = null
     }
 
+    private val _listenSound = MutableLiveData<String?>()
+    val listenSound
+        get() = _listenSound
+
     init {
    //     meaningsIds(ids)
     }
@@ -111,5 +115,11 @@ class SkyMeaningsViewModel : ViewModel() {
              }
              refreshTrue()    // notifyDataSetChanged()
          }
+    }
+    fun onListenSoundClicked(soundUrl:String) {
+        _listenSound.value = soundUrl
+    }
+    fun onSkySoundNavigated() {
+        _listenSound.value = null
     }
 }
