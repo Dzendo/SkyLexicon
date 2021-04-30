@@ -44,7 +44,7 @@ Application architecture is built on [Jetpack](https://developer.android.com/jet
 **Available for Android.**
 
 <p align="center">
-  <img src = "prototype" width=350>
+  <img src = "https://github.com/Velinken/velinken.github.io/blob/main/2021-04-30-20-02-09.png" width=350>
 </p>
 
 ## Features
@@ -62,7 +62,7 @@ Here's what you can do with SkyLexicon:
 * View Alternate Meaning Usage
 
 <p align="center">
-  <img src = "prototype" width=700>
+  <img src = "https://github.com/Velinken/velinken.github.io/blob/main/2021-04-30-20-02-09.png" width=700>
 </p>
 
 <p align="center">
