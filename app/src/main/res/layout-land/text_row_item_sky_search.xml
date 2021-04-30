@@ -108,8 +108,8 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@{word.transcription}"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="bɑːθ ʧeə"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size"
+            tools:text="bɑːθ ʧeə" />
 
         <ImageButton
             android:id="@+id/button_sound"
