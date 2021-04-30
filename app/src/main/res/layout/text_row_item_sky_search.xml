@@ -30,25 +30,26 @@
         android:layout_marginBottom="0dp"
         android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"
         android:textSize="@dimen/text_size"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="5dp">
+        app:cardCornerRadius="12dp"
+        app:cardElevation="15dp">
         <!--Вариант SkySearchListener-->
         <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:scrollbarDefaultDelayBeforeFade="400">
 
             <TextView
                 android:id="@+id/id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@{word.idRus}"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:textSize="@dimen/text_size"
                 android:visibility="gone"
-                tools:text = "1938"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="1938" />
 
             <LinearLayout
                 android:id="@+id/linear_temp1"
@@ -69,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:text="@{word.textEng}"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:textSize="@dimen/text_size"
+                    android:textSize="12dp"
                     tools:text="chair" />
 
                 <TextView
@@ -79,7 +80,7 @@
                     android:text="@{word.textRus}"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textSize="@dimen/text_size"
-                    tools:text="место" />
+                    tools:text="должность профессор" />
 
                 <TextView
                     android:id="@+id/note"
@@ -101,25 +102,22 @@
                 android:text="@{word.transcription}"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textSize="@dimen/text_size"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/button_sound"
-                android:visibility="gone"                tools:text = "[ bɑːθ ʧeə ]"/>
+                tools:text="[ bɑːθ ʧeə ]" />
 
             <ImageButton
                 android:id="@+id/sky_image_previewUrl"
-                android:layout_width="96dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="2dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
+                android:layout_width="115dp"
+                android:layout_height="87dp"
                 android:adjustViewBounds="true"
+                android:elevation="2dp"
                 android:onClick="@{() -> viewmodel.onSkyImageClicked(word.imageUrl)}"
                 android:padding="2dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{word.previewUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.013"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@tools:sample/backgrounds/scenic" />
@@ -127,12 +125,9 @@
             <ImageButton
                 android:id="@+id/button_sound"
                 android:layout_width="40dp"
-                android:layout_height="38dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
+                android:layout_height="wrap_content"
                 android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
-                android:src="@drawable/ic_baseline_volume_up_24"
+                android:src="@android:drawable/ic_media_play"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
