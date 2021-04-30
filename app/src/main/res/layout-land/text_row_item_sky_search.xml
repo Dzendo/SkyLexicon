@@ -108,15 +108,17 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@{word.transcription}"
             android:textAppearance="?attr/textAppearanceListItem"
-            tools:text="[ bɑːθ ʧeə ]"
+            tools:text="bɑːθ ʧeə"
             android:textSize="@dimen/text_size" />
 
         <ImageButton
             android:id="@+id/button_sound"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_row="0"
-            android:layout_column="6"
+            android:layout_column="7"
+            android:layout_margin="12dp"
+            android:layout_marginTop="12dp"
             android:background="@color/white"
             android:baselineAligned="false"
             android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
