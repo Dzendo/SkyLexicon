@@ -37,11 +37,10 @@
             type="com.dinadurykina.skylexicon.ui.search.SkySearchListener" /-->
     </data>
 
-    <LinearLayout
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_medium"
-
         android:layout_marginRight="@dimen/margin_medium"
         android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"
         android:orientation="horizontal"
@@ -69,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{word.idRus}"
+            android:visibility="gone"
             android:textSize="@dimen/text_size" />
 
         <TextView
@@ -78,7 +78,8 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@{word.textEng}"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size"
+            tools:text="chair"/>
 
         <TextView
             android:id="@+id/text_rus"
@@ -87,7 +88,8 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@{word.textRus}"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size"
+            tools:text="должность профессора"/>
 
         <TextView
             android:id="@+id/note"
@@ -96,7 +98,8 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@{word.note}"
             android:textAppearance="?attr/textAppearanceListItem"
-            android:textSize="@dimen/text_size" />
+            android:textSize="@dimen/text_size"
+            tools:text="в оркестре"/>
 
         <TextView
             android:id="@+id/transcription"
@@ -105,17 +108,23 @@
             android:layout_margin="@dimen/text_margin"
             android:text="@{word.transcription}"
             android:textAppearance="?attr/textAppearanceListItem"
+            tools:text="[ bɑːθ ʧeə ]"
             android:textSize="@dimen/text_size" />
 
         <ImageButton
             android:id="@+id/button_sound"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_row="0"
+            android:layout_column="6"
+            android:background="@color/white"
             android:baselineAligned="false"
             android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
-            android:src="@drawable/ic_baseline_volume_up_24" />
+            android:scaleType="center"
+            android:src="@drawable/ic_baseline_volume_up_24"
+            android:tint="@color/purple_700" />
 
-    </LinearLayout>
+    </GridLayout>
 </layout>
 
     <!--Если все элементы списка выглядят одинаково,
