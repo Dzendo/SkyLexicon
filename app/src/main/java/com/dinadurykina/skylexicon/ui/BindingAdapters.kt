@@ -25,6 +25,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dinadurykina.skylexicon.R
 import com.dinadurykina.skylexicon.network.WordRecycler
+import com.dinadurykina.skylexicon.ui.meanings.SkyMeaningImageAdapter
 import com.dinadurykina.skylexicon.ui.search.SkySearchAdapter
 
 // 11.2.1 В BindingAdapters создать BindingAdapter для преобразования imgUrl к URI со схемой HTTPS.
@@ -50,9 +51,13 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 // bindRecyclerView связывающий адаптер для listData, и он звонить submitList()на SkySearchAdapter:
 // используется в layout\fragment_sky_search.xml
 // для привязки / наблюдения за живыми данными viewModel.wordsListRecycler
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<WordRecycler>?) {
+@BindingAdapter("wordListData")
+fun bindWordRecyclerView(recyclerView: RecyclerView, data: List<WordRecycler>?) {
     (recyclerView.adapter as SkySearchAdapter).submitList(data)
+}
+@BindingAdapter("imageListData")
+fun bindImageRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
+    (recyclerView.adapter as SkyMeaningImageAdapter).submitList(data)
 }
 /*
 // 13.4 добавьте адаптер привязки для отображения MarsApiStatus в ImageView

@@ -48,7 +48,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/slovo"
             app:layout_constraintVertical_bias="0.0"
-            app:listData="@{viewModel.wordsListRecycler}"
+            app:wordListData="@{viewModel.wordsListRecycler}"
             tools:itemCount="8"
             tools:listitem="@layout/text_row_item_sky_search" />
             <!-- app:listData зовется из BindingAdapters.kt

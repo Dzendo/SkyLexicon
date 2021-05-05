@@ -1,3 +1,4 @@
+https://dictionary.skyeng.ru/doc/api/external
 Word{
 id	integer
 text	string

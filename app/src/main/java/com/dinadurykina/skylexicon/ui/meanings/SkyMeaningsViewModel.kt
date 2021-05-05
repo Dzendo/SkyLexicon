@@ -53,7 +53,11 @@ class SkyMeaningsViewModel : ViewModel() {
     val examples: MutableList<String?> =  arrayListOf()
     val meaningsWithSimilarTranslation: MutableList<String?> =  arrayListOf()
     val alternativeTranslations: MutableList<String?> =  arrayListOf()
-    val images: MutableList<String?> =  arrayListOf()
+
+    // список адресов картинок для ImageRecyclerView
+    private val _imagesUrlListRecycler = MutableLiveData<List<String?>>()
+    val imagesUrlListRecycler: LiveData<List<String?>>
+        get() = _imagesUrlListRecycler
 
     // Объявляю живой флажок, надо ли обновить адапреты ListView из фрагмента, (по умолчанию нет - null)
     private val _refresh: MutableLiveData<Boolean?> = MutableLiveData<Boolean?>(null)
@@ -88,7 +92,6 @@ class SkyMeaningsViewModel : ViewModel() {
              examples.clear()
              meaningsWithSimilarTranslation.clear()
              alternativeTranslations.clear()
-             images.clear()
              try {
                  val skyResult = skyRepository.getSkyMeanings(ids)
                  _response.value = "Meanings ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Meanings  \n"
@@ -108,7 +111,11 @@ class SkyMeaningsViewModel : ViewModel() {
                                  (it.translation.note ?: "")
                          })
 
-                     images.addAll( oneMeanig.images.map{it.url})
+                     _imagesUrlListRecycler.value = oneMeanig.images.map{it.url} +
+                             "//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50" +
+                             "//d2zkmv5t5kao9.cloudfront.net/images/19b11a8848201a3250ebc16339329a79.jpeg?w=200&h=150&q=50" +
+                             "//d2zkmv5t5kao9.cloudfront.net/images/1f4efec895bcc55352e9a47575b624d3.jpeg?w=200&h=150&q=50"
+
                  }
              } catch (e: Exception) {
                  _response.value = "Failure: ${e.message}"

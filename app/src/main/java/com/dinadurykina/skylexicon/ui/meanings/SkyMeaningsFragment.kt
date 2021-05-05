@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
 import com.dinadurykina.skylexicon.ui.playSound
+import com.dinadurykina.skylexicon.ui.search.SkySearchAdapter
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -48,6 +49,18 @@ class SkyMeaningsFragment : Fragment() {
             findNavController().navigate(
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
         }*/
+        //<!--Вариант SkySearchListener-->
+        /*val skySearchAdapter = SkySearchAdapter(SkySearchListener { id ->
+            Toast.makeText(thisContext, id, Toast.LENGTH_LONG).show()
+            skySearchViewModel.onSkySearchClicked(id)
+        })*/
+
+        //<!--Вариант SkySearchViewModel-->
+        binding.skyImage.adapter = SkyMeaningImageAdapter(viewModel)
+        // обновление списка skySearchAdapter.submitList(it) вынесено
+        // в fragment_sky_search.xml через BindingAdapters.kt
+
+
 
         // Inflate the layout for this fragment
         return binding.root
@@ -65,16 +78,12 @@ class SkyMeaningsFragment : Fragment() {
         val alternativeTranslationsAdapter = ArrayAdapter<String?>(thiscontext, android.R.layout.simple_list_item_1, viewModel.alternativeTranslations)
         binding.alternativeTranslations.adapter = alternativeTranslationsAdapter
 
-        val imagesAdapter = ArrayAdapter<String?>(thiscontext, android.R.layout.simple_list_item_1, viewModel.images)
-        binding.images.adapter = imagesAdapter
-
         viewModel.refresh.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true. Наблюдаемое состояние истинно.
 
                 examplesAdapter.notifyDataSetChanged()
                 meaningsWithSimilarTranslationAdapter.notifyDataSetChanged()
                 alternativeTranslationsAdapter.notifyDataSetChanged()
-                imagesAdapter.notifyDataSetChanged()
                 viewModel.refreshNull()
             }
         }
