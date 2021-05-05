@@ -33,11 +33,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility(JavaVersion.VERSION_11)
+        targetCompatibility(JavaVersion.VERSION_11)
     }
+
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = 11
     }
 }
 
@@ -60,9 +61,9 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha01' // ViewModelScope,
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01'
 
-    //  Coroutines поддержка основных библиотек сопрограмм Kotlin
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3"
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.3"
+    //  Coroutines поддержка основных библиотек сопрограмм Kotlin 1.4.3
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-RC'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-RC'
 
     // Retrofit2, https://square.github.io/retrofit/ 8.8.1 Retrofit with Moshi Converter
     implementation "com.squareup.retrofit2:retrofit:2.9.0"

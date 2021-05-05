@@ -79,7 +79,7 @@ class SkySearchFragment : Fragment() {
 
         skySearchViewModel.listenSound.observe(viewLifecycleOwner) { soundUri ->
             soundUri?.let { sounduri ->
-                val toast = Toast.makeText(thisContext, "Sound: $sounduri", Toast.LENGTH_LONG)
+                val toast = Toast.makeText(thisContext, "[\b Transcription. ]", Toast.LENGTH_LONG)
                 toast.setGravity(Gravity.CENTER, 0, 0)
                 toast.show()
                 playSound(sounduri)
