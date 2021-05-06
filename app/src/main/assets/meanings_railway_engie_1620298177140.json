@@ -1,0 +1,191 @@
+[
+  {
+    "id": "228855",
+    "wordId": 162790,
+    "difficultyLevel": null,
+    "partOfSpeechCode": "ph",
+    "prefix": "a",
+    "text": "railway engine",
+    "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=railway+engine",
+    "transcription": "ˈreɪlweɪ endʒɪn",
+    "properties": {},
+    "updatedAt": "2021-04-12 22:22:59",
+    "mnemonics": null,
+    "translation": {
+      "text": "паровоз",
+      "note": null
+    },
+    "images": [
+      {
+        "url": "//d2zkmv5t5kao9.cloudfront.net/images/1f4efec895bcc55352e9a47575b624d3.jpeg?w=200&h=150&q=50"
+      }
+    ],
+    "definition": {
+      "text": "Locomotive on the railways which carries wagons.",
+      "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=Locomotive+on+the+railways+which+carries+wagons."
+    },
+    "examples": [
+      {
+        "text": "The speed of a [railway engine] is 42 km per hour when no compartment is attached.",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=The+speed+of+a+railway+engine+is+42+km+per+hour+when+no+compartment+is+attached."
+      },
+      {
+        "text": "This is a very old [railway engine].",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=This+is+a+very+old+railway+engine."
+      }
+    ],
+    "meaningsWithSimilarTranslation": [
+      {
+        "meaningId": 228855,
+        "frequencyPercent": "100.0",
+        "partOfSpeechAbbreviation": "фраза",
+        "translation": {
+          "text": "паровоз",
+          "note": null
+        }
+      }
+    ],
+    "alternativeTranslations": [
+      {
+        "text": "take care",
+        "translation": {
+          "text": "быть осторожным",
+          "note": null
+        }
+      },
+      {
+        "text": "to advantage",
+        "translation": {
+          "text": "наиболее выгодным образом",
+          "note": ""
+        }
+      },
+      {
+        "text": "in time",
+        "translation": {
+          "text": "вовремя",
+          "note": null
+        }
+      },
+      {
+        "text": "likes of",
+        "translation": {
+          "text": "подобные",
+          "note": "кому-либо или чему-либо; разг."
+        }
+      },
+      {
+        "text": "in case",
+        "translation": {
+          "text": "на тот случай, если",
+          "note": null
+        }
+      },
+      {
+        "text": "at home",
+        "translation": {
+          "text": "на домашнем поле",
+          "note": ""
+        }
+      },
+      {
+        "text": "take part",
+        "translation": {
+          "text": "принимать участие",
+          "note": "в чём-либо"
+        }
+      },
+      {
+        "text": "be born",
+        "translation": {
+          "text": "рождаться",
+          "note": null
+        }
+      },
+      {
+        "text": "go swimming",
+        "translation": {
+          "text": "пойти купаться",
+          "note": ""
+        }
+      },
+      {
+        "text": "go backpacking",
+        "translation": {
+          "text": "заниматься пешим туризмом",
+          "note": null
+        }
+      },
+      {
+        "text": "It’s like",
+        "translation": {
+          "text": "похоже на",
+          "note": "что-либо"
+        }
+      },
+      {
+        "text": "go camping",
+        "translation": {
+          "text": "отправляться в поход",
+          "note": ""
+        }
+      },
+      {
+        "text": "year ago",
+        "translation": {
+          "text": "год назад",
+          "note": null
+        }
+      },
+      {
+        "text": "have dinner",
+        "translation": {
+          "text": "ужинать",
+          "note": null
+        }
+      },
+      {
+        "text": "on demand",
+        "translation": {
+          "text": "по запросу",
+          "note": null
+        }
+      },
+      {
+        "text": "let slide",
+        "translation": {
+          "text": "пускать на самотёк",
+          "note": ""
+        }
+      },
+      {
+        "text": "Things happen.",
+        "translation": {
+          "text": "Всякое случается.",
+          "note": ""
+        }
+      },
+      {
+        "text": "go snorkeling",
+        "translation": {
+          "text": "плавать под водой с маской и трубкой",
+          "note": ""
+        }
+      },
+      {
+        "text": "used to",
+        "translation": {
+          "text": "иметь обыкновение",
+          "note": "делать что-либо в прошлом"
+        }
+      },
+      {
+        "text": "one day",
+        "translation": {
+          "text": "однажды",
+          "note": null
+        }
+      }
+    ]
+  }
+]

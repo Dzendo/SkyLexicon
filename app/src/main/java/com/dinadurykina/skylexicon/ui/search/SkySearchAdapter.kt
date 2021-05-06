@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.dinadurykina.skylexicon.databinding.TextRowItemSkySearchBinding
+import com.dinadurykina.skylexicon.databinding.RowItemSkySearchBinding
 import com.dinadurykina.skylexicon.network.WordRecycler
 
 /** An adapter
@@ -20,20 +20,20 @@ import com.dinadurykina.skylexicon.network.WordRecycler
 //class SkySearchAdapter(val clickListener: SkySearchListener):
 //<!--Вариант SkySearchViewModel-->
 class SkySearchAdapter(private val skySearchViewModel: SkySearchViewModel):
-    ListAdapter<WordRecycler, SkyViewHolder>(SkyDiffCallback()) {
+    ListAdapter<WordRecycler, WordViewHolder>(SkyDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkyViewHolder {
-        return SkyViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
+        return WordViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: SkyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val item = getItem(position)
         //<!--Вариант SkySearchListener-->
         //holder.bind(item, clickListener)
         holder.bind(item, skySearchViewModel)
     }
 }
-class SkyViewHolder private constructor(private val binding: TextRowItemSkySearchBinding) :
+class WordViewHolder private constructor(private val binding: RowItemSkySearchBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     //<!--Вариант SkySearchListener-->
@@ -46,11 +46,11 @@ class SkyViewHolder private constructor(private val binding: TextRowItemSkySearc
     }
 
     companion object {
-        fun from(parent: ViewGroup): SkyViewHolder {
+        fun from(parent: ViewGroup): WordViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding =
-                TextRowItemSkySearchBinding.inflate(layoutInflater, parent, false)
-            return SkyViewHolder(binding)
+                RowItemSkySearchBinding.inflate(layoutInflater, parent, false)
+            return WordViewHolder(binding)
         }
     }
 }

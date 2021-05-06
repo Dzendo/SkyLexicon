@@ -50,7 +50,7 @@
             app:layout_constraintVertical_bias="0.0"
             app:wordListData="@{viewModel.wordsListRecycler}"
             tools:itemCount="8"
-            tools:listitem="@layout/text_row_item_sky_search" />
+            tools:listitem="@layout/row_item_sky_search" />
             <!-- app:listData зовется из BindingAdapters.kt
             и заменяет skySearchAdapter.submitList(it) в фрагменте -->
 

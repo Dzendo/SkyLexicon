@@ -23,6 +23,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.repository.SkyRepository
 import kotlinx.coroutines.launch
@@ -43,6 +44,7 @@ class SkyMeaningsViewModel : ViewModel() {
     private val _meaning = MutableLiveData<Meaning>()  // Данные для одного значения
     val meaning: LiveData<Meaning>
         get() = _meaning
+
     // Для списка значений слова расшифрованного
     private val _meanings = MutableLiveData<List<Meaning>>()  // Содержит все данные
     val meanings: LiveData<List<Meaning>>
@@ -55,9 +57,9 @@ class SkyMeaningsViewModel : ViewModel() {
     val alternativeTranslations: MutableList<String?> =  arrayListOf()
 
     // список адресов картинок для ImageRecyclerView
-    private val _imagesUrlListRecycler = MutableLiveData<List<String?>>()
-    val imagesUrlListRecycler: LiveData<List<String?>>
-        get() = _imagesUrlListRecycler
+    private val _imagesListRecycler = MutableLiveData<List<ImageUrl>>()
+    val imagesListRecycler: LiveData<List<ImageUrl>>
+        get() = _imagesListRecycler
 
     // Объявляю живой флажок, надо ли обновить адапреты ListView из фрагмента, (по умолчанию нет - null)
     private val _refresh: MutableLiveData<Boolean?> = MutableLiveData<Boolean?>(null)
@@ -111,10 +113,10 @@ class SkyMeaningsViewModel : ViewModel() {
                                  (it.translation.note ?: "")
                          })
 
-                     _imagesUrlListRecycler.value = oneMeanig.images.map{it.url} +
-                             "//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50" +
-                             "//d2zkmv5t5kao9.cloudfront.net/images/19b11a8848201a3250ebc16339329a79.jpeg?w=200&h=150&q=50" +
-                             "//d2zkmv5t5kao9.cloudfront.net/images/1f4efec895bcc55352e9a47575b624d3.jpeg?w=200&h=150&q=50"
+                     _imagesListRecycler.value = oneMeanig.images +
+                            ImageUrl("//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50") +
+                            ImageUrl("//d2zkmv5t5kao9.cloudfront.net/images/19b11a8848201a3250ebc16339329a79.jpeg?w=200&h=150&q=50") +
+                            ImageUrl( "//d2zkmv5t5kao9.cloudfront.net/images/1f4efec895bcc55352e9a47575b624d3.jpeg?w=200&h=150&q=50")
 
                  }
              } catch (e: Exception) {

@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dinadurykina.skylexicon.R
+import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.WordRecycler
 import com.dinadurykina.skylexicon.ui.meanings.SkyMeaningImageAdapter
 import com.dinadurykina.skylexicon.ui.search.SkySearchAdapter
@@ -56,7 +57,7 @@ fun bindWordRecyclerView(recyclerView: RecyclerView, data: List<WordRecycler>?) 
     (recyclerView.adapter as SkySearchAdapter).submitList(data)
 }
 @BindingAdapter("imageListData")
-fun bindImageRecyclerView(recyclerView: RecyclerView, data: List<String>?) {
+fun bindImageRecyclerView(recyclerView: RecyclerView, data: List<ImageUrl>?) {
     (recyclerView.adapter as SkyMeaningImageAdapter).submitList(data)
 }
 /*

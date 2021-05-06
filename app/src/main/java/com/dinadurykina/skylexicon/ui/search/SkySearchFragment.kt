@@ -39,6 +39,7 @@ class SkySearchFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = skySearchViewModel
 
+        // TODO надо поменять на двухсторонний адаптер прямо из viewmodel
         binding.slovo.setText(skySearchViewModel.slovo)
         // skySearchViewModel.searchSlovo(args.slovo)
 
@@ -60,6 +61,7 @@ class SkySearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // событие нажатия на item -> переход к второму экрану meanings
         skySearchViewModel.navigateToSkyMeanings.observe(viewLifecycleOwner) { id ->
             id?.let {
                 this.findNavController().navigate(
@@ -68,6 +70,7 @@ class SkySearchFragment : Fragment() {
                 skySearchViewModel.onSkyMeaningsNavigated()
             }
         }
+        // событие нажатия на картинку -> показ большой картинки в окошке alert
         skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->
             imageUri?.let { uri ->
                 this.findNavController().navigate(
@@ -76,7 +79,7 @@ class SkySearchFragment : Fragment() {
                 skySearchViewModel.onShowImageNavigated()
             }
         }
-
+        // событие нажатия на динамик -> вызывапет говорилку с soundUri
         skySearchViewModel.listenSound.observe(viewLifecycleOwner) { soundUri ->
             soundUri?.let { sounduri ->
                 val toast = Toast.makeText(thisContext, "[\b Transcription. ]", Toast.LENGTH_LONG)

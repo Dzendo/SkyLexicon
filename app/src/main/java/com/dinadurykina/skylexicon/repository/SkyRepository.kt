@@ -31,12 +31,12 @@ import kotlinx.coroutines.withContext
 class SkyRepository {
     // Для списка найденных слов расшифрованного
     private val _listWord = MutableLiveData<List<Word>>()  // Содержит все данные
-    //  val listWord: LiveData<List<Word>>
-    //      get() = _listWord
+      val listWord: LiveData<List<Word>>
+          get() = _listWord
 
     private val _listWordRecycler = MutableLiveData<List<WordRecycler>>()  // Содержит все данные
-    //  val listWordRecycler: LiveData<List<WordRecycler>>
-    //      get() = _listWordRecycler
+      val listWordRecycler: LiveData<List<WordRecycler>>
+          get() = _listWordRecycler
 
     suspend fun getSkySearch(slovo: String): LiveData<List<Word>> {
         val rezult: List<Word>
@@ -44,7 +44,7 @@ class SkyRepository {
             rezult = SkyApi.retrofitService.getSearch(slovo)
         }
         _listWord.value = rezult
-        return _listWord
+        return listWord
     }
 
     private val _listMeaning = MutableLiveData<List<Meaning>>()  // Содержит все данные
@@ -57,7 +57,17 @@ class SkyRepository {
             rezult = SkyApi.retrofitService.getMeanings(ids)
         }
         _listMeaning.value = rezult
+        _meaning0.value = rezult[0]
         return listMeaning
+    }
+
+    private val _meaning0 = MutableLiveData<Meaning>()  // Содержит все данные
+    val meaning0: LiveData<Meaning>
+        get() = _meaning0
+
+    suspend fun getSkyMeaning0(ids: String): LiveData<Meaning> {  // = SkyApi.retrofitService.getMeanings(ids)
+        _meaning0.value = getSkyMeanings(ids).value?.get(0)
+        return meaning0
     }
 
     suspend fun getSkySearchRecycler(slovo: String): LiveData<List<WordRecycler>> {
@@ -80,7 +90,7 @@ class SkyRepository {
                 ))
             }
         _listWordRecycler.value = mutableListRecycler
-        return _listWordRecycler
+        return listWordRecycler
     }
 }
 

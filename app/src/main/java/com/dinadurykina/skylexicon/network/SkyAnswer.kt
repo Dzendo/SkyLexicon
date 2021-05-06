@@ -60,9 +60,9 @@ data class Meaning(
     val transcription: String, //"ʧeə", IPA phonetic transcription.
     val properties: @RawValue  Properties,
     val updatedAt: String, //"2021-02-10 04:49:35",
-    val mnemonics: String?, //null,
+    val mnemonics: String?, //null, Поговорка как выучить-запомнить слово-перевод
     val translation: @RawValue Translation,
-    val images: List<@RawValue Image>,  // collection of an images. 
+    val images: List<@RawValue ImageUrl>,  // collection of an images.
     val definition: @RawValue Definition,
     val examples: List<@RawValue Example>, // Usage examples.
     val meaningsWithSimilarTranslation: List<@RawValue MeaningsWithSimilarTranslation>, // Collection of meanings with similar translations.
@@ -103,7 +103,7 @@ data class AlternativeTranslations(
     val translation: @RawValue Translation
 )
 
-data class Image(
+data class ImageUrl(
     val url: String // "//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50"
 )
 

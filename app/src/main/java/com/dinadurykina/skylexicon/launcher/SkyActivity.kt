@@ -24,7 +24,7 @@ class SkyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivitySkyBinding.inflate(layoutInflater)
-        // Надувает главный экран из своего activity_sky.xml и запоминает адрес в переменной
+        // Надувает главный экран из своего activity_sky.xml и запоминает адрес в переменной mainBinding
         setContentView(mainBinding.root)
 
         // Добавляет меню три точки для этого фрагмента на месте toolbar указанному ЛВ в xml

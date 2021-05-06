@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-
+// Все комментарии есть в ToDo
 package com.dinadurykina.skylexicon.launcher
 
 import android.app.Application

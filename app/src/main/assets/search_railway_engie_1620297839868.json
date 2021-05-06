@@ -1,0 +1,320 @@
+[
+  {
+    "id": 162790,
+    "text": "railway engine",
+    "meanings": [
+      {
+        "id": 228855,
+        "partOfSpeechCode": "ph",
+        "translation": {
+          "text": "паровоз",
+          "note": null
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/1f4efec895bcc55352e9a47575b624d3.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/1f4efec895bcc55352e9a47575b624d3.jpeg?w=640&h=480",
+        "transcription": "ˈreɪlweɪ endʒɪn",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=railway+engine"
+      }
+    ]
+  },
+  {
+    "id": 9379,
+    "text": "boiler",
+    "meanings": [
+      {
+        "id": 114337,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровой котёл",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/bdc5c98db154363730e7c1acf74de81c.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/bdc5c98db154363730e7c1acf74de81c.jpeg?w=640&h=480",
+        "transcription": "ˈbɔɪlə",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=boiler"
+      },
+      {
+        "id": 114338,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "бойлер",
+          "note": "устройство для кипячения воды и поддержания её температуры"
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/b6d5b8775fa9acb0399f2b744d4526b7.png?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/b6d5b8775fa9acb0399f2b744d4526b7.png?w=640&h=480",
+        "transcription": "ˈbɔɪlə",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=boiler"
+      }
+    ]
+  },
+  {
+    "id": 164311,
+    "text": "steam train",
+    "meanings": [
+      {
+        "id": 231604,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "поезд на паровой тяге",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/28bd76d1896947c700abbf3ad1e17a58.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/28bd76d1896947c700abbf3ad1e17a58.jpeg?w=640&h=480",
+        "transcription": "stiːm treɪn",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam+train"
+      }
+    ]
+  },
+  {
+    "id": 9542,
+    "text": "steaming",
+    "meanings": [
+      {
+        "id": 126927,
+        "partOfSpeechCode": "j",
+        "translation": {
+          "text": "выделяющий пар",
+          "note": null
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/52c1cb475a50be328ec79b465dcbf105.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/52c1cb475a50be328ec79b465dcbf105.jpeg?w=640&h=480",
+        "transcription": "ˈstiːmɪŋ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steaming"
+      },
+      {
+        "id": 126928,
+        "partOfSpeechCode": "r",
+        "translation": {
+          "text": "паровой",
+          "note": null
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/34b658d354e4833dbe241d5e1732ead4.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/34b658d354e4833dbe241d5e1732ead4.jpeg?w=640&h=480",
+        "transcription": "ˈstiːmɪŋ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steaming"
+      }
+    ]
+  },
+  {
+    "id": 27675,
+    "text": "steam-powered",
+    "meanings": [
+      {
+        "id": 161086,
+        "partOfSpeechCode": "j",
+        "translation": {
+          "text": "на паровой тяге",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/e1599c866cdbf1a810aeaa98a13a5c33.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/e1599c866cdbf1a810aeaa98a13a5c33.jpeg?w=640&h=480",
+        "transcription": "ˈstiːmˌpaʊəd",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam-powered"
+      }
+    ]
+  },
+  {
+    "id": 95146,
+    "text": "steam engine",
+    "meanings": [
+      {
+        "id": 225998,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровой двигатель",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/c2fc2467a1588c09f2afcca17b07bbef.png?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/c2fc2467a1588c09f2afcca17b07bbef.png?w=640&h=480",
+        "transcription": "stiːm ˈɛnʤɪn",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam+engine"
+      }
+    ]
+  },
+  {
+    "id": 98068,
+    "text": "steam boiler",
+    "meanings": [
+      {
+        "id": 147411,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровой котёл",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/153e1c2921acbca036841ad213ab5912.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/153e1c2921acbca036841ad213ab5912.jpeg?w=640&h=480",
+        "transcription": "stiːm ˈbɔɪlə",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam+boiler"
+      }
+    ]
+  },
+  {
+    "id": 71798,
+    "text": "vapor bath",
+    "meanings": [
+      {
+        "id": 38717,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровая ванна",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/ea850cfde3c76996c5a6e978ce8d8bbf.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/ea850cfde3c76996c5a6e978ce8d8bbf.jpeg?w=640&h=480",
+        "transcription": "ˈveɪpə bɑːθ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=vapor+bath"
+      },
+      {
+        "id": 38716,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровая баня",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/25a56c80e345333124641db7514c08ab.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/25a56c80e345333124641db7514c08ab.jpeg?w=640&h=480",
+        "transcription": "ˈveɪpə bɑːθ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=vapor+bath"
+      }
+    ]
+  },
+  {
+    "id": 172131,
+    "text": "steam chamber",
+    "meanings": [
+      {
+        "id": 246022,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровая камера",
+          "note": null
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/243406ca5962f9cf43bea2f4e542d29f.png?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/243406ca5962f9cf43bea2f4e542d29f.png?w=640&h=480",
+        "transcription": "stiːm ˈʧeɪmbə",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam+chamber"
+      }
+    ]
+  },
+  {
+    "id": 173652,
+    "text": "valve compartment",
+    "meanings": [
+      {
+        "id": 247636,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровая камера",
+          "note": null
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/a0258b30e895f4776ce6d57bbc65e259.png?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/a0258b30e895f4776ce6d57bbc65e259.png?w=640&h=480",
+        "transcription": "vælv kəmˈpɑːtmənt",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=valve+compartment"
+      }
+    ]
+  },
+  {
+    "id": 99413,
+    "text": "steam heating",
+    "meanings": [
+      {
+        "id": 10866,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровое отопление",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/d09c7fe9b49974777399e373a7d5eb0c.png?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/d09c7fe9b49974777399e373a7d5eb0c.png?w=640&h=480",
+        "transcription": "stiːm ˈhiːtɪŋ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam+heating"
+      }
+    ]
+  },
+  {
+    "id": 118740,
+    "text": "steamed pudding",
+    "meanings": [
+      {
+        "id": 164869,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровой пудинг",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/98341dc0372d1fdd91d31003042b08ae.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/98341dc0372d1fdd91d31003042b08ae.jpeg?w=640&h=480",
+        "transcription": "stiːmd ˈpʊdɪŋ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steamed+pudding"
+      }
+    ]
+  },
+  {
+    "id": 102848,
+    "text": "steam turbine",
+    "meanings": [
+      {
+        "id": 197702,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровая турбина",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/b2972afe57472ce3235d8615904716c1.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/b2972afe57472ce3235d8615904716c1.jpeg?w=640&h=480",
+        "transcription": "stiːm ˈtɜːbɪn",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam+turbine"
+      }
+    ]
+  },
+  {
+    "id": 88829,
+    "text": "vapour bath",
+    "meanings": [
+      {
+        "id": 213302,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровая ванна",
+          "note": null
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/e2018114f4362ddae4a5aa346742d361.png?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/e2018114f4362ddae4a5aa346742d361.png?w=640&h=480",
+        "transcription": "ˈveɪpə bɑːθ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=vapour+bath"
+      },
+      {
+        "id": 213301,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровая баня",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/25a56c80e345333124641db7514c08ab.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/25a56c80e345333124641db7514c08ab.jpeg?w=640&h=480",
+        "transcription": "ˈveɪpə bɑːθ",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=vapour+bath"
+      }
+    ]
+  },
+  {
+    "id": 77049,
+    "text": "steam iron",
+    "meanings": [
+      {
+        "id": 159757,
+        "partOfSpeechCode": "n",
+        "translation": {
+          "text": "паровой утюг",
+          "note": ""
+        },
+        "previewUrl": "//d2zkmv5t5kao9.cloudfront.net/images/531fac650fecd42eb1dab36f274e3580.jpeg?w=96&h=72",
+        "imageUrl": "//d2zkmv5t5kao9.cloudfront.net/images/531fac650fecd42eb1dab36f274e3580.jpeg?w=640&h=480",
+        "transcription": "stiːm ˈaɪən",
+        "soundUrl": "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=steam+iron"
+      }
+    ]
+  }
+]

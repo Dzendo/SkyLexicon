@@ -24,8 +24,8 @@
         <import type="android.view.ViewGroup" />
 
         <variable
-            name="imageUrl"
-            type="String" />
+            name="image"
+            type="com.dinadurykina.skylexicon.network.ImageUrl" />
 
 
         <!--Вариант SkySearchViewModel-->
@@ -52,7 +52,7 @@
             android:adjustViewBounds="true"
             android:padding="2dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{imageUrl}"
+            app:imageUrl="@{image.url}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
