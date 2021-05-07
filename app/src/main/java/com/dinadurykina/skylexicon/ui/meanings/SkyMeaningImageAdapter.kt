@@ -16,6 +16,10 @@ import com.dinadurykina.skylexicon.network.ImageUrl
  * Он адаптирует данные так, чтобы их можно было отображать в формате ViewHolder.
  * A RecyclerView использует адаптер, чтобы выяснить, как отображать данные на экране.
  * Список это URL картинок одной или много List<String>
+ * https://medium.com/swlh/android-recyclerview-with-data-binding-and-coroutine-3192097a0496
+ * https://medium.com/@ericampire
+ * https://ziginsider.github.io/Multiple_Row_Types_In_Recyclerview/
+ * https://github.com/ziginsider/MultipleRowTypesInRecyclerViewDemo.git
  */
 //<!--Вариант SkySearchListener-->
 //class SkySearchAdapter(val clickListener: SkySearchListener):
@@ -54,6 +58,7 @@ class ImageViewHolder private constructor(private val binding: RowItemImageMeani
             return ImageViewHolder(binding)
         }
     }
+
 }
 
 class ImageDiffCallback : DiffUtil.ItemCallback<ImageUrl>() {

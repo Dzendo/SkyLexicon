@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
 import com.dinadurykina.skylexicon.ui.playSound
 
@@ -50,6 +51,8 @@ class SkySearchFragment : Fragment() {
         })*/
 
         //<!--Вариант SkySearchViewModel-->
+        binding.recyclerViewSky.layoutManager =
+            StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerViewSky.adapter = SkySearchAdapter(skySearchViewModel)
         // обновление списка skySearchAdapter.submitList(it) вынесено
         // в fragment_sky_search.xml через BindingAdapters.kt

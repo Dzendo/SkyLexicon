@@ -45,6 +45,18 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
             .into(imgView)
     }
 }
+// Пример не используется
+@BindingAdapter(value = ["setImageUrl"])
+fun ImageView.bindImageUrl(url: String?) {
+    if (url != null && url.isNotBlank()) {
+        val uri = url.toUri().buildUpon().scheme("https").build()
+        Glide.with(this)
+          //.load(url)
+            .load(uri)
+            .into(this)
+    }
+}
+
 // RequestOptions к Glide вызову, чтобы добавить заполнитель,
 // который отображает изображение во время загрузки изображения,
 // и изображение ошибки, если его невозможно получить.
@@ -60,6 +72,15 @@ fun bindWordRecyclerView(recyclerView: RecyclerView, data: List<WordRecycler>?) 
 fun bindImageRecyclerView(recyclerView: RecyclerView, data: List<ImageUrl>?) {
     (recyclerView.adapter as SkyMeaningImageAdapter).submitList(data)
 }
+// Пример не используется
+@BindingAdapter(value = ["setAdapter"])
+fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<*>) {
+    this.run {
+        this.setHasFixedSize(true)
+        this.adapter = adapter
+    }
+}
+
 /*
 // 13.4 добавьте адаптер привязки для отображения MarsApiStatus в ImageView
 // и установите видимость представления в зависимости от значения состояния:

@@ -13,7 +13,8 @@
   ~ See the License for the specific language governing permissions and
   ~ limitations under the License.
   -->
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -40,8 +41,7 @@
 
     </data>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -50,18 +50,13 @@
             android:layout_width="200dp"
             android:layout_height="150dp"
             android:adjustViewBounds="true"
-            android:padding="2dp"
             android:scaleType="centerCrop"
             app:imageUrl="@{image.url}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/backgrounds/scenic" />
         <!--app:imageUrl="@{viewModel.meaning.images[0].url}"-->
-
-       <!-- android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"-->
+        <!-- android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"-->
         <!--Вариант SkySearchListener-->
         <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 </layout>
