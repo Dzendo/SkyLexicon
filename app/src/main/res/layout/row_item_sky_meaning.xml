@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?><!-- Макет для одного элемента данных -->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.ViewGroup" />
+
+        <variable
+            name="viewmodel"
+            type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
+
+        <variable
+            name="meaning"
+            type="com.dinadurykina.skylexicon.network.Meaning" />
+
+        <variable
+            name="dataitem"
+            type="String" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/teal_200"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        android:textSize="@dimen/text_size"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="15dp">
+        <!--Вариант SkySearchListener-->
+        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
+        <!--android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarDefaultDelayBeforeFade="400">
+
+            <TextView
+                android:id="@+id/dataItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{dataitem}"
+                android:textSize="@dimen/text_size"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Стул пример" />
+
+            <ImageButton
+                android:id="@+id/button_sound"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@color/teal_200"
+                android:onClick="@{() -> viewmodel.onListenSoundClicked(meaning.soundUrl)}"
+                android:src="@drawable/ic_baseline_volume_up_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
+
+    <!--Если все элементы списка выглядят одинаково,
+        вы можете использовать один и тот же макет для всех,
+         но это не обязательно-->

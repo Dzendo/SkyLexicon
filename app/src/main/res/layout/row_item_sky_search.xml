@@ -5,8 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--import type="com.app4web.asdzendo.todo.ui.BindingConverters"  alias="BC"/-->
-
         <variable
             name="word"
             type="com.dinadurykina.skylexicon.network.WordRecycler" />

@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -22,13 +21,13 @@ class SkyMeaningsFragment : Fragment() {
     private lateinit var thisContext: Context
     private val args: SkyMeaningsFragmentArgs by navArgs()
     private lateinit var binding: FragmentSkyMeaningsBinding
-     val skyMeaningsViewModel: SkyMeaningsViewModel by viewModels()
+    val skyMeaningsViewModel: SkyMeaningsViewModel by viewModels()
 
     override fun onCreateView(
-            inflater: LayoutInflater, container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View {
-        container?.let{ thisContext = it.context }
+        container?.let { thisContext = it.context }
 
         // Inflate the layout for this fragment
         binding = FragmentSkyMeaningsBinding.inflate(inflater)
@@ -37,11 +36,13 @@ class SkyMeaningsFragment : Fragment() {
         binding.lifecycleOwner = this
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = skyMeaningsViewModel
-        binding.meaning = skyMeaningsViewModel.meaning.value
 
-       // binding.ids.text = args.id
+
+        // binding.ids.text = args.id
         skyMeaningsViewModel.ids = args.id
         skyMeaningsViewModel.meaningsIds(args.id)
+
+        binding.meaning = skyMeaningsViewModel.meaning.value
 
         //<!--Вариант SkySearchListener-->
         /*val skySearchAdapter = SkySearchAdapter(SkySearchListener { id ->
@@ -54,6 +55,11 @@ class SkyMeaningsFragment : Fragment() {
         // обновление списка skySearchAdapter.submitList(it) вынесено
         // в fragment_sky_search.xml через BindingAdapters.kt
 
+        //<!--Вариант SkySearchViewModel-->
+        binding.recyclerMeaningSky.adapter = SkyMeaningAdapter(skyMeaningsViewModel)
+        // обновление списка skySearchAdapter.submitList(it) вынесено
+        // в fragment_sky_search.xml через BindingAdapters.kt
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -61,67 +67,48 @@ class SkyMeaningsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val examplesAdapter = ArrayAdapter<String?>(thisContext, android.R.layout.simple_list_item_1, skyMeaningsViewModel.examples)
-        binding.examples.adapter = examplesAdapter
-
-        val meaningsWithSimilarTranslationAdapter = ArrayAdapter<String?>(thisContext, android.R.layout.simple_list_item_1, skyMeaningsViewModel.meaningsWithSimilarTranslation)
-        binding.meaningsWithSimilarTranslation.adapter = meaningsWithSimilarTranslationAdapter
-
-        val alternativeTranslationsAdapter = ArrayAdapter<String?>(thisContext, android.R.layout.simple_list_item_1, skyMeaningsViewModel.alternativeTranslations)
+        val alternativeTranslationsAdapter = ArrayAdapter<String?>(
+            thisContext,
+            android.R.layout.simple_list_item_1,
+            skyMeaningsViewModel.alternativeTranslations
+        )
         binding.alternativeTranslations.adapter = alternativeTranslationsAdapter
 
         skyMeaningsViewModel.refresh.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true. Наблюдаемое состояние истинно.
 
-                examplesAdapter.notifyDataSetChanged()
-                meaningsWithSimilarTranslationAdapter.notifyDataSetChanged()
+                //  binding.recyclerMeaningSky.adapter?.notifyDataSetChanged()
                 alternativeTranslationsAdapter.notifyDataSetChanged()
                 skyMeaningsViewModel.refreshNull()
             }
         }
         binding.alternativeTranslations.setOnItemClickListener { parent, itemClicked, position, id ->
-            val engSlovo = skyMeaningsViewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.text ?: "NoNoNo"
-            val rusSlovo = skyMeaningsViewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.translation?.text ?: "Нет"
+            val engSlovo =
+                skyMeaningsViewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.text
+                    ?: "NoNoNo"
+            val rusSlovo =
+                skyMeaningsViewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.translation?.text
+                    ?: "Нет"
             Toast.makeText(
                 thisContext,
                 "Вы нажали $engSlovo -->  $rusSlovo",
                 Toast.LENGTH_SHORT
             ).show()
-            //val soundUri = viewModel.meanings.value?.get(0)?.alternativeTranslations?.get(position)?.
-         //   findNavController().navigate(
-         //       SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo))
-        }
-        binding.meaningsWithSimilarTranslation.setOnItemClickListener { _, itemClicked, position, id ->
-            val ids = skyMeaningsViewModel.meanings.value?.get(0)?.meaningsWithSimilarTranslation?.get(position)?.meaningId.toString()
-            binding.ids.text = ids
-            skyMeaningsViewModel.meaningsIds(ids)
-            skyMeaningsViewModel.ids = ids
-            Toast.makeText(
-                thisContext,
-                "Переход с ${(itemClicked as TextView).text} на $ids",
-                Toast.LENGTH_SHORT
-            ).show()
         }
 
-        binding.examples.setOnItemClickListener { _, itemClicked, position, id ->
-            val soundUri = skyMeaningsViewModel.meanings.value?.get(0)?.examples?.get(position)?.soundUrl
-            playSound(soundUri)
-            Toast.makeText(
-                thisContext,
-                soundUri,
-                Toast.LENGTH_SHORT
-            ).show()
-        }
-
-
-        skyMeaningsViewModel.listenSound.observe(viewLifecycleOwner) { soundUri ->
-            soundUri?.let { sounduri ->
-                val toast = Toast.makeText(thisContext, "[\b ${skyMeaningsViewModel.meanings.value?.get(0)?.transcription} ]", Toast.LENGTH_LONG)
-                toast.setGravity(Gravity.CENTER, 0, 0)
-                toast.show()
-                playSound(sounduri)
-                skyMeaningsViewModel.onSkySoundNavigated()
+            skyMeaningsViewModel.listenSound.observe(viewLifecycleOwner) { soundUri ->
+                soundUri?.let { sounduri ->
+                    val toast = Toast.makeText(
+                        thisContext,
+                        "[\b ${skyMeaningsViewModel.meanings.value?.get(0)?.transcription} ]",
+                        Toast.LENGTH_LONG
+                    )
+                    toast.setGravity(Gravity.CENTER, 0, 0)
+                    toast.show()
+                    playSound(sounduri)
+                    skyMeaningsViewModel.onSkySoundNavigated()
+                }
             }
-        }
+
     }
 }

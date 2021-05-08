@@ -52,8 +52,12 @@ class SkyMeaningsViewModel : ViewModel() {
 
     private lateinit var oneMeanig: Meaning
 
-    val examples: MutableList<String?> =  arrayListOf()
-    val meaningsWithSimilarTranslation: MutableList<String?> =  arrayListOf()
+    //val dataItem : MutableList<String?> =  arrayListOf()
+
+    private val _dataItem = MutableLiveData<List<String>>()
+    val dataItem: LiveData<List<String>>
+        get() = _dataItem
+
     val alternativeTranslations: MutableList<String?> =  arrayListOf()
 
     // список адресов картинок для ImageRecyclerView
@@ -89,11 +93,10 @@ class SkyMeaningsViewModel : ViewModel() {
      fun meaningsIds(ids: String) {
          viewModelScope.launch {
              _response.value = "empty"
-             //_meaning.value = Meaning()
-             // oneMeanig =
-             examples.clear()
-             meaningsWithSimilarTranslation.clear()
+
+             //dataItem.clear()
              alternativeTranslations.clear()
+
              try {
                  val skyResult = skyRepository.getSkyMeanings(ids)
                  _response.value = "Meanings ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Meanings  \n"
@@ -102,12 +105,15 @@ class SkyMeaningsViewModel : ViewModel() {
                      _meaning.value = skyResult.value?.get(0)
                      oneMeanig = skyResult.value?.get(0)!!
 
-                     examples.addAll( oneMeanig.examples.map{it.text})
-                     meaningsWithSimilarTranslation.addAll( oneMeanig.meaningsWithSimilarTranslation
+                     val dataItem : MutableList<String> =  arrayListOf()
+                     dataItem.addAll( oneMeanig.examples.map{it.text})
+                     dataItem.addAll( oneMeanig.meaningsWithSimilarTranslation
                          .map{it.meaningId.toString() + " " + it.translation.text + " " +
                                  (it.translation.note ?: "") + " " +
                                  it.partOfSpeechAbbreviation + it.frequencyPercent + "%"
                          })
+                     _dataItem.value = dataItem
+
                      alternativeTranslations.addAll( oneMeanig.alternativeTranslations
                          .map{it.text + " " + it.translation.text + " " +
                                  (it.translation.note ?: "")

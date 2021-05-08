@@ -31,7 +31,7 @@
 
         <!--Вариант SkySearchViewModel-->
         <variable
-            name="viewModel"
+            name="viewmodel"
             type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
 
         <!--Вариант SkySearchListener-->

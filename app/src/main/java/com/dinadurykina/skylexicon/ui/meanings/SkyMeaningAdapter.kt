@@ -5,8 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.dinadurykina.skylexicon.databinding.RowItemImageMeaningBinding
-import com.dinadurykina.skylexicon.network.ImageUrl
+import com.dinadurykina.skylexicon.databinding.RowItemSkyMeaningBinding
 
 /** An adapter
  * The adapter connects your data to the RecyclerView.
@@ -24,47 +23,48 @@ import com.dinadurykina.skylexicon.network.ImageUrl
 //<!--Вариант SkySearchListener-->
 //class SkySearchAdapter(val clickListener: SkySearchListener):
 //<!--Вариант SkySearchViewModel-->
-class SkyMeaningImageAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel):
-    ListAdapter<ImageUrl, ImageViewHolder>(ImageDiffCallback()) {
+class SkyMeaningAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel):
+    ListAdapter<String, MeaningViewHolder>(MeaningDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        return ImageViewHolder.from(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MeaningViewHolder {
+        return MeaningViewHolder.from(parent)
     }
 
-    override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MeaningViewHolder, position: Int) {
         val item = getItem(position)
         //<!--Вариант SkySearchListener-->
         //holder.bind(item, clickListener)
         holder.bind(item, skyMeaningsViewModel)
     }
 }
-class ImageViewHolder private constructor(private val binding: RowItemImageMeaningBinding) :
+class MeaningViewHolder(private val binding: RowItemSkyMeaningBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
     //<!--Вариант SkySearchListener-->
     // fun bind(item: WordRecycler, clickListener: SkySearchListener) {
-    fun bind(item: ImageUrl, skyMeaningsViewModel: SkyMeaningsViewModel) {
-        binding.image = item
+    fun bind(item: String, skyMeaningsViewModel: SkyMeaningsViewModel) {
+        binding.dataitem = item
         //<!--Вариант SkySearchListener-->
         //binding.clickListener = clickListener
         binding.viewmodel = skyMeaningsViewModel
+        binding.meaning = skyMeaningsViewModel.meaning.value
     }
 
     companion object {
-        fun from(parent: ViewGroup): ImageViewHolder {
+        fun from(parent: ViewGroup): MeaningViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
             val binding =
-                RowItemImageMeaningBinding.inflate(layoutInflater, parent, false)
-            return ImageViewHolder(binding)
+                RowItemSkyMeaningBinding.inflate(layoutInflater, parent, false)
+            return MeaningViewHolder(binding)
         }
     }
 
 }
 
-class ImageDiffCallback : DiffUtil.ItemCallback<ImageUrl>() {
-    override fun areItemsTheSame(oldItem: ImageUrl, newItem: ImageUrl): Boolean =
-        oldItem.url == newItem.url
-    override fun areContentsTheSame(oldItem: ImageUrl, newItem: ImageUrl): Boolean =
+class MeaningDiffCallback : DiffUtil.ItemCallback<String>() {
+    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean =
+        oldItem == newItem
+    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean =
         oldItem == newItem
 }
 
