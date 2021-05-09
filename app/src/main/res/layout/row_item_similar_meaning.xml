@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2021 Google LLC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     https://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!-- Макет для одного элемента данных -->
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.ViewGroup" />
+
+        <variable
+            name="viewmodel"
+            type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
+
+        <variable
+            name="meaning"
+            type="com.dinadurykina.skylexicon.network.Meaning" />
+
+        <variable
+            name="similar"
+            type="com.dinadurykina.skylexicon.network.MeaningsWithSimilarTranslation" />
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/teal_200"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="0dp"
+        android:textSize="@dimen/text_size"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="15dp">
+        <!--Вариант SkySearchListener-->
+        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
+        <!--android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbarDefaultDelayBeforeFade="400">
+
+            <TextView
+                android:id="@+id/dataItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{similar.translation.text}"
+                android:textSize="@dimen/text_size"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Стул пример" />
+
+            <TextView
+                android:id="@+id/note"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{similar.translation.note}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="#303F9F"
+                android:textSize="@dimen/text_size"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/dataItem"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="в оркестре" />
+
+            <TextView
+                android:id="@+id/abbreviation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{similar.partOfSpeechAbbreviation}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="#303F9F"
+                android:textSize="@dimen/text_size"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/note"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="abbreviation" />
+
+            <TextView
+                android:id="@+id/frequency"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{similar.frequencyPercent}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="#303F9F"
+                android:textSize="@dimen/text_size"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toEndOf="@id/abbreviation"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="frequency" />
+
+            <TextView
+                android:id="@+id/meaningId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{String.valueOf(similar.meaningId)}"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="#303F9F"
+                android:textSize="12sp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="228855" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>
+
+    <!--Если все элементы списка выглядят одинаково,
+        вы можете использовать один и тот же макет для всех,
+         но это не обязательно-->
+
+    <!--"meaningId": 228855,
+    "frequencyPercent": "100.0",
+    "partOfSpeechAbbreviation": "фраза",
+    "translation": {
+    "text": "паровоз",
+    "note": null-->

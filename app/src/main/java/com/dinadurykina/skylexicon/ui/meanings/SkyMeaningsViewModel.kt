@@ -17,8 +17,6 @@
 
 package com.dinadurykina.skylexicon.ui.meanings
 
-import android.view.View
-import android.widget.EditText
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -52,29 +50,14 @@ class SkyMeaningsViewModel : ViewModel() {
 
     private lateinit var oneMeanig: Meaning
 
-    //val dataItem : MutableList<String?> =  arrayListOf()
-
-    private val _dataItem = MutableLiveData<List<String>>()
-    val dataItem: LiveData<List<String>>
+    private val _dataItem = MutableLiveData<List<DataItem>>()
+    val dataItem: LiveData<List<DataItem>>
         get() = _dataItem
-
-    val alternativeTranslations: MutableList<String?> =  arrayListOf()
 
     // список адресов картинок для ImageRecyclerView
     private val _imagesListRecycler = MutableLiveData<List<ImageUrl>>()
     val imagesListRecycler: LiveData<List<ImageUrl>>
         get() = _imagesListRecycler
-
-    // Объявляю живой флажок, надо ли обновить адапреты ListView из фрагмента, (по умолчанию нет - null)
-    private val _refresh: MutableLiveData<Boolean?> = MutableLiveData<Boolean?>(null)
-    val refresh: LiveData<Boolean?>
-        get() = _refresh
-    private fun refreshTrue() {
-        _refresh.value = true
-    }
-    fun refreshNull() {
-        _refresh.value = null
-    }
 
     private val _listenSound = MutableLiveData<String?>()
     val listenSound
@@ -86,16 +69,10 @@ class SkyMeaningsViewModel : ViewModel() {
     /**
      * Sets the value of the status LiveData to the Sky API status.
      */
-     fun onIdsClicked(view:View) {
-        val ids = (view as EditText).text.toString()
-        meaningsIds(ids)
-    }
+
      fun meaningsIds(ids: String) {
          viewModelScope.launch {
              _response.value = "empty"
-
-             //dataItem.clear()
-             alternativeTranslations.clear()
 
              try {
                  val skyResult = skyRepository.getSkyMeanings(ids)
@@ -105,19 +82,13 @@ class SkyMeaningsViewModel : ViewModel() {
                      _meaning.value = skyResult.value?.get(0)
                      oneMeanig = skyResult.value?.get(0)!!
 
-                     val dataItem : MutableList<String> =  arrayListOf()
-                     dataItem.addAll( oneMeanig.examples.map{it.text})
-                     dataItem.addAll( oneMeanig.meaningsWithSimilarTranslation
-                         .map{it.meaningId.toString() + " " + it.translation.text + " " +
-                                 (it.translation.note ?: "") + " " +
-                                 it.partOfSpeechAbbreviation + it.frequencyPercent + "%"
-                         })
-                     _dataItem.value = dataItem
-
-                     alternativeTranslations.addAll( oneMeanig.alternativeTranslations
-                         .map{it.text + " " + it.translation.text + " " +
-                                 (it.translation.note ?: "")
-                         })
+                     val example = oneMeanig.examples
+                         .map{DataItem.ExampleItem(it)}
+                     val similar = oneMeanig.meaningsWithSimilarTranslation
+                         .map{DataItem.MeaningWithSimilarTranslationItem(it)}
+                     val alternative = oneMeanig.alternativeTranslations
+                         .map{DataItem.AlternativeTranslationsItem(it)}
+                     _dataItem.value = similar + example + alternative
 
                      _imagesListRecycler.value = oneMeanig.images +
                             ImageUrl("//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50") +
@@ -128,7 +99,6 @@ class SkyMeaningsViewModel : ViewModel() {
              } catch (e: Exception) {
                  _response.value = "Failure: ${e.message}"
              }
-             refreshTrue()    // notifyDataSetChanged()
          }
     }
     fun onListenSoundClicked(soundUrl:String) {

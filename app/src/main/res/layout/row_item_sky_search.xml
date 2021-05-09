@@ -123,7 +123,7 @@
 
             <ImageButton
                 android:id="@+id/button_sound"
-                android:layout_width="20dp"
+                android:layout_width="24dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"

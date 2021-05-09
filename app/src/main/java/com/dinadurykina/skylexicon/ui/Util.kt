@@ -2,7 +2,6 @@ package com.dinadurykina.skylexicon.ui
 
 import android.media.AudioAttributes
 import android.media.MediaPlayer
-import androidx.core.net.toUri
 
 //class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
 // Существует как простейшая заглушка для первого вызова

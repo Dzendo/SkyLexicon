@@ -48,8 +48,8 @@
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(viewModel.meaning.images.size)}"
             android:textSize="11sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wordId" />
         <!--android:visibility="@{viewModel.meaning.images.size == 1 ? ViewGroup.gone: visible}"/-->
 
         <ImageButton
@@ -203,44 +203,34 @@
             app:layout_constraintVertical_bias="0.0"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toBottomOf="@id/Definition"
-            app:layout_constraintBottom_toTopOf="@id/alternativeTranslations"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:meaningListData="@{viewModel.dataItem}"
-            tools:itemCount="8"
-            tools:listitem="@layout/row_item_sky_meaning"
+            tools:itemCount="16"
+            tools:listitem="@layout/row_item_example_meaning"
             tools:src="@tools:sample/backgrounds/scenic"/>
         <!-- app:listData зовется из BindingAdapters.kt
         и заменяет skySearchAdapter.submitList(it) в фрагменте -->
-
-
-        <TextView
-            android:id="@+id/examplessize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.meaning.examples.size)}"
-            app:layout_constraintTop_toTopOf="@id/recycler_meaning_sky"
-            app:layout_constraintRight_toRightOf="parent"
-            android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/dataItemsize"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{String.valueOf(viewModel.dataItem.size)}"
-            app:layout_constraintTop_toBottomOf="@id/examplessize"
-            app:layout_constraintRight_toRightOf="parent"
-            android:padding="2dp"
-            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/meaningsWithSimilarTranslationsize"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{String.valueOf(viewModel.meaning.meaningsWithSimilarTranslation.size)}"
-            app:layout_constraintTop_toBottomOf="@id/dataItemsize"
+            app:layout_constraintTop_toBottomOf="@id/imagessize"
             app:layout_constraintRight_toRightOf="parent"
             android:padding="2dp"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/examplessize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.meaning.examples.size)}"
+            android:padding="2dp"
+            app:layout_constraintTop_toBottomOf="@id/meaningsWithSimilarTranslationsize"
+            app:layout_constraintRight_toRightOf="parent"
             android:textSize="12sp" />
 
         <TextView
@@ -250,16 +240,19 @@
             android:text="@{String.valueOf(viewModel.meaning.alternativeTranslations.size)}"
             android:padding="2dp"
             android:textSize="12sp"
-            app:layout_constraintRight_toRightOf="@id/alternativeTranslations"
-            app:layout_constraintTop_toTopOf="@id/alternativeTranslations"/>
+            app:layout_constraintTop_toBottomOf="@id/examplessize"
+            app:layout_constraintRight_toRightOf="parent"
+            />
 
-        <ListView
-            android:id="@+id/alternativeTranslations"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:ems="10"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        <TextView
+            android:id="@+id/dataItemsize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.dataItem.size)}"
+            app:layout_constraintTop_toBottomOf="@id/alternativeTranslationssize"
+            app:layout_constraintRight_toRightOf="parent"
+            android:padding="2dp"
+            android:textSize="12sp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

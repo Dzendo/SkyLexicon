@@ -85,9 +85,6 @@ class SkySearchFragment : Fragment() {
         // событие нажатия на динамик -> вызывапет говорилку с soundUri
         skySearchViewModel.listenSound.observe(viewLifecycleOwner) { soundUri ->
             soundUri?.let { sounduri ->
-                val toast = Toast.makeText(thisContext, "[\b Transcription. ]", Toast.LENGTH_LONG)
-                toast.setGravity(Gravity.CENTER, 0, 0)
-                toast.show()
                 playSound(sounduri)
                 skySearchViewModel.onSkySoundNavigated()
             }
