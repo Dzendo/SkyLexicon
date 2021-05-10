@@ -24,12 +24,11 @@ import kotlinx.parcelize.RawValue
 // преобразовать класс в класс данных Kotlin со свойствами, которые соответствуют полям ответа JSON
 // Moshi анализирует эти данные JSON и преобразует их в объекты Kotlin.
 // Для этого ему необходим класс данных Kotlin для хранения проанализированных результатов,
-// поэтому следующим шагом будет создание этого класса.
-// 8.8.2 преобразовать класс в класс данных Kotlin со свойствами, которые соответствуют полям ответа JSON
-// 8.8.3 Переименуйте свойство класса img_src в imgSrcUrl и добавьте аннотацию @Json, чтобы переназначить в него поле JSON img_src:
-// 14 Добавить : @Parcelize  и Parcelable  ( id 'kotlin-android-extensions') experimental = true - Без кучи методов
-// 15 добавление подробного экрана
-// 15.4.1 сделайте класс доступным, расширив его Parcelable и добавив @Parcelize аннотацию:
+// поэтому следующим шагом будет создание этого класса:
+// преобразовать класс в класс данных Kotlin со свойствами, которые соответствуют полям ответа JSON
+// Добавить : @Parcelize  и Parcelable  (experimental = true)
+// добавление подробного экрана
+// сделайте класс доступным, расширив его Parcelable и добавив @Parcelize аннотацию:
 
 @Parcelize
 data class Word(  // в ответ идет List из 15 штук этих классов
@@ -111,13 +110,14 @@ data class Url (
     val url: String  // // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=a+separate+seat+for+one+person+with+four+legs+and+a+support+for+the+back"
         )
 
+// Вспомогательный класс для RecyclerView на первом экране - поиск-перевод
 data class WordRecycler(
     val idEng: String, // word.id 838 непонятное число неизвестно зачем wordId Слово-это группа значений. Мы объединяем значения словом сущность.
     val textEng: String, // word.text "chair"
 
     //val meanings: List<@RawValue Meaning2>  // и таких 6 штук стульев Кисы Воробьянинова
     val idRus: String, // 1938 - вообще-то это не String а Long
-    val partOfSpeechCode: String,  // "n"
+    val partOfSpeechCode: String,  // "n" код части речи
 
     //val translation: @RawValue Translation,  // "стул" null
     val textRus: String,  // meaning2.translation.text "стул" A text of a translation.
@@ -127,8 +127,8 @@ data class WordRecycler(
     val imageUrl: String, //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=640&h=480",
     val transcription: String, //"ʧeə",
     val soundUrl: String //"//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair"
-)  {     // все числовые (без кавычек) объявлять Double
-    // 15.6.1  isRental логическое значение и установите его значение в зависимости от того, является ли тип свойства «арендным»
+)  {
+    // isNote логическое значение и установите его значение в зависимости от того есть ли Note
     val isNote  // true - есть false - нет
         get() = (note == "") or (note == null)
 }

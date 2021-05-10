@@ -27,13 +27,14 @@ import kotlinx.coroutines.withContext
  * Модуль репозитория для обработки операций с данными.
  * вызывается из всех ViewModels сам вызывает SkyApiService функции
  */
-//@Singleton - в образце не указывается, кто-то указывает похоже достаточно в Module
+
 class SkyRepository {
     // Для списка найденных слов расшифрованного
     private val _listWord = MutableLiveData<List<Word>>()  // Содержит все данные
       val listWord: LiveData<List<Word>>
           get() = _listWord
 
+    // Содержит все данные для RecyclerView на первом экране - поиск-перевод
     private val _listWordRecycler = MutableLiveData<List<WordRecycler>>()  // Содержит все данные
       val listWordRecycler: LiveData<List<WordRecycler>>
           get() = _listWordRecycler
@@ -47,11 +48,12 @@ class SkyRepository {
         return listWord
     }
 
-    private val _listMeaning = MutableLiveData<List<Meaning>>()  // Содержит все данные
+    // Содержит все данные значения слова
+    private val _listMeaning = MutableLiveData<List<Meaning>>()
     val listMeaning: LiveData<List<Meaning>>
         get() = _listMeaning
 
-    suspend fun getSkyMeanings(ids: String): LiveData<List<Meaning>> {  // = SkyApi.retrofitService.getMeanings(ids)
+    suspend fun getSkyMeanings(ids: String): LiveData<List<Meaning>> {
         val rezult: List<Meaning>
         withContext(Dispatchers.IO) {
             rezult = SkyApi.retrofitService.getMeanings(ids)
@@ -73,7 +75,7 @@ class SkyRepository {
     suspend fun getSkySearchRecycler(slovo: String): LiveData<List<WordRecycler>> {
         val mutableListRecycler: MutableList<WordRecycler> = arrayListOf()
         val result = getSkySearch(slovo)
-        //_listWordRecycler.value = result.value.map {it.  }
+
         for (word: Word in result.value!!)
             for (meaning2: Meaning2 in word.meanings) {
                 mutableListRecycler.add(WordRecycler(

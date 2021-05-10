@@ -13,8 +13,16 @@ import com.dinadurykina.skylexicon.R
 import com.dinadurykina.skylexicon.databinding.ActivitySkyBinding
 import timber.log.Timber
 
-// Создается новый класс SkyActivity с родителем AppCompatActivity и внедрением зависимостей
-// Теперь с Hilt для этого надо аннотировать SkyApplication и SkyActitityViewModel :
+/**
+ * Создается новый класс SkyActivity с родителем AppCompatActivity
+ * используется binding, для этого в build.gradle должно стоять хотя бы одно из двух:
+ *  buildFeatures {
+ *        dataBinding true
+ *        viewBinding true  // Используем в Activity
+ *    }
+ */
+
+
 
 class SkyActivity : AppCompatActivity() {
     // Выделяется место под эти переменные в созданном классе
@@ -23,27 +31,26 @@ class SkyActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mainBinding = ActivitySkyBinding.inflate(layoutInflater)
+
         // Надувает главный экран из своего activity_sky.xml и запоминает адрес в переменной mainBinding
+        mainBinding = ActivitySkyBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        // Добавляет меню три точки для этого фрагмента на месте toolbar указанному ЛВ в xml
+        // Добавляет меню три точки для этого фрагмента на месте toolbar указанному в xml
         setSupportActionBar(mainBinding.toolbar)  // Задать toolbar, что у него есть три точки через xml
         // надувание этого меню см ниже в onCreateOptionsMenu потом
-        // обработка этого см. еще ниже onOptionsItemSelected
-
-        val navHostFragment: NavHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        val navController: NavController = navHostFragment.navController
+        // обработка этого см. еще ниже в onOptionsItemSelected
 
         // Просим ссылку на загрузчик фрагментов и говорим ему, что грузить он будет в поле @+id/nav_host_fragment
-        //val navController = findNavController(R.id.nav_host_fragment)
+        val navHostFragment: NavHostFragment =
+            supportFragmentManager.findFragmentById(mainBinding.navHostFragment.id) as NavHostFragment
+        val navController: NavController = navHostFragment.navController
+
         // верхнему бару говорит,что у него будет вызывная шторка и она указана drawerLayout
-        // а переходить надо будет контроллер навигации, а он знает куда
+        // а переходить надо будет контроллером навигации, а он знает куда
         appBarConfiguration = AppBarConfiguration(navController.graph, mainBinding.drawerLayout)
         // Полю @+id/toolbar пришивается setupWithNavController с конфигурацией построенной выше
         mainBinding.toolbar.setupWithNavController(navController, appBarConfiguration)
-        // setupActionBarWithNavController(navController, appBarConfiguration) // Альтернатива skyapp
         // Полю @+id/nav_view ему звать navController, когда на него нажмут, что бы перейти куда нажали
         mainBinding.navView.setupWithNavController(navController)
 
@@ -57,7 +64,7 @@ class SkyActivity : AppCompatActivity() {
     // Добавляет меню три точки для этого фрагмента
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        // Раздуйте меню; это добавит элементы в панель действий, если она присутствует.
+        // Раздуйте меню: это добавит элементы в панель действий, если она присутствует.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
@@ -65,7 +72,7 @@ class SkyActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
     // Меню MenuItem присылает имя поля из XML, которое нажали
         // По уму этот обработчик надо бы переместить в SkyActivityViewModel, но технологии биндинг для меню не создано
-        // Обещают сделать, тогда перемещу
+        // Обещают сделать, тогда переместим в ViewModel
         return when (item.itemId) {
             R.id.action_settings -> {Toast.makeText(applicationContext, "Пошел Settings", Toast.LENGTH_LONG).show(); true }
             else -> super.onOptionsItemSelected(item)

@@ -6,9 +6,9 @@ package com.dinadurykina.skylexicon.launcher
 
 // https://metanit.com/kotlin/tutorial/4.13.php
 // Файл для описания констант и временных переменных вместо setting
-// val skyRepository = SkyRepository()
 // String representation of a part of speech
 // Строковое представление части речи
+// TODO пока не задействовано
 enum class PartOfSpeech(val partOfSpeechEng: String = " ", val partOfSpeechRus: String = " "){
     n ("noun","существительное"),
     v ("verb","глагол"),

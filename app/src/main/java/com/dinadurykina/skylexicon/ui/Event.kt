@@ -22,7 +22,7 @@ import androidx.lifecycle.Observer
  * Используется в качестве оболочки для данных, которые отображаются через живые данные, представляющие событие.
  *
  * Что такое событие?
- * В приложении TO-DO вы используете настраиваемый Event класс
+ * В приложении  вы используете настраиваемый Event класс
  *  для LiveData представления одноразовых событий (таких как навигация или всплывающая закусочная).
  *  Event LiveData Наблюдается в TasksFragment.
  * В этом случае символ newTaskEvent означает, что была нажата клавиша FAB с плюсом, и вы должны перейти к AddEditTaskFragment.
@@ -32,6 +32,7 @@ import androidx.lifecycle.Observer
  *  https://codelabs.developers.google.com/codelabs/kotlin-android-training-live-data/index.html?index=..%2F..android-kotlin-fundamentals
  * Пока не встроена
  */
+
 open class Event<out T>(private val content: T) {
 
     @Suppress("MemberVisibilityCanBePrivate")

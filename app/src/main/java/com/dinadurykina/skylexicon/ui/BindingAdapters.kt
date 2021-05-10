@@ -31,7 +31,7 @@ import com.dinadurykina.skylexicon.ui.meanings.SkyMeaningAdapter
 import com.dinadurykina.skylexicon.ui.meanings.SkyMeaningImageAdapter
 import com.dinadurykina.skylexicon.ui.search.SkySearchAdapter
 
-// 11.2.1 В BindingAdapters создать BindingAdapter для преобразования imgUrl к URI со схемой HTTPS.
+// В BindingAdapters создан BindingAdapter для преобразования imgUrl к URI со схемой HTTPS.
 // Внутри адаптера используйте Glide для загрузки изображения, отобразите его в imgView:
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -89,20 +89,20 @@ fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<*>) {
 }
 
 /*
-// 13.4 добавьте адаптер привязки для отображения MarsApiStatus в ImageView
+//  добавьте адаптер привязки для отображения SkyApiStatus в ImageView
 // и установите видимость представления в зависимости от значения состояния:
-@BindingAdapter("marsApiStatus")
-fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) =
+@BindingAdapter("skyApiStatus")
+fun bindStatus(statusImageView: ImageView, status: SkyApiStatus?) =
     when (status) {
-        MarsApiStatus.LOADING -> {
+        SkyApiStatus.LOADING -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.loading_animation)
         }
-        MarsApiStatus.ERROR -> {
+        SkyApiStatus.ERROR -> {
             statusImageView.visibility = View.VISIBLE
             statusImageView.setImageResource(R.drawable.ic_connection_error)
         }
-        MarsApiStatus.DONE -> {
+        SkyApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
         else -> statusImageView.visibility = View.INVISIBLE
