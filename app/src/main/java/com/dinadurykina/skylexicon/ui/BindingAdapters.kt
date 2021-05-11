@@ -53,7 +53,6 @@ fun ImageView.bindImageUrl(url: String?) {
     if (url != null && url.isNotBlank()) {
         val uri = url.toUri().buildUpon().scheme("https").build()
         Glide.with(this)
-          //.load(url)
             .load(uri)
             .into(this)
     }
@@ -70,6 +69,7 @@ fun ImageView.bindImageUrl(url: String?) {
 fun bindWordRecyclerView(recyclerView: RecyclerView, data: List<WordRecycler>?) {
     (recyclerView.adapter as SkySearchAdapter).submitList(data)
 }
+
 @BindingAdapter("imageListData")
 fun bindImageRecyclerView(recyclerView: RecyclerView, data: List<ImageUrl>?) {
     (recyclerView.adapter as SkyMeaningImageAdapter).submitList(data)
@@ -80,10 +80,10 @@ fun bindMeaningRecyclerView(recyclerView: RecyclerView, data: List<DataItem>?) {
 }
 
 // Пример не используется
-@BindingAdapter(value = ["setAdapter"])
+@BindingAdapter("setAdapter")
 fun RecyclerView.bindRecyclerViewAdapter(adapter: RecyclerView.Adapter<*>) {
     this.run {
-        this.setHasFixedSize(true)
+        //this.setHasFixedSize(true)
         this.adapter = adapter
     }
 }

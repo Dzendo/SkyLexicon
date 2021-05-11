@@ -16,35 +16,26 @@ import com.dinadurykina.skylexicon.network.WordRecycler
  * Он адаптирует данные так, чтобы их можно было отображать в формате ViewHolder.
  * A RecyclerView использует адаптер, чтобы выяснить, как отображать данные на экране.
  */
-//<!--Вариант SkySearchListener-->
-//class SkySearchAdapter(val clickListener: SkySearchListener):
-//<!--Вариант SkySearchViewModel-->
+
 class SkySearchAdapter(private val skySearchViewModel: SkySearchViewModel):
     ListAdapter<WordRecycler, WordViewHolder>(SkyDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         return WordViewHolder.from(parent)
     }
-
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
         val item = getItem(position)
-        //<!--Вариант SkySearchListener-->
-        //holder.bind(item, clickListener)
         holder.bind(item, skySearchViewModel)
     }
 }
+
 class WordViewHolder private constructor(private val binding: RowItemSkySearchBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    //<!--Вариант SkySearchListener-->
-    // fun bind(item: WordRecycler, clickListener: SkySearchListener) {
     fun bind(item: WordRecycler, skySearchViewModel: SkySearchViewModel) {
         binding.word = item
-        //<!--Вариант SkySearchListener-->
-        //binding.clickListener = clickListener
         binding.viewmodel = skySearchViewModel
     }
-
     companion object {
         fun from(parent: ViewGroup): WordViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
@@ -61,13 +52,5 @@ class SkyDiffCallback : DiffUtil.ItemCallback<WordRecycler>() {
     override fun areContentsTheSame(oldItem: WordRecycler, newItem: WordRecycler): Boolean =
         oldItem == newItem
 }
-
-// Вызывается из XML при нажатии на элемент списка RecyclerView через лямбду
-// вариант codelabs через аргумент обратного вызова
-//<!--Вариант SkySearchListener-->
-/*class SkySearchListener(val clickListener: (sleepId: String) -> Unit) {
-    // сюда item пригонит Word на который нажали а отгоним его id
-    fun onClick(night: WordRecycler) = clickListener(night.idRus)
-}*/
 
 

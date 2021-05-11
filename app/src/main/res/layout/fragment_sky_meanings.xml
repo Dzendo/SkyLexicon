@@ -5,15 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="android.view.ViewGroup" />
-
         <variable
             name="viewModel"
             type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
-
-        <variable
-            name="meaning"
-            type="com.dinadurykina.skylexicon.network.Meaning" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,8 +33,6 @@
             tools:itemCount="3"
             tools:listitem="@layout/row_item_image_meaning"
             tools:src="@tools:sample/backgrounds/scenic"/>
-        <!-- app:listData зовется из BindingAdapters.kt
-        и заменяет skySearchAdapter.submitList(it) в фрагменте -->
 
         <TextView
             android:id="@+id/imagessize"
@@ -50,13 +42,12 @@
             android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/wordId" />
-        <!--android:visibility="@{viewModel.meaning.images.size == 1 ? ViewGroup.gone: visible}"/-->
 
         <ImageButton
             android:id="@+id/slovo_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onListenSoundClicked(viewModel.meaning.soundUrl)}"
+            android:onClick="@{() -> viewModel.onClickSound(viewModel.meaning.soundUrl)}"
             android:src="@drawable/ic_baseline_volume_up_24"
             app:layout_constraintBottom_toBottomOf="@id/sky_image"
             app:layout_constraintRight_toRightOf="@id/sky_image" />
@@ -142,7 +133,6 @@
             app:layout_constraintBottom_toTopOf="@id/difficultyLevel"
             app:layout_constraintLeft_toRightOf="@id/sky_image" />
 
-
         <TextView
             android:id="@+id/difficultyLevel"
             android:layout_width="wrap_content"
@@ -177,7 +167,7 @@
             android:id="@+id/definition_sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{() -> viewModel.onListenSoundClicked(viewModel.meaning.definition.soundUrl)}"
+            android:onClick="@{() -> viewModel.onClickSound(viewModel.meaning.definition.soundUrl)}"
             android:src="@drawable/ic_baseline_volume_up_24"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/slovo_sound" />
@@ -207,11 +197,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:meaningListData="@{viewModel.dataItem}"
-            tools:itemCount="16"
+            tools:itemCount="8"
             tools:listitem="@layout/row_item_example_meaning"
             tools:src="@tools:sample/backgrounds/scenic"/>
-        <!-- app:listData зовется из BindingAdapters.kt
-        и заменяет skySearchAdapter.submitList(it) в фрагменте -->
 
         <TextView
             android:id="@+id/meaningsWithSimilarTranslationsize"

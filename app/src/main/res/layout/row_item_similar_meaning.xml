@@ -28,10 +28,6 @@
             type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
 
         <variable
-            name="meaning"
-            type="com.dinadurykina.skylexicon.network.Meaning" />
-
-        <variable
             name="similar"
             type="com.dinadurykina.skylexicon.network.MeaningsWithSimilarTranslation" />
 
@@ -48,9 +44,6 @@
         android:textSize="@dimen/text_size"
         app:cardCornerRadius="12dp"
         app:cardElevation="15dp">
-        <!--Вариант SkySearchListener-->
-        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
-        <!--android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -123,14 +116,3 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
-
-    <!--Если все элементы списка выглядят одинаково,
-        вы можете использовать один и тот же макет для всех,
-         но это не обязательно-->
-
-    <!--"meaningId": 228855,
-    "frequencyPercent": "100.0",
-    "partOfSpeechAbbreviation": "фраза",
-    "translation": {
-    "text": "паровоз",
-    "note": null-->

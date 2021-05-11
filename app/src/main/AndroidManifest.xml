@@ -16,8 +16,9 @@
         <!--NoActionBar Обязательно для включения материал appBarConfiguration -->
         <activity
             android:name="com.dinadurykina.skylexicon.launcher.SkyActivity"
-            android:theme="@style/Theme.Sky.NoActionBar"
-            >
+            android:theme="@style/Theme.Sky.NoActionBar">
+            <!--android:exported="TODO"-->
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

@@ -30,9 +30,6 @@ private const val ITEM_VIEW_TYPE_EXAMPLE = 1
 private const val ITEM_VIEW_TYPE_SIMILAR = 2
 private const val ITEM_VIEW_TYPE_ALTERNATIVE = 3
 
-//<!--Вариант SkySearchListener-->
-//class SkySearchAdapter(val clickListener: SkySearchListener):
-//<!--Вариант SkySearchViewModel-->
 class SkyMeaningAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel) :
     ListAdapter<DataItem, RecyclerView.ViewHolder>(MeaningDiffCallback()) {
 
@@ -67,26 +64,17 @@ class SkyMeaningAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel) 
                 val item = getItem(position) as DataItem.AlternativeTranslationsItem
                 holder.bind(item.alternativeTranslations, skyMeaningsViewModel)
             }
-            //<!--Вариант SkySearchListener-->
-            //holder.bind(item, clickListener)
-            // holder.bind(item, skyMeaningsViewModel)
         }
     }
 }
 
 class ExampleViewHolder(private val binding: RowItemExampleMeaningBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    //<!--Вариант SkySearchListener-->
-    // fun bind(item: WordRecycler, clickListener: SkySearchListener) {
 
     fun bind(item: Example, skyMeaningsViewModel: SkyMeaningsViewModel) {
         binding.example = item
-        //<!--Вариант SkySearchListener-->
-        //binding.clickListener = clickListener
         binding.viewmodel = skyMeaningsViewModel
-        binding.meaning = skyMeaningsViewModel.meaning.value
     }
-
     companion object {
         fun from(parent: ViewGroup): ExampleViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
@@ -102,12 +90,8 @@ class SimilarViewHolder(private val binding: RowItemSimilarMeaningBinding) :
 
     fun bind(item: MeaningsWithSimilarTranslation, skyMeaningsViewModel: SkyMeaningsViewModel) {
         binding.similar = item
-        //<!--Вариант SkySearchListener-->
-        //binding.clickListener = clickListener
         binding.viewmodel = skyMeaningsViewModel
-        binding.meaning = skyMeaningsViewModel.meaning.value
     }
-
     companion object {
         fun from(parent: ViewGroup): SimilarViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
@@ -126,9 +110,7 @@ class AlternativeViewHolder(private val binding: RowItemAlternativeMeaningBindin
         //<!--Вариант SkySearchListener-->
         //binding.clickListener = clickListener
         binding.viewmodel = skyMeaningsViewModel
-        binding.meaning = skyMeaningsViewModel.meaning.value
     }
-
     companion object {
         fun from(parent: ViewGroup): AlternativeViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
@@ -163,14 +145,6 @@ sealed class DataItem {
         override val id = alternativeTranslations.text
     }
 }
-
-// Вызывается из XML при нажатии на элемент списка RecyclerView через лямбду
-// вариант codelabs через аргумент обратного вызова
-//<!--Вариант SkySearchListener-->
-/*class SkySearchListener(val clickListener: (sleepId: String) -> Unit) {
-    // сюда item пригонит Word на который нажали а отгоним его id
-    fun onClick(night: WordRecycler) = clickListener(night.idRus)
-}*/
 
 
 

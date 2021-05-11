@@ -22,19 +22,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--import type="com.app4web.asdzendo.todo.ui.BindingConverters"  alias="BC"/-->
 
         <variable
             name="word"
             type="com.dinadurykina.skylexicon.network.WordRecycler"/>
-        <!--Вариант SkySearchViewModel-->
+
         <variable
             name="viewmodel"
             type="com.dinadurykina.skylexicon.ui.search.SkySearchViewModel" />
-        <!--Вариант SkySearchListener-->
-        <!--variable
-            name="clickListener"
-            type="com.dinadurykina.skylexicon.ui.search.SkySearchListener" /-->
+
     </data>
 
     <GridLayout
@@ -45,8 +41,7 @@
         android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"
         android:orientation="horizontal"
         android:textSize="@dimen/text_size">
-        <!--Вариант SkySearchListener-->
-        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
+
         <!--Поставила GridLayout, что бы выровнять данные в строке-->
 
         <ImageButton
@@ -122,14 +117,10 @@
             android:layout_marginTop="12dp"
             android:background="@color/white"
             android:baselineAligned="false"
-            android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
+            android:onClick="@{() -> viewmodel.onClickSound(word.soundUrl)}"
             android:scaleType="center"
             android:src="@drawable/ic_baseline_volume_up_24"
             android:tint="@color/purple_700" />
 
     </GridLayout>
 </layout>
-
-    <!--Если все элементы списка выглядят одинаково,
-        вы можете использовать один и тот же макет для всех,
-         но это не обязательно-->

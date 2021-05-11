@@ -34,26 +34,9 @@ class SkyMeaningsFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = skyMeaningsViewModel
 
+        skyMeaningsViewModel.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
 
-        // binding.ids.text = args.id
-        skyMeaningsViewModel.ids = args.id
-        skyMeaningsViewModel.meaningsIds(args.id)
-
-        binding.meaning = skyMeaningsViewModel.meaning.value
-
-        //<!--Вариант SkySearchListener-->
-        /*val skySearchAdapter = SkySearchAdapter(SkySearchListener { id ->
-            Toast.makeText(thisContext, id, Toast.LENGTH_LONG).show()
-            skySearchViewModel.onSkySearchClicked(id)
-        })*/
-
-        binding.skyImage.adapter = SkyMeaningImageAdapter(skyMeaningsViewModel)
-        // обновление списка skySearchAdapter.submitList(it) вынесено
-        // в fragment_sky_search.xml через BindingAdapters.kt
-
-        binding.recyclerMeaningSky.adapter = SkyMeaningAdapter(skyMeaningsViewModel)
-        // обновление списка skySearchAdapter.submitList(it) вынесено
-        // в fragment_sky_search.xml через BindingAdapters.kt
+        skyMeaningsViewModel.ids.value= args.id
 
         // Inflate the layout for this fragment
         return binding.root
@@ -62,12 +45,9 @@ class SkyMeaningsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        skyMeaningsViewModel.listenSound.observe(viewLifecycleOwner) { soundUri ->
-            soundUri?.let { sounduri ->
-                playSound(sounduri)
-                skyMeaningsViewModel.onSkySoundNavigated()
-            }
-        }
+        binding.skyImage.adapter = SkyMeaningImageAdapter(skyMeaningsViewModel)
+
+        binding.recyclerMeaningSky.adapter = SkyMeaningAdapter(skyMeaningsViewModel)
 
     }
 }

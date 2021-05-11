@@ -17,14 +17,10 @@
 
 package com.dinadurykina.skylexicon.ui.search
 
-import android.view.View
-import android.widget.EditText
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.dinadurykina.skylexicon.network.WordRecycler
 import com.dinadurykina.skylexicon.repository.SkyRepository
+import com.dinadurykina.skylexicon.ui.playSound
 import kotlinx.coroutines.launch
 
 /**
@@ -32,8 +28,12 @@ import kotlinx.coroutines.launch
  */
 //class SkySearchViewModel(val slovo:String) : ViewModel() {
 class SkySearchViewModel : ViewModel() {
-    var slovo: String = "Chair"
+    // Вводимое слово связано двухсторонним биндингом с полем
+    // наблюдается из фрагмента и при изменении зовется поиск
+    val slovo: MutableLiveData<String> = MutableLiveData<String>("Chair")
+
     private val skyRepository = SkyRepository()
+    val skySearchAdapter = SkySearchAdapter(this)
    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
@@ -44,20 +44,13 @@ class SkySearchViewModel : ViewModel() {
         val wordsListRecycler: LiveData<List<WordRecycler>>
             get() = _wordsListRecycler
 
-    init {
-        searchSlovo(slovo)
-    }
     private val _navigateToSkyMeanings = MutableLiveData<String?>()
-    val navigateToSkyMeanings
+    val navigateToSkyMeanings: LiveData<String?>
         get() = _navigateToSkyMeanings
 
     private val _showImage = MutableLiveData<String?>()
-    val showImage
+    val showImage : LiveData<String?>
         get() = _showImage
-
-    private val _listenSound = MutableLiveData<String?>()
-    val listenSound
-        get() = _listenSound
 
     // для варианта codelabs SkySearchListener и Вариант SkySearchViewModel
     fun onSkySearchClicked(id:String) {
@@ -67,15 +60,10 @@ class SkySearchViewModel : ViewModel() {
         _navigateToSkyMeanings.value = null
     }
 
-     fun onSlovoClicked(view:View) {
-         val slovo = (view as EditText).text.toString()
-         searchSlovo(slovo)
-     }
     fun searchSlovo(slovo:String) {
         viewModelScope.launch {
             try {
-                val skyResultRecycler = skyRepository.getSkySearchRecycler(slovo)
-                _wordsListRecycler.value = skyResultRecycler.value
+                _wordsListRecycler.value = skyRepository.getSkySearchRecycler(slovo).value
                 _response.value = "good"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
@@ -89,10 +77,6 @@ class SkySearchViewModel : ViewModel() {
     fun onShowImageNavigated() {
         _showImage.value = null
     }
-    fun onListenSoundClicked(imageUrl:String) {
-        _listenSound.value = imageUrl
-    }
-    fun onSkySoundNavigated() {
-        _listenSound.value = null
-    }
+
+    fun onClickSound(imageUrl:String) = playSound(imageUrl)
 }

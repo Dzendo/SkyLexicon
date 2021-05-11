@@ -34,11 +34,12 @@ class SkyRepository {
       val listWord: LiveData<List<Word>>
           get() = _listWord
 
-    // Содержит все данные для RecyclerView на первом экране - поиск-перевод
+    // Содержит все данные для перевода на первом экране - поиск-перевод
     private val _listWordRecycler = MutableLiveData<List<WordRecycler>>()  // Содержит все данные
       val listWordRecycler: LiveData<List<WordRecycler>>
           get() = _listWordRecycler
 
+    // основная функция поиска перевода слова
     suspend fun getSkySearch(slovo: String): LiveData<List<Word>> {
         val rezult: List<Word>
         withContext(Dispatchers.IO) {
@@ -53,6 +54,7 @@ class SkyRepository {
     val listMeaning: LiveData<List<Meaning>>
         get() = _listMeaning
 
+    // основная функция поиска значения слова
     suspend fun getSkyMeanings(ids: String): LiveData<List<Meaning>> {
         val rezult: List<Meaning>
         withContext(Dispatchers.IO) {
@@ -63,6 +65,7 @@ class SkyRepository {
         return listMeaning
     }
 
+    // только первое значение под номером 0
     private val _meaning0 = MutableLiveData<Meaning>()  // Содержит все данные
     val meaning0: LiveData<Meaning>
         get() = _meaning0
@@ -72,6 +75,7 @@ class SkyRepository {
         return meaning0
     }
 
+    // обращается к API находит слово и заполняет массив для Recycler первого экрана
     suspend fun getSkySearchRecycler(slovo: String): LiveData<List<WordRecycler>> {
         val mutableListRecycler: MutableList<WordRecycler> = arrayListOf()
         val result = getSkySearch(slovo)

@@ -21,9 +21,7 @@ import com.dinadurykina.skylexicon.network.ImageUrl
  * https://ziginsider.github.io/Multiple_Row_Types_In_Recyclerview/
  * https://github.com/ziginsider/MultipleRowTypesInRecyclerViewDemo.git
  */
-//<!--Вариант SkySearchListener-->
-//class SkySearchAdapter(val clickListener: SkySearchListener):
-//<!--Вариант SkySearchViewModel-->
+
 class SkyMeaningImageAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel):
     ListAdapter<ImageUrl, ImageViewHolder>(ImageDiffCallback()) {
 
@@ -33,23 +31,17 @@ class SkyMeaningImageAdapter(private val skyMeaningsViewModel: SkyMeaningsViewMo
 
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val item = getItem(position)
-        //<!--Вариант SkySearchListener-->
-        //holder.bind(item, clickListener)
         holder.bind(item, skyMeaningsViewModel)
     }
 }
+
 class ImageViewHolder private constructor(private val binding: RowItemImageMeaningBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    //<!--Вариант SkySearchListener-->
-    // fun bind(item: WordRecycler, clickListener: SkySearchListener) {
     fun bind(item: ImageUrl, skyMeaningsViewModel: SkyMeaningsViewModel) {
         binding.image = item
-        //<!--Вариант SkySearchListener-->
-        //binding.clickListener = clickListener
         binding.viewmodel = skyMeaningsViewModel
     }
-
     companion object {
         fun from(parent: ViewGroup): ImageViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
@@ -67,13 +59,5 @@ class ImageDiffCallback : DiffUtil.ItemCallback<ImageUrl>() {
     override fun areContentsTheSame(oldItem: ImageUrl, newItem: ImageUrl): Boolean =
         oldItem == newItem
 }
-
-// Вызывается из XML при нажатии на элемент списка RecyclerView через лямбду
-// вариант codelabs через аргумент обратного вызова
-//<!--Вариант SkySearchListener-->
-/*class SkySearchListener(val clickListener: (sleepId: String) -> Unit) {
-    // сюда item пригонит Word на который нажали а отгоним его id
-    fun onClick(night: WordRecycler) = clickListener(night.idRus)
-}*/
 
 

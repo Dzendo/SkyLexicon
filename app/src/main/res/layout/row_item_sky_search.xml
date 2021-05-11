@@ -5,17 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="word"
             type="com.dinadurykina.skylexicon.network.WordRecycler" />
-        <!--Вариант SkySearchViewModel-->
+
         <variable
             name="viewmodel"
             type="com.dinadurykina.skylexicon.ui.search.SkySearchViewModel" />
-        <!--Вариант SkySearchListener-->
-        <!--variable
-            name="clickListener"
-            type="com.dinadurykina.skylexicon.ui.search.SkySearchListener" /-->
+
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -30,8 +28,6 @@
         android:textSize="@dimen/text_size"
         app:cardCornerRadius="12dp"
         app:cardElevation="15dp">
-        <!--Вариант SkySearchListener-->
-        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -128,7 +124,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/teal_200"
-                android:onClick="@{() -> viewmodel.onListenSoundClicked(word.soundUrl)}"
+                android:onClick="@{() -> viewmodel.onClickSound(word.soundUrl)}"
                 android:src="@drawable/ic_baseline_volume_up_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -136,7 +132,3 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
-
-    <!--Если все элементы списка выглядят одинаково,
-        вы можете использовать один и тот же макет для всех,
-         но это не обязательно-->

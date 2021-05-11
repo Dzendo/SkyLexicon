@@ -20,25 +20,13 @@
 
     <data>
 
-        <import type="com.dinadurykina.skylexicon.network.Meaning" />
-
-        <import type="android.view.ViewGroup" />
-
         <variable
             name="image"
             type="com.dinadurykina.skylexicon.network.ImageUrl" />
-
-
-        <!--Вариант SkySearchViewModel-->
+        
         <variable
             name="viewmodel"
             type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
-
-        <!--Вариант SkySearchListener-->
-        <!--variable
-            name="clickListener"
-            type="com.dinadurykina.skylexicon.ui.search.SkySearchListener" /-->
-
     </data>
 
     <FrameLayout
@@ -53,10 +41,6 @@
             android:scaleType="centerCrop"
             app:imageUrl="@{image.url}"
             tools:src="@tools:sample/backgrounds/scenic" />
-        <!--app:imageUrl="@{viewModel.meaning.images[0].url}"-->
-        <!-- android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"-->
-        <!--Вариант SkySearchListener-->
-        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
 
     </FrameLayout>
 </layout>

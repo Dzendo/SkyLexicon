@@ -24,6 +24,7 @@ import androidx.lifecycle.viewModelScope
 import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.repository.SkyRepository
+import com.dinadurykina.skylexicon.ui.playSound
 import kotlinx.coroutines.launch
 
 /**
@@ -32,11 +33,13 @@ import kotlinx.coroutines.launch
 class SkyMeaningsViewModel : ViewModel() {
      private val skyRepository = SkyRepository()
     // Для Json нерасшифрованного (отладка)
+    // Вводимое слово связано двухсторонним биндингом с полем
+    // наблюдается из фрагмента и при изменении зовется поиск
+    val ids: MutableLiveData<String> = MutableLiveData<String>("132398")
+
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
         get() = _response
-
-    var ids: String = "132398"
 
     // Для одного значения слова расшифрованного
     private val _meaning = MutableLiveData<Meaning>()  // Данные для одного значения
@@ -59,13 +62,6 @@ class SkyMeaningsViewModel : ViewModel() {
     val imagesListRecycler: LiveData<List<ImageUrl>>
         get() = _imagesListRecycler
 
-    private val _listenSound = MutableLiveData<String?>()
-    val listenSound
-        get() = _listenSound
-
-    init {
-   //     meaningsIds(ids)
-    }
     /**
      * Sets the value of the status LiveData to the Sky API status.
      */
@@ -101,10 +97,6 @@ class SkyMeaningsViewModel : ViewModel() {
              }
          }
     }
-    fun onListenSoundClicked(soundUrl:String) {
-        _listenSound.value = soundUrl
-    }
-    fun onSkySoundNavigated() {
-        _listenSound.value = null
-    }
+
+    fun onClickSound(imageUrl:String) = playSound(imageUrl)
 }

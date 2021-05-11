@@ -28,10 +28,6 @@
             type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
 
         <variable
-            name="meaning"
-            type="com.dinadurykina.skylexicon.network.Meaning" />
-
-        <variable
             name="example"
             type="com.dinadurykina.skylexicon.network.Example" />
 
@@ -75,7 +71,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:background="@color/purple_200"
-                android:onClick="@{() -> viewmodel.onListenSoundClicked(example.soundUrl)}"
+                android:onClick="@{() -> viewmodel.onClickSound(example.soundUrl)}"
                 android:src="@drawable/ic_baseline_volume_up_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -83,7 +79,3 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
-
-    <!--Если все элементы списка выглядят одинаково,
-        вы можете использовать один и тот же макет для всех,
-         но это не обязательно-->
