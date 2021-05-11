@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.dinadurykina.skylexicon.databinding.RowItemAlternativeMeaningBinding
 import com.dinadurykina.skylexicon.network.Example
 import com.dinadurykina.skylexicon.network.MeaningsWithSimilarTranslation
@@ -26,31 +26,37 @@ import com.dinadurykina.skylexicon.network.AlternativeTranslations
  * https://github.com/ziginsider/MultipleRowTypesInRecyclerViewDemo.git
  */
 
-private const val ITEM_VIEW_TYPE_EXAMPLE = 1
-private const val ITEM_VIEW_TYPE_SIMILAR = 2
-private const val ITEM_VIEW_TYPE_ALTERNATIVE = 3
+//private const val ITEM_VIEW_TYPE_EXAMPLE = 0
+//private const val ITEM_VIEW_TYPE_SIMILAR = 1
+//private const val ITEM_VIEW_TYPE_ALTERNATIVE = 2
 
 class SkyMeaningAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel) :
-    ListAdapter<DataItem, RecyclerView.ViewHolder>(MeaningDiffCallback()) {
+    ListAdapter<DataItem, ViewHolder>(MeaningDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is DataItem.ExampleItem -> ITEM_VIEW_TYPE_EXAMPLE
-            is DataItem.MeaningWithSimilarTranslationItem -> ITEM_VIEW_TYPE_SIMILAR
-            is DataItem.AlternativeTranslationsItem -> ITEM_VIEW_TYPE_ALTERNATIVE
+        return with(DataItem) {
+            when (getItem(position)) {
+                is DataItem.ExampleItem -> ITEM_VIEW_TYPE_EXAMPLE
+                is DataItem.MeaningWithSimilarTranslationItem -> ITEM_VIEW_TYPE_SIMILAR
+                is DataItem.AlternativeTranslationsItem -> ITEM_VIEW_TYPE_ALTERNATIVE
+            }
+        }
+    }
+    // Стандартный метод RecyclerView  - Создает View строчки-карточки место куда Bind занесет данные
+    // Он отвечает за внешний вид строчки RecyclerView: конструирует ее и отдает на высветку
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return with(DataItem) {
+            when (viewType) {
+                ITEM_VIEW_TYPE_EXAMPLE -> ExampleViewHolder.from(parent)
+                ITEM_VIEW_TYPE_SIMILAR -> SimilarViewHolder.from(parent)
+                ITEM_VIEW_TYPE_ALTERNATIVE -> AlternativeViewHolder.from(parent)
+                else -> throw ClassCastException("Unknown viewType $viewType")
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            ITEM_VIEW_TYPE_EXAMPLE -> ExampleViewHolder.from(parent)
-            ITEM_VIEW_TYPE_SIMILAR -> SimilarViewHolder.from(parent)
-            ITEM_VIEW_TYPE_ALTERNATIVE -> AlternativeViewHolder.from(parent)
-            else -> throw ClassCastException("Unknown viewType ${viewType}")
-        }
-    }
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    // Стандартный метод RecyclerView  - заполняет реальные данные факта в поля строчки (ID букву, значения полей)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         when (holder) {
             is ExampleViewHolder -> {
                 val item = getItem(position) as DataItem.ExampleItem
@@ -67,9 +73,9 @@ class SkyMeaningAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel) 
         }
     }
 }
-
+// три класса для каждого вида данных - создатели - держатели места - вида
 class ExampleViewHolder(private val binding: RowItemExampleMeaningBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+            ViewHolder(binding.root) {
 
     fun bind(item: Example, skyMeaningsViewModel: SkyMeaningsViewModel) {
         binding.example = item
@@ -86,7 +92,7 @@ class ExampleViewHolder(private val binding: RowItemExampleMeaningBinding) :
 }
 
 class SimilarViewHolder(private val binding: RowItemSimilarMeaningBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+            ViewHolder(binding.root) {
 
     fun bind(item: MeaningsWithSimilarTranslation, skyMeaningsViewModel: SkyMeaningsViewModel) {
         binding.similar = item
@@ -103,12 +109,10 @@ class SimilarViewHolder(private val binding: RowItemSimilarMeaningBinding) :
 }
 
 class AlternativeViewHolder(private val binding: RowItemAlternativeMeaningBinding) :
-    RecyclerView.ViewHolder(binding.root) {
+            ViewHolder(binding.root) {
 
     fun bind(item: AlternativeTranslations, skyMeaningsViewModel: SkyMeaningsViewModel) {
         binding.alternative = item
-        //<!--Вариант SkySearchListener-->
-        //binding.clickListener = clickListener
         binding.viewmodel = skyMeaningsViewModel
     }
     companion object {
@@ -120,7 +124,7 @@ class AlternativeViewHolder(private val binding: RowItemAlternativeMeaningBindin
         }
     }
 }
-
+// diffCallback адаптер не перерисовывает не изменившиеся элементы
 class MeaningDiffCallback : DiffUtil.ItemCallback<DataItem>() {
     override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean =
         oldItem.id == newItem.id
@@ -130,21 +134,37 @@ class MeaningDiffCallback : DiffUtil.ItemCallback<DataItem>() {
 
 // DataItem который представляет элемент данных разных типов
 sealed class DataItem {
+    // необходим DiffCallback для определения одинаковых строк (лучше если Int)
     abstract val id: String
+    // Номер типа данных 0,1,2 см. ниже присваевается в дата классе (указывается кто)
+    // должен быть реализован в конкретных классах данных с этим интерфейсом
+    // добавлен мной на будующее
+    // используется ...
+    abstract val itemViewType: Int
+
+// Классы обертки в DataItem для классов данных
+// Например ExampleItem - обертка Example - который содержит реальные данные
+// эти классы являютя А) Вложенными в DataItem и Б) наследниками DataItem: так вот
     data class ExampleItem(val example: Example) : DataItem() {
         override val id = example.text
+        override val itemViewType: Int = ITEM_VIEW_TYPE_EXAMPLE
     }
     data class MeaningWithSimilarTranslationItem(
         val meaningWithSimilarTranslation: MeaningsWithSimilarTranslation
     ) : DataItem() {
         override val id = meaningWithSimilarTranslation.meaningId.toString()
+        override val itemViewType: Int = ITEM_VIEW_TYPE_SIMILAR
     }
     data class AlternativeTranslationsItem(
         val alternativeTranslations: AlternativeTranslations
     ) : DataItem() {
         override val id = alternativeTranslations.text
+        override val itemViewType: Int = ITEM_VIEW_TYPE_ALTERNATIVE
+    }
+    companion object {
+        const val ITEM_VIEW_TYPE_EXAMPLE = 0
+        const val ITEM_VIEW_TYPE_SIMILAR = 1
+        const val ITEM_VIEW_TYPE_ALTERNATIVE = 2
     }
 }
-
-
 

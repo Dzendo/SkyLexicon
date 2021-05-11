@@ -25,16 +25,18 @@ import com.dinadurykina.skylexicon.network.ImageUrl
 class SkyMeaningImageAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel):
     ListAdapter<ImageUrl, ImageViewHolder>(ImageDiffCallback()) {
 
+    // Стандартный метод RecyclerView  - Создает View строчки-карточки место куда Bind занесет данные
+    // Он отвечает за внешний вид строчки RecyclerView: конструирует ее и отдает на высветку
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
         return ImageViewHolder.from(parent)
     }
-
+// Стандартный метод RecyclerView  - заполняет реальные данные факта в поля строчки (ID букву, значения полей)
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val item = getItem(position)
         holder.bind(item, skyMeaningsViewModel)
     }
 }
-
+// Это стандартный класс RecyclerView он просто технически удобен и укоряет RecyclerView
 class ImageViewHolder private constructor(private val binding: RowItemImageMeaningBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
@@ -52,7 +54,7 @@ class ImageViewHolder private constructor(private val binding: RowItemImageMeani
     }
 
 }
-
+// diffCallback адаптер не перерисовывает не изменившиеся элементы
 class ImageDiffCallback : DiffUtil.ItemCallback<ImageUrl>() {
     override fun areItemsTheSame(oldItem: ImageUrl, newItem: ImageUrl): Boolean =
         oldItem.url == newItem.url
