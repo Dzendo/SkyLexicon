@@ -76,6 +76,7 @@
             android:id="@+id/translation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text='@{viewModel.meaning.translation.text + " "}'
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@id/sky_image"
@@ -176,6 +177,7 @@
             android:id="@+id/Definition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:ellipsize="end"
             android:maxLines="4"
             android:text='@{viewModel.meaning.definition.text}'

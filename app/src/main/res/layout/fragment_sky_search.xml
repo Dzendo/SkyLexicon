@@ -41,19 +41,17 @@
             android:id="@+id/recycler_view_sky"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
-            app:spanCount="2"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/slovo"
-            app:layout_constraintVertical_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:wordListData="@{viewModel.wordsListRecycler}"
             tools:listitem="@layout/row_item_sky_search"
             tools:itemCount="8"/>
             <!-- app:listData зовется из BindingAdapters.kt
             и заменяет skySearchAdapter.submitList(it) в фрагменте -->
+        <!--app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
+        <!--app:spanCount="2"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

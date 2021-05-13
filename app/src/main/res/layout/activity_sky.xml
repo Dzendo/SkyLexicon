@@ -47,7 +47,24 @@
                         android:layout_height="?attr/actionBarSize"
                         android:background="?attr/colorPrimary"
                         app:layout_collapseMode="parallax"
-                        app:popupTheme="@style/Theme.Sky.PopupOverlay" />
+                        app:popupTheme="@style/Theme.Sky.PopupOverlay">
+                <EditText
+                    android:id="@+id/slovo_tool"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_gravity="center_horizontal"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:text="Enter slovo Eng or Rus"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints" />
+
+                    </com.google.android.material.appbar.MaterialToolbar>
                     <!--Идея всего этого построения: все что выше это навески и обертывания и конфигурирование этого тулбара -->
                 <!--/com.google.android.material.appbar.CollapsingToolbarLayout-->
 

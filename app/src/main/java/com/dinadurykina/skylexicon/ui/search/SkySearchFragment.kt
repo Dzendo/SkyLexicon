@@ -1,5 +1,6 @@
 package com.dinadurykina.skylexicon.ui.search
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
 
 /**
@@ -36,6 +38,15 @@ class SkySearchFragment : Fragment() {
         binding.viewModel = skySearchViewModel
 
         binding.recyclerViewSky.adapter = skySearchViewModel.skySearchAdapter
+
+        val nStolbov =when (resources.configuration.orientation){
+            Configuration.ORIENTATION_PORTRAIT ->  2
+            Configuration.ORIENTATION_LANDSCAPE ->  3
+            else ->  5
+        }
+        val staggeredGridLayoutManager  =
+            StaggeredGridLayoutManager(nStolbov,StaggeredGridLayoutManager.VERTICAL)
+        binding.recyclerViewSky.layoutManager = staggeredGridLayoutManager
 
         // Inflate the layout for this fragment
         return binding.root
