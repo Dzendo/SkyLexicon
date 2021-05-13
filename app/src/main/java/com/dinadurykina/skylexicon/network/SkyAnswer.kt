@@ -106,10 +106,6 @@ data class ImageUrl(
     val url: String // "//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50"
 )
 
-data class Url (
-    val url: String  // // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=a+separate+seat+for+one+person+with+four+legs+and+a+support+for+the+back"
-        )
-
 // Вспомогательный класс для RecyclerView на первом экране - поиск-перевод
 data class WordRecycler(
     val idEng: String, // word.id 838 непонятное число неизвестно зачем wordId Слово-это группа значений. Мы объединяем значения словом сущность.
@@ -132,3 +128,26 @@ data class WordRecycler(
     val isNote  // true - есть false - нет
         get() = (note == "") or (note == null)
 }
+// Вспомогательный класс для RecyclerView на втором экране - переводы -примеры-значения
+// Классы обертки в DataItem для классов данных
+// Например ExampleItem - обертка Example - который содержит реальные данные
+// эти классы являютя А) Вложенными в DataItem и Б) наследниками DataItem: так вот
+// DataItem который представляет элемент данных разных типов
+sealed class DataItem {
+    data class ExampleItem(val example: Example
+    ) : DataItem()
+    data class MeaningWithSimilarTranslationItem(
+        val meaningWithSimilarTranslation: MeaningsWithSimilarTranslation
+    ) : DataItem()
+    data class AlternativeTranslationsItem(
+        val alternativeTranslations: AlternativeTranslations
+    ) : DataItem()
+    // Номер числовой типа данных для вывода в RecyclerView
+    companion object {
+        const val ITEM_VIEW_TYPE_EXAMPLE = 0
+        const val ITEM_VIEW_TYPE_SIMILAR = 1
+        const val ITEM_VIEW_TYPE_ALTERNATIVE = 2
+    }
+}
+
+

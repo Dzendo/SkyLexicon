@@ -21,6 +21,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dinadurykina.skylexicon.network.DataItem
 import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.repository.SkyRepository
@@ -32,7 +33,7 @@ import kotlinx.coroutines.launch
  */
 class SkyMeaningsViewModel : ViewModel() {
      private val skyRepository = SkyRepository()
-    // Для Json нерасшифрованного (отладка)
+
     // Вводимое слово связано двухсторонним биндингом с полем
     // наблюдается из фрагмента и при изменении зовется поиск
     val ids: MutableLiveData<String> = MutableLiveData<String>("132398")
@@ -51,8 +52,6 @@ class SkyMeaningsViewModel : ViewModel() {
     val meanings: LiveData<List<Meaning>>
         get() = _meanings
 
-    private lateinit var oneMeanig: Meaning
-
     private val _dataItem = MutableLiveData<List<DataItem>>()
     val dataItem: LiveData<List<DataItem>>
         get() = _dataItem
@@ -65,38 +64,34 @@ class SkyMeaningsViewModel : ViewModel() {
     /**
      * Sets the value of the status LiveData to the Sky API status.
      */
+    fun meaningsIds(ids: String) {
+        viewModelScope.launch {
+            _response.value = "empty"
 
-     fun meaningsIds(ids: String) {
-         viewModelScope.launch {
-             _response.value = "empty"
+            try {
+                _meanings.value = skyRepository.getSkyMeanings(ids).value
 
-             try {
-                 val skyResult = skyRepository.getSkyMeanings(ids)
-                 _response.value = "Meanings ${skyResult.value?.size} : \n ${skyResult.value} \n End Sky Meanings  \n"
-                 _meanings.value = skyResult.value
-                 if (skyResult.value?.size?:0 > 0) {
-                     _meaning.value = skyResult.value?.get(0)
-                     oneMeanig = skyResult.value?.get(0)!!
+                _dataItem.value = skyRepository.getDataItemMeaningsRecycler(ids).value
 
-                     val example = oneMeanig.examples
-                         .map{DataItem.ExampleItem(it)}
-                     val similar = oneMeanig.meaningsWithSimilarTranslation
-                         .map{DataItem.MeaningWithSimilarTranslationItem(it)}
-                     val alternative = oneMeanig.alternativeTranslations
-                         .map{DataItem.AlternativeTranslationsItem(it)}
-                     _dataItem.value = similar + example + alternative
+                _imagesListRecycler.value = skyRepository.getSkyMeaning0(ids).value?.images
 
-                     _imagesListRecycler.value = oneMeanig.images +
-                            ImageUrl("//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=200&h=150&q=50") +
-                            ImageUrl("//d2zkmv5t5kao9.cloudfront.net/images/19b11a8848201a3250ebc16339329a79.jpeg?w=200&h=150&q=50") +
-                            ImageUrl( "//d2zkmv5t5kao9.cloudfront.net/images/1f4efec895bcc55352e9a47575b624d3.jpeg?w=200&h=150&q=50")
+                _meaning.value = skyRepository.getSkyMeaning0(ids).value
 
-                 }
-             } catch (e: Exception) {
-                 _response.value = "Failure: ${e.message}"
-             }
-         }
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+            }
+        }
     }
 
     fun onClickSound(imageUrl:String) = playSound(imageUrl)
+
+    fun onClickSimilar(meaningId:Long) { ids.value = meaningId.toString() }
+
+    private val _navigateToSkySearch = MutableLiveData<String?>(null)
+    val navigateToSkySearch: LiveData<String?>
+        get() = _navigateToSkySearch
+
+    fun onSkySearchNavigate(text:String) { _navigateToSkySearch.value = text }
+    fun onSkySearchNavigated() { _navigateToSkySearch.value = null }
+
 }

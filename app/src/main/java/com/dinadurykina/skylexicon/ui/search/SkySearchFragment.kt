@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
 
 /**
@@ -14,7 +15,7 @@ import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
  */
 class SkySearchFragment : Fragment() {
 
-    //private val args: SkySearchFragmentArgs by navArgs()
+    private val args: SkySearchFragmentArgs by navArgs()
     private lateinit var binding: FragmentSkySearchBinding
     /**
      * Lazily initialize our [SkySearchViewModel].
@@ -44,6 +45,7 @@ class SkySearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
+        skySearchViewModel.slovo.value = args.slovo
 
         // событие нажатия на картинку -> показ большой картинки в окошке alert
         skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->

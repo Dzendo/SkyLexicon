@@ -24,9 +24,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dinadurykina.skylexicon.R
+import com.dinadurykina.skylexicon.network.DataItem
 import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.WordRecycler
-import com.dinadurykina.skylexicon.ui.meanings.DataItem
 import com.dinadurykina.skylexicon.ui.meanings.SkyMeaningAdapter
 import com.dinadurykina.skylexicon.ui.meanings.SkyMeaningImageAdapter
 import com.dinadurykina.skylexicon.ui.search.SkySearchAdapter

@@ -2,11 +2,11 @@ package com.dinadurykina.skylexicon.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dinadurykina.skylexicon.databinding.RowItemSkySearchBinding
 import com.dinadurykina.skylexicon.network.WordRecycler
+import com.dinadurykina.skylexicon.ui.DiffCallback
 
 /** An adapter
  * The adapter connects your data to the RecyclerView.
@@ -18,7 +18,7 @@ import com.dinadurykina.skylexicon.network.WordRecycler
  */
 
 class SkySearchAdapter(private val skySearchViewModel: SkySearchViewModel):
-    ListAdapter<WordRecycler, WordViewHolder>(SkyDiffCallback()) {
+    ListAdapter<WordRecycler, WordViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         return WordViewHolder.from(parent)
@@ -45,12 +45,4 @@ class WordViewHolder private constructor(private val binding: RowItemSkySearchBi
         }
     }
 }
-
-class SkyDiffCallback : DiffUtil.ItemCallback<WordRecycler>() {
-    override fun areItemsTheSame(oldItem: WordRecycler, newItem: WordRecycler): Boolean =
-        oldItem.idEng == newItem.idEng
-    override fun areContentsTheSame(oldItem: WordRecycler, newItem: WordRecycler): Boolean =
-        oldItem == newItem
-}
-
 

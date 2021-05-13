@@ -29,50 +29,27 @@ import kotlinx.coroutines.withContext
  */
 
 class SkyRepository {
-    // Для списка найденных слов расшифрованного
-    private val _listWord = MutableLiveData<List<Word>>()  // Содержит все данные
-      val listWord: LiveData<List<Word>>
-          get() = _listWord
-
-    // Содержит все данные для перевода на первом экране - поиск-перевод
-    private val _listWordRecycler = MutableLiveData<List<WordRecycler>>()  // Содержит все данные
-      val listWordRecycler: LiveData<List<WordRecycler>>
-          get() = _listWordRecycler
 
     // основная функция поиска перевода слова
     suspend fun getSkySearch(slovo: String): LiveData<List<Word>> {
         val rezult: List<Word>
         withContext(Dispatchers.IO) {
-            rezult = SkyApi.retrofitService.getSearch(slovo)
+            rezult = SkyApi.retrofitService.getSearch(slovo)//.await()  // await говорит что это корутинный  Deferred
         }
-        _listWord.value = rezult
-        return listWord
+        return MutableLiveData(rezult)
     }
-
-    // Содержит все данные значения слова
-    private val _listMeaning = MutableLiveData<List<Meaning>>()
-    val listMeaning: LiveData<List<Meaning>>
-        get() = _listMeaning
 
     // основная функция поиска значения слова
     suspend fun getSkyMeanings(ids: String): LiveData<List<Meaning>> {
         val rezult: List<Meaning>
         withContext(Dispatchers.IO) {
-            rezult = SkyApi.retrofitService.getMeanings(ids)
+            rezult = SkyApi.retrofitService.getMeanings(ids)//.await()  // await говорит что это корутинный  Deferred
         }
-        _listMeaning.value = rezult
-        _meaning0.value = rezult[0]
-        return listMeaning
+        return MutableLiveData(rezult)
     }
 
-    // только первое значение под номером 0
-    private val _meaning0 = MutableLiveData<Meaning>()  // Содержит все данные
-    val meaning0: LiveData<Meaning>
-        get() = _meaning0
-
-    suspend fun getSkyMeaning0(ids: String): LiveData<Meaning> {  // = SkyApi.retrofitService.getMeanings(ids)
-        _meaning0.value = getSkyMeanings(ids).value?.get(0)
-        return meaning0
+    suspend fun getSkyMeaning0(ids: String): LiveData<Meaning> {
+         return MutableLiveData(getSkyMeanings(ids).value?.get(0))
     }
 
     // обращается к API находит слово и заполняет массив для Recycler первого экрана
@@ -95,8 +72,21 @@ class SkyRepository {
                     soundUrl = meaning2.soundUrl
                 ))
             }
-        _listWordRecycler.value = mutableListRecycler
-        return listWordRecycler
+
+        return MutableLiveData(mutableListRecycler)
+    }
+
+    suspend fun getDataItemMeaningsRecycler(ids: String): LiveData<List<DataItem>> {
+        val result = getSkyMeanings(ids)
+        val oneMeanig = result.value?.get(0)!!
+
+        val example = oneMeanig.examples
+            .map { DataItem.ExampleItem(it) }
+        val similar = oneMeanig.meaningsWithSimilarTranslation
+            .map { DataItem.MeaningWithSimilarTranslationItem(it) }
+        val alternative = oneMeanig.alternativeTranslations
+            .map { DataItem.AlternativeTranslationsItem(it) }
+        return MutableLiveData(similar + example + alternative)
     }
 }
 

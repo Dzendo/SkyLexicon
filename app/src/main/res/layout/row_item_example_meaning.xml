@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardBackgroundColor="@color/purple_200"
+        android:onClick="@{() -> viewmodel.onClickSound(example.soundUrl)}"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="8dp"
@@ -44,9 +45,6 @@
         android:textSize="@dimen/text_size"
         app:cardCornerRadius="12dp"
         app:cardElevation="15dp">
-        <!--Вариант SkySearchListener-->
-        <!--android:onClick="@{() -> clickListener.onClick(word)}"-->
-        <!--android:onClick="@{() -> viewmodel.onSkySearchClicked(word.idRus)}"-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

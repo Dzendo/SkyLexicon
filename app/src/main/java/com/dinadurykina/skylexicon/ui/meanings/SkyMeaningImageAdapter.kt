@@ -2,11 +2,11 @@ package com.dinadurykina.skylexicon.ui.meanings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.dinadurykina.skylexicon.databinding.RowItemImageMeaningBinding
 import com.dinadurykina.skylexicon.network.ImageUrl
+import com.dinadurykina.skylexicon.ui.DiffCallback
 
 /** An adapter
  * The adapter connects your data to the RecyclerView.
@@ -23,7 +23,7 @@ import com.dinadurykina.skylexicon.network.ImageUrl
  */
 
 class SkyMeaningImageAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel):
-    ListAdapter<ImageUrl, ImageViewHolder>(ImageDiffCallback()) {
+    ListAdapter<ImageUrl, ImageViewHolder>(DiffCallback()) {
 
     // Стандартный метод RecyclerView  - Создает View строчки-карточки место куда Bind занесет данные
     // Он отвечает за внешний вид строчки RecyclerView: конструирует ее и отдает на высветку
@@ -53,13 +53,6 @@ class ImageViewHolder private constructor(private val binding: RowItemImageMeani
         }
     }
 
-}
-// diffCallback адаптер не перерисовывает не изменившиеся элементы
-class ImageDiffCallback : DiffUtil.ItemCallback<ImageUrl>() {
-    override fun areItemsTheSame(oldItem: ImageUrl, newItem: ImageUrl): Boolean =
-        oldItem.url == newItem.url
-    override fun areContentsTheSame(oldItem: ImageUrl, newItem: ImageUrl): Boolean =
-        oldItem == newItem
 }
 
 

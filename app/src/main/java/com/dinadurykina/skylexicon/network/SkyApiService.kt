@@ -56,6 +56,9 @@ interface SkyApiService {
 
     @GET("api/public/v1/words/search")
     suspend fun getSearch(@Query("search") type: String): List<Word>
+    //Deferred<List<MarsProperty>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
+// Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и
+// естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...
 
     @GET("api/public/v1/meanings")
    suspend fun getMeanings(@Query("ids") type: String): List<Meaning>

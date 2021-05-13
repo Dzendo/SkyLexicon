@@ -2,15 +2,16 @@ package com.dinadurykina.skylexicon.ui.meanings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.dinadurykina.skylexicon.databinding.RowItemAlternativeMeaningBinding
 import com.dinadurykina.skylexicon.network.Example
 import com.dinadurykina.skylexicon.network.MeaningsWithSimilarTranslation
+import com.dinadurykina.skylexicon.network.AlternativeTranslations
 import com.dinadurykina.skylexicon.databinding.RowItemExampleMeaningBinding
 import com.dinadurykina.skylexicon.databinding.RowItemSimilarMeaningBinding
-import com.dinadurykina.skylexicon.network.AlternativeTranslations
+import com.dinadurykina.skylexicon.databinding.RowItemAlternativeMeaningBinding
+import com.dinadurykina.skylexicon.network.DataItem
+import com.dinadurykina.skylexicon.ui.DiffCallback
 
 /** An adapter
  * The adapter connects your data to the RecyclerView.
@@ -26,12 +27,8 @@ import com.dinadurykina.skylexicon.network.AlternativeTranslations
  * https://github.com/ziginsider/MultipleRowTypesInRecyclerViewDemo.git
  */
 
-//private const val ITEM_VIEW_TYPE_EXAMPLE = 0
-//private const val ITEM_VIEW_TYPE_SIMILAR = 1
-//private const val ITEM_VIEW_TYPE_ALTERNATIVE = 2
-
 class SkyMeaningAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel) :
-    ListAdapter<DataItem, ViewHolder>(MeaningDiffCallback()) {
+    ListAdapter<DataItem, ViewHolder>(DiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
         return with(DataItem) {
@@ -124,47 +121,3 @@ class AlternativeViewHolder(private val binding: RowItemAlternativeMeaningBindin
         }
     }
 }
-// diffCallback адаптер не перерисовывает не изменившиеся элементы
-class MeaningDiffCallback : DiffUtil.ItemCallback<DataItem>() {
-    override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean =
-        oldItem.id == newItem.id
-    override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean =
-        oldItem == newItem
-}
-
-// DataItem который представляет элемент данных разных типов
-sealed class DataItem {
-    // необходим DiffCallback для определения одинаковых строк (лучше если Int)
-    abstract val id: String
-    // Номер типа данных 0,1,2 см. ниже присваевается в дата классе (указывается кто)
-    // должен быть реализован в конкретных классах данных с этим интерфейсом
-    // добавлен мной на будующее
-    // используется ...
-    abstract val itemViewType: Int
-
-// Классы обертки в DataItem для классов данных
-// Например ExampleItem - обертка Example - который содержит реальные данные
-// эти классы являютя А) Вложенными в DataItem и Б) наследниками DataItem: так вот
-    data class ExampleItem(val example: Example) : DataItem() {
-        override val id = example.text
-        override val itemViewType: Int = ITEM_VIEW_TYPE_EXAMPLE
-    }
-    data class MeaningWithSimilarTranslationItem(
-        val meaningWithSimilarTranslation: MeaningsWithSimilarTranslation
-    ) : DataItem() {
-        override val id = meaningWithSimilarTranslation.meaningId.toString()
-        override val itemViewType: Int = ITEM_VIEW_TYPE_SIMILAR
-    }
-    data class AlternativeTranslationsItem(
-        val alternativeTranslations: AlternativeTranslations
-    ) : DataItem() {
-        override val id = alternativeTranslations.text
-        override val itemViewType: Int = ITEM_VIEW_TYPE_ALTERNATIVE
-    }
-    companion object {
-        const val ITEM_VIEW_TYPE_EXAMPLE = 0
-        const val ITEM_VIEW_TYPE_SIMILAR = 1
-        const val ITEM_VIEW_TYPE_ALTERNATIVE = 2
-    }
-}
-
