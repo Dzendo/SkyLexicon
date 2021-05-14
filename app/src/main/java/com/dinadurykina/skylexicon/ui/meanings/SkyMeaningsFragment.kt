@@ -11,9 +11,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
 import com.dinadurykina.skylexicon.launcher.SkyConstants
-import com.dinadurykina.skylexicon.ui.playSound
-import com.dinadurykina.skylexicon.ui.search.SkySearchFragmentDirections
-import com.google.android.material.snackbar.Snackbar
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -45,7 +42,7 @@ class SkyMeaningsFragment : Fragment() {
 
         SkyConstants.ids.value= args.id
 
-        binding.
+        binding.constants = SkyConstants
 
         // Inflate the layout for this fragment
         return binding.root
