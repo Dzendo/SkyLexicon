@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
+import com.dinadurykina.skylexicon.launcher.SkyConstants
 import com.dinadurykina.skylexicon.ui.playSound
 import com.dinadurykina.skylexicon.ui.search.SkySearchFragmentDirections
 import com.google.android.material.snackbar.Snackbar
@@ -40,6 +41,11 @@ class SkyMeaningsFragment : Fragment() {
         skyMeaningsViewModel.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
 
         skyMeaningsViewModel.ids.value= args.id
+        SkyConstants.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
+
+        SkyConstants.ids.value= args.id
+
+        binding.
 
         // Inflate the layout for this fragment
         return binding.root

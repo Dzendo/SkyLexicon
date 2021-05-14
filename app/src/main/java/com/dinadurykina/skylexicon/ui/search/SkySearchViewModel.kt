@@ -30,7 +30,7 @@ import kotlinx.coroutines.launch
 class SkySearchViewModel : ViewModel() {
     // Вводимое слово связано двухсторонним биндингом с полем
     // наблюдается из фрагмента и при изменении зовется поиск
-    val slovo: MutableLiveData<String> = MutableLiveData<String>("Chair")
+    //val slovo: MutableLiveData<String> = MutableLiveData<String>("Chair")
 
     private val skyRepository = SkyRepository()
     val skySearchAdapter = SkySearchAdapter(this)

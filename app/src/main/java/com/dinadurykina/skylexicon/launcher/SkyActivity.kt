@@ -54,6 +54,10 @@ class SkyActivity : AppCompatActivity() {
         // Полю @+id/nav_view ему звать navController, когда на него нажмут, что бы перейти куда нажали
         mainBinding.navView.setupWithNavController(navController)
 
+        mainBinding.constants = SkyConstants
+
+
+
         // отправляет в логкат SkyMainActivity onCreate
         Timber.i("SkyMainActivity onCreate ")
     // onCreate закончен, все сделали отдаем управление Андроиду и он отдает юзеру

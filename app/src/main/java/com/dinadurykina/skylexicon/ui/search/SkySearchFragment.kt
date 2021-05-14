@@ -11,6 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
+import com.dinadurykina.skylexicon.launcher.SkyConstants
+
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -55,8 +57,9 @@ class SkySearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
-        skySearchViewModel.slovo.value = args.slovo
+        SkyConstants.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
+        //skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
+        SkyConstants.slovo.value = args.slovo
 
         // событие нажатия на картинку -> показ большой картинки в окошке alert
         skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->
