@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
+import com.dinadurykina.skylexicon.launcher.SkyActivity
 import com.dinadurykina.skylexicon.launcher.SkyConstants
 
 /**
@@ -62,7 +63,7 @@ class SkyMeaningsFragment : Fragment() {
             )
             skyMeaningsViewModel.onSkySearchNavigated()
             }
-
         }
+        SkyConstants.slovobinding.setVisibility(View.GONE)
     }
 }

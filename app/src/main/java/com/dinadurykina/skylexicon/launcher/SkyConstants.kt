@@ -1,12 +1,14 @@
 package com.dinadurykina.skylexicon.launcher
 
+import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 
 object SkyConstants{
     //public val Slovo: String = "Table"
-//public val Ids:String = "132398"
+    //public val Ids:String = "132398"
     public val slovo: MutableLiveData<String> = MutableLiveData<String>("Face")
     public val ids: MutableLiveData<String> = MutableLiveData<String>("132398")
+    public lateinit var slovobinding: EditText
 }
 // https://classroom.udacity.com/courses/ud9012/lessons/2be0ed85-721d-4a8d-a484-909b5c98336c/concepts/b36af08e-1bce-48e8-9a31-2e268907d2f0
 // https://developer.android.com/codelabs/kotlin-android-training-internet-data?index=..%2F..android-kotlin-fundamentals#3

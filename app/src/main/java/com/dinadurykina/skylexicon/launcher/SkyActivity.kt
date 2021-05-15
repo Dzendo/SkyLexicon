@@ -3,6 +3,8 @@ package com.dinadurykina.skylexicon.launcher
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -28,6 +30,9 @@ class SkyActivity : AppCompatActivity() {
     // Выделяется место под эти переменные в созданном классе
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mainBinding: ActivitySkyBinding
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +60,9 @@ class SkyActivity : AppCompatActivity() {
         mainBinding.navView.setupWithNavController(navController)
 
         mainBinding.constants = SkyConstants
+
+        SkyConstants.slovobinding = mainBinding.slovo
+
 
 
 

@@ -50,6 +50,8 @@ class SkySearchFragment : Fragment() {
             StaggeredGridLayoutManager(nStolbov,StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerViewSky.layoutManager = staggeredGridLayoutManager
 
+        SkyConstants.slovobinding.setVisibility(View.VISIBLE)
+
         // Inflate the layout for this fragment
         return binding.root
     }
