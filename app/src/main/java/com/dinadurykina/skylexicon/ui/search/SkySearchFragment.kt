@@ -50,7 +50,8 @@ class SkySearchFragment : Fragment() {
             StaggeredGridLayoutManager(nStolbov,StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerViewSky.layoutManager = staggeredGridLayoutManager
 
-        SkyConstants.slovobinding.setVisibility(View.VISIBLE)
+        SkyConstants.slovobinding.visibility = View.VISIBLE
+
 
         // Inflate the layout for this fragment
         return binding.root
@@ -62,6 +63,7 @@ class SkySearchFragment : Fragment() {
         SkyConstants.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
         //skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
         SkyConstants.slovo.value = args.slovo
+        SkyConstants.slovobinding.setText(args.slovo)
 
         // событие нажатия на картинку -> показ большой картинки в окошке alert
         skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->

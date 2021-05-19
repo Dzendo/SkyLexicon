@@ -63,8 +63,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01'
 
     //  Coroutines поддержка основных библиотек сопрограмм Kotlin 1.4.3
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0-RC'
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0-RC'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
 
     // Retrofit2, https://square.github.io/retrofit/ 8.8.1 Retrofit with Moshi Converter
     implementation "com.squareup.retrofit2:retrofit:2.9.0"

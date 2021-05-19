@@ -58,6 +58,7 @@ class SkyMeaningsFragment : Fragment() {
 
         skyMeaningsViewModel.navigateToSkySearch.observe(viewLifecycleOwner){
             it?.let{ slovo ->
+                SkyConstants.slovo.value = slovo
             this.findNavController().navigate(
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo)
             )
