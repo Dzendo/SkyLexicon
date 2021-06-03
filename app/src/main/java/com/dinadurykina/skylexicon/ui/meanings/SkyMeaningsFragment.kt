@@ -39,10 +39,12 @@ class SkyMeaningsFragment : Fragment() {
         skyMeaningsViewModel.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
 
         skyMeaningsViewModel.ids.value= args.id
+        // сделал вренменно
+        // пока не знаю как поместить поле для ввода слова в ActionBar
+        // а достать его из фрагмента
+        // Удалить
         SkyConstants.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
-
         SkyConstants.ids.value= args.id
-
         binding.constants = SkyConstants
 
         // Inflate the layout for this fragment
@@ -56,8 +58,12 @@ class SkyMeaningsFragment : Fragment() {
 
         binding.recyclerMeaningSky.adapter = SkyMeaningAdapter(skyMeaningsViewModel)
 
+
         skyMeaningsViewModel.navigateToSkySearch.observe(viewLifecycleOwner){
             it?.let{ slovo ->
+                // сделал вренменно
+                // пока не знаю как поместить поле для ввода слова в ActionBar
+                // а достать его из фрагмента
                 SkyConstants.slovo.value = slovo
             this.findNavController().navigate(
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo)
@@ -65,6 +71,9 @@ class SkyMeaningsFragment : Fragment() {
             skyMeaningsViewModel.onSkySearchNavigated()
             }
         }
+        // сделал вренменно
+        // пока не знаю как поместить поле для ввода слова в ActionBar
+        // а достать его из фрагмента
         SkyConstants.slovobinding.setVisibility(View.GONE)
     }
 }

@@ -61,6 +61,9 @@ class SkyActivity : AppCompatActivity() {
 
         mainBinding.constants = SkyConstants
 
+        // сделал вренменно
+        // пока не знаю как поместить поле для ввода слова в ActionBar
+        // а достать его из фрагмента
         SkyConstants.slovobinding = mainBinding.slovo
 
 

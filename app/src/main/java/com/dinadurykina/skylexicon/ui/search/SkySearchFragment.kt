@@ -50,6 +50,9 @@ class SkySearchFragment : Fragment() {
             StaggeredGridLayoutManager(nStolbov,StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerViewSky.layoutManager = staggeredGridLayoutManager
 
+        // сделал вренменно
+        // пока не знаю как поместить поле для ввода слова в ActionBar
+        // а достать его из фрагмента
         SkyConstants.slovobinding.visibility = View.VISIBLE
 
 
@@ -60,6 +63,9 @@ class SkySearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // сделал вренменно
+        // пока не знаю как поместить поле для ввода слова в ActionBar
+        // а достать его из фрагмента
         SkyConstants.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
         //skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
         SkyConstants.slovo.value = args.slovo
