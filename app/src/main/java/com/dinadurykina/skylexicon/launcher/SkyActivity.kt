@@ -59,12 +59,11 @@ class SkyActivity : AppCompatActivity() {
         // Полю @+id/nav_view ему звать navController, когда на него нажмут, что бы перейти куда нажали
         mainBinding.navView.setupWithNavController(navController)
 
-        mainBinding.constants = SkyConstants
-
+        //mainBinding.constants = SkyConstants
         // сделал вренменно
         // пока не знаю как поместить поле для ввода слова в ActionBar
         // а достать его из фрагмента
-        SkyConstants.slovobinding = mainBinding.slovo
+        //SkyConstants.slovobinding = mainBinding.slovo
 
 
 

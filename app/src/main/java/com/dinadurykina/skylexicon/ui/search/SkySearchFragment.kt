@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
-import com.dinadurykina.skylexicon.launcher.SkyConstants
+//import com.dinadurykina.skylexicon.launcher.SkyConstants
 
 
 /**
@@ -53,7 +53,7 @@ class SkySearchFragment : Fragment() {
         // сделал вренменно
         // пока не знаю как поместить поле для ввода слова в ActionBar
         // а достать его из фрагмента
-        SkyConstants.slovobinding.visibility = View.VISIBLE
+        //SkyConstants.slovobinding.visibility = View.VISIBLE
 
 
         // Inflate the layout for this fragment
@@ -66,10 +66,11 @@ class SkySearchFragment : Fragment() {
         // сделал вренменно
         // пока не знаю как поместить поле для ввода слова в ActionBar
         // а достать его из фрагмента
-        SkyConstants.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
+        // перевел обратно из SkyConstants --> skySearchViewModel
+        skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
         //skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
-        SkyConstants.slovo.value = args.slovo
-        SkyConstants.slovobinding.setText(args.slovo)
+        skySearchViewModel.slovo.value = args.slovo
+        binding.slovo.setText(args.slovo)
 
         // событие нажатия на картинку -> показ большой картинки в окошке alert
         skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->

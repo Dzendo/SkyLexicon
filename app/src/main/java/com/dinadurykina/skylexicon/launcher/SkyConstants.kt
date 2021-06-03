@@ -3,6 +3,7 @@ package com.dinadurykina.skylexicon.launcher
 import android.widget.EditText
 import androidx.lifecycle.MutableLiveData
 
+/* на удаление
 //  Do not place Android context classes in static fields
 //  (static reference to SkyConstants which has field slovobinding pointing to EditText);
 //  this is a memory leak
@@ -24,7 +25,7 @@ object SkyConstants{
 // 2. Добавить поле для ввода слова в меню три точки из фрагмента (Как добавить Edit?)
 // 3. Строить action bar со словом в Фрагменте и другой action bar в Втором фрагменте
 // 4к. Перестраивать ВСЮ архитектуру приложения
-
+*/
 
 // https://classroom.udacity.com/courses/ud9012/lessons/2be0ed85-721d-4a8d-a484-909b5c98336c/concepts/b36af08e-1bce-48e8-9a31-2e268907d2f0
 // https://developer.android.com/codelabs/kotlin-android-training-internet-data?index=..%2F..android-kotlin-fundamentals#3

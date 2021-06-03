@@ -6,12 +6,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+    <!--data>
 
         <variable
             name="constants"
             type="com.dinadurykina.skylexicon.launcher.SkyConstants" />
-    </data>
+    </data-->
 
     <androidx.drawerlayout.widget.DrawerLayout
 
@@ -57,7 +57,7 @@
                     app:layout_collapseMode="parallax"
                     app:popupTheme="@style/Theme.Sky.PopupOverlay">
 
-                    <EditText
+                    <!--EditText
                         android:id="@+id/slovo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -71,9 +71,9 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="MissingConstraints" />
+                        tools:ignore="MissingConstraints" /-->
 
-                    <TextView
+                    <!--TextView
                         android:id="@+id/ids"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -82,7 +82,7 @@
                         android:text="@{constants.ids}"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        tools:text="1938" />
+                        tools:text="1938" /-->
 
                 </com.google.android.material.appbar.MaterialToolbar>
                 <!--Идея всего этого построения: все что выше это навески и обертывания и конфигурирование этого тулбара -->
