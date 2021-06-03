@@ -10,8 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
-import com.dinadurykina.skylexicon.launcher.SkyActivity
-import com.dinadurykina.skylexicon.launcher.SkyConstants
+//import com.dinadurykina.skylexicon.launcher.SkyConstants
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -42,10 +41,10 @@ class SkyMeaningsFragment : Fragment() {
         // сделал вренменно
         // пока не знаю как поместить поле для ввода слова в ActionBar
         // а достать его из фрагмента
-        // Удалить
-        SkyConstants.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
-        SkyConstants.ids.value= args.id
-        binding.constants = SkyConstants
+        // Удалить перевел обратно из SkyConstants --> skyMeaningsViewModel
+        skyMeaningsViewModel.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
+        skyMeaningsViewModel.ids.value= args.id
+        //binding.constants = SkyConstants
 
         // Inflate the layout for this fragment
         return binding.root
@@ -64,7 +63,7 @@ class SkyMeaningsFragment : Fragment() {
                 // сделал вренменно
                 // пока не знаю как поместить поле для ввода слова в ActionBar
                 // а достать его из фрагмента
-                SkyConstants.slovo.value = slovo
+                // SkyConstants.slovo.value = slovo
             this.findNavController().navigate(
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo)
             )
@@ -74,6 +73,6 @@ class SkyMeaningsFragment : Fragment() {
         // сделал вренменно
         // пока не знаю как поместить поле для ввода слова в ActionBar
         // а достать его из фрагмента
-        SkyConstants.slovobinding.setVisibility(View.GONE)
+        // SkyConstants.slovobinding.setVisibility(View.GONE)
     }
 }

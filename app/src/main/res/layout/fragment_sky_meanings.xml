@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
+        <!--variable
             name="constants"
-            type="com.dinadurykina.skylexicon.launcher.SkyConstants" />
+            type="com.dinadurykina.skylexicon.launcher.SkyConstants" /-->
 
         <variable
             name="viewModel"
@@ -102,10 +102,11 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:gravity="end"
-            android:text="@{constants.ids}"
+            android:text="@{viewModel.ids}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1938" />
+        <!--android:text="@{constants.ids}"-->
 
         <TextView
             android:id="@+id/wordId"
