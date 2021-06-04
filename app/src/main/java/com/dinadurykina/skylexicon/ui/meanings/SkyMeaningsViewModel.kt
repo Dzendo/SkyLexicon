@@ -17,10 +17,7 @@
 
 package com.dinadurykina.skylexicon.ui.meanings
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.dinadurykina.skylexicon.network.DataItem
 import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.Meaning
@@ -31,12 +28,13 @@ import kotlinx.coroutines.launch
 /**
  * The [ViewModel] that is attached to the [SkyMeaningsFragment].
  */
-class SkyMeaningsViewModel : ViewModel() {
-     private val skyRepository = SkyRepository()
+//class SkyMeaningsViewModel : ViewModel() {
+class SkyMeaningsViewModel(private val skyRepository : SkyRepository, ids:String) : ViewModel() {
+    // private val skyRepository = SkyRepository()
 
     // Вводимое слово связано двухсторонним биндингом с полем
     // наблюдается из фрагмента и при изменении зовется поиск
-    val ids: MutableLiveData<String> = MutableLiveData<String>("132398")
+    val ids: MutableLiveData<String> = MutableLiveData<String>(ids)
 
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
@@ -95,3 +93,12 @@ class SkyMeaningsViewModel : ViewModel() {
     fun onSkySearchNavigated() { _navigateToSkySearch.value = null }
 
 }
+@Suppress("UNCHECKED_CAST")
+class SkyMeaningsViewModelFactory (
+    private val skyRepository: SkyRepository,
+    private val slovo: String
+) : ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel> create(modelClass: Class<T>) =
+        (SkyMeaningsViewModel(skyRepository,slovo) as T)
+}
+

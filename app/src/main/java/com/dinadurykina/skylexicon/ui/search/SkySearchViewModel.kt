@@ -27,13 +27,14 @@ import kotlinx.coroutines.launch
  * The [ViewModel] that is attached to the [SkySearchFragment].
  */
 //class SkySearchViewModel(val slovo:String) : ViewModel() {
-class SkySearchViewModel : ViewModel() {
+//class SkySearchViewModel : ViewModel() {
+class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String) : ViewModel() {
     // Вводимое слово связано двухсторонним биндингом с полем
     // наблюдается из фрагмента и при изменении зовется поиск
-    val slovo: MutableLiveData<String> = MutableLiveData<String>("Chair")
+    val slovo: MutableLiveData<String> = MutableLiveData<String>(slovo) //("Chair")
 
-    private val skyRepository = SkyRepository()
-    val skySearchAdapter = SkySearchAdapter(this)
+   // private val skyRepository = SkyRepository()
+
    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
@@ -80,3 +81,13 @@ class SkySearchViewModel : ViewModel() {
 
     fun onClickSound(imageUrl:String) = playSound(imageUrl)
 }
+
+@Suppress("UNCHECKED_CAST")
+class SkySearchViewModelFactory (
+    private val skyRepository: SkyRepository,
+    private val slovo: String
+) : ViewModelProvider.NewInstanceFactory() {
+    override fun <T : ViewModel> create(modelClass: Class<T>) =
+        (SkySearchViewModel(skyRepository,slovo) as T)
+}
+

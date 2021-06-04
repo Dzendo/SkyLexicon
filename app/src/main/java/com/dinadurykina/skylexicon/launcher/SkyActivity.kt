@@ -24,15 +24,10 @@ import timber.log.Timber
  *    }
  */
 
-
-
 class SkyActivity : AppCompatActivity() {
     // Выделяется место под эти переменные в созданном классе
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var mainBinding: ActivitySkyBinding
-
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,15 +53,6 @@ class SkyActivity : AppCompatActivity() {
         mainBinding.toolbar.setupWithNavController(navController, appBarConfiguration)
         // Полю @+id/nav_view ему звать navController, когда на него нажмут, что бы перейти куда нажали
         mainBinding.navView.setupWithNavController(navController)
-
-        //mainBinding.constants = SkyConstants
-        // сделал вренменно
-        // пока не знаю как поместить поле для ввода слова в ActionBar
-        // а достать его из фрагмента
-        //SkyConstants.slovobinding = mainBinding.slovo
-
-
-
 
         // отправляет в логкат SkyMainActivity onCreate
         Timber.i("SkyMainActivity onCreate ")

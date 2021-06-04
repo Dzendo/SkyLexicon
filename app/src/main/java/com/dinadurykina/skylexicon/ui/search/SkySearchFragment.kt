@@ -11,8 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
-//import com.dinadurykina.skylexicon.launcher.SkyConstants
-
+import com.dinadurykina.skylexicon.launcher.SkyApplication
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -24,7 +23,12 @@ class SkySearchFragment : Fragment() {
     /**
      * Lazily initialize our [SkySearchViewModel].
      */
-    private val skySearchViewModel: SkySearchViewModel by viewModels()
+    //private val skySearchViewModel: SkySearchViewModel by viewModels()
+
+    // Теперь вы можете использовать FakeTestRepository вместо реального репозитория в TasksFragment и TaskDetailFragment.
+    private val skySearchViewModel by viewModels<SkySearchViewModel> {
+        SkySearchViewModelFactory((requireContext().applicationContext as SkyApplication).skyRepository,args.slovo)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +43,7 @@ class SkySearchFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = skySearchViewModel
 
-        binding.recyclerViewSky.adapter = skySearchViewModel.skySearchAdapter
+        binding.recyclerViewSky.adapter = SkySearchAdapter(skySearchViewModel)
 
         val nStolbov =when (resources.configuration.orientation){
             Configuration.ORIENTATION_PORTRAIT ->  2
@@ -50,12 +54,6 @@ class SkySearchFragment : Fragment() {
             StaggeredGridLayoutManager(nStolbov,StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerViewSky.layoutManager = staggeredGridLayoutManager
 
-        // сделал вренменно
-        // пока не знаю как поместить поле для ввода слова в ActionBar
-        // а достать его из фрагмента
-        //SkyConstants.slovobinding.visibility = View.VISIBLE
-
-
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -63,14 +61,7 @@ class SkySearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // сделал вренменно
-        // пока не знаю как поместить поле для ввода слова в ActionBar
-        // а достать его из фрагмента
-        // перевел обратно из SkyConstants --> skySearchViewModel
         skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
-        //skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
-        skySearchViewModel.slovo.value = args.slovo
-        binding.slovo.setText(args.slovo)
 
         // событие нажатия на картинку -> показ большой картинки в окошке alert
         skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->

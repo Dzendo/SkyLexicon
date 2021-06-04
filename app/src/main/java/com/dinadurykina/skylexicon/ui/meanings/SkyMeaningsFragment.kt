@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
-//import com.dinadurykina.skylexicon.launcher.SkyConstants
+import com.dinadurykina.skylexicon.launcher.SkyApplication
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -19,7 +19,9 @@ class SkyMeaningsFragment : Fragment() {
     private lateinit var thisContext: Context
     private val args: SkyMeaningsFragmentArgs by navArgs()
     private lateinit var binding: FragmentSkyMeaningsBinding
-    val skyMeaningsViewModel: SkyMeaningsViewModel by viewModels()
+    val skyMeaningsViewModel: SkyMeaningsViewModel by viewModels(){
+        SkyMeaningsViewModelFactory((requireContext().applicationContext as SkyApplication).skyRepository,args.id)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,15 +39,6 @@ class SkyMeaningsFragment : Fragment() {
 
         skyMeaningsViewModel.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
 
-        skyMeaningsViewModel.ids.value= args.id
-        // сделал вренменно
-        // пока не знаю как поместить поле для ввода слова в ActionBar
-        // а достать его из фрагмента
-        // Удалить перевел обратно из SkyConstants --> skyMeaningsViewModel
-        skyMeaningsViewModel.ids.observe(viewLifecycleOwner) {skyMeaningsViewModel.meaningsIds(it)}
-        skyMeaningsViewModel.ids.value= args.id
-        //binding.constants = SkyConstants
-
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -60,19 +53,11 @@ class SkyMeaningsFragment : Fragment() {
 
         skyMeaningsViewModel.navigateToSkySearch.observe(viewLifecycleOwner){
             it?.let{ slovo ->
-                // сделал вренменно
-                // пока не знаю как поместить поле для ввода слова в ActionBar
-                // а достать его из фрагмента
-                // SkyConstants.slovo.value = slovo
             this.findNavController().navigate(
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo)
             )
             skyMeaningsViewModel.onSkySearchNavigated()
             }
         }
-        // сделал вренменно
-        // пока не знаю как поместить поле для ввода слова в ActionBar
-        // а достать его из фрагмента
-        // SkyConstants.slovobinding.setVisibility(View.GONE)
     }
 }

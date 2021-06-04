@@ -17,6 +17,7 @@
 package com.dinadurykina.skylexicon.launcher
 
 import android.app.Application
+import com.dinadurykina.skylexicon.repository.SkyRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -38,9 +39,16 @@ import timber.log.Timber
  * А можно много потоков стартовать, а можно службы и сервисы здесь стартовать, но в фоне
  * А тогда они будут работать параллельно с клиентской активити.
  */
-
+// https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics?index=..%2F..index#4
 class SkyApplication : Application() {
     val applicationContext = this  // может пригодиться где-нибудь
+    // Важно, чтобы вы всегда создавали только один экземпляр класса репозитория.
+    // Чтобы в этом убедиться, вы воспользуетесь локатором служб в классе TodoApplication.
+    // назначьте ему репозиторий, полученный с использованием ServiceLocator.provideTaskRepository
+    val skyRepository: SkyRepository = SkyRepository()
+        get() = field  //ServiceLocator.provideTasksRepository(this)
+
+
     override fun onCreate() {
         super.onCreate()
 
