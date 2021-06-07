@@ -16,6 +16,11 @@
             android:icon="@drawable/ic_home"
             android:title="sky значение слова --> Form" />
 
+        <item
+            android:id="@+id/SkyAboutFragment"
+            android:icon="@drawable/ic_home"
+            android:title="sky о нас --> About" />
+
     </group>
 
 </menu>

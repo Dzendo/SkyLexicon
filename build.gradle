@@ -1,4 +1,6 @@
 // bildgradle Project
+// https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics?index=..%2F..index#7
+// https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-test-doubles#0
 buildscript {
     repositories {
         google()
@@ -6,7 +8,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.0-beta03'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.20-M1" //"1.5.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
     }
 }

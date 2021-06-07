@@ -26,14 +26,11 @@ import kotlinx.coroutines.launch
 /**
  * The [ViewModel] that is attached to the [SkySearchFragment].
  */
-//class SkySearchViewModel(val slovo:String) : ViewModel() {
-//class SkySearchViewModel : ViewModel() {
+
 class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String) : ViewModel() {
     // Вводимое слово связано двухсторонним биндингом с полем
     // наблюдается из фрагмента и при изменении зовется поиск
     val slovo: MutableLiveData<String> = MutableLiveData<String>(slovo) //("Chair")
-
-   // private val skyRepository = SkyRepository()
 
    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
@@ -45,6 +42,7 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
         val wordsListRecycler: LiveData<List<WordRecycler>>
             get() = _wordsListRecycler
 
+    // Для перехода ко второму экрану
     private val _navigateToSkyMeanings = MutableLiveData<String?>()
     val navigateToSkyMeanings: LiveData<String?>
         get() = _navigateToSkyMeanings
@@ -53,7 +51,7 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
     val showImage : LiveData<String?>
         get() = _showImage
 
-    // для варианта codelabs SkySearchListener и Вариант SkySearchViewModel
+    // Для перехода ко второму экрану
     fun onSkySearchClicked(id:String) {
         _navigateToSkyMeanings.value = id
     }
@@ -65,12 +63,13 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
         viewModelScope.launch {
             try {
                 _wordsListRecycler.value = skyRepository.getSkySearchRecycler(slovo).value
+               // _wordsListRecycler = skyRepository.getSkySearchRecycler(slovo)
                 _response.value = "good"
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"
             }
         }
-     }
+    }
 
     fun onSkyImageClicked(imageUri:String) {
         _showImage.value = imageUri

@@ -13,4 +13,9 @@
 
     <dimen name="text_size">22sp</dimen>
 
+    <dimen name="text_size_about">20sp</dimen>
+    <dimen name="small_padding_about">8dp</dimen>
+    <dimen name="layout_margin_about">16dp</dimen>
+    <dimen name="padding_about">16dp</dimen>
+
 </resources>

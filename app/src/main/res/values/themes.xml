@@ -42,4 +42,17 @@
     <style name="TextAppearance.Sky.Toolbar.Text" parent="TextAppearance.MaterialComponents.Headline5" >
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
+
+
+    <style name="GreenText" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">#00FF00</item>
+    </style>
+
+    <style name="NameStyle" parent="GreenText">
+        <item name="android:layout_marginTop">@dimen/layout_margin_about</item>
+        <item name="android:fontFamily">@font/roboto_thin</item>
+        <item name="android:paddingTop">@dimen/small_padding_about</item>
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">@dimen/text_size</item>
+    </style>
 </resources>

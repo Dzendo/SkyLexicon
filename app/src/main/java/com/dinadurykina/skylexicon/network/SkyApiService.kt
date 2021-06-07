@@ -35,18 +35,18 @@ import retrofit2.http.Query
 private const val BASE_URL = "https://dictionary.skyeng.ru/"
 
 // используйте Moshi Builder для создания объекта Moshi с KotlinJsonAdapterFactory:
-// преобразует Json с полями в объекты Kotlin data class c с полями объектов
+// преобразует Json с полями в объекты Kotlin data class c полями объектов
 private val moshi = Moshi.Builder()
     .addLast(KotlinJsonAdapterFactory())
     .build()
 
 //  Используйте Retrofit.Builder для создания объекта Retrofit.
 private val retrofit = Retrofit.Builder()
-    .addConverterFactory(MoshiConverterFactory.create(moshi))  // 8.8.5 измените с нашим moshi Object:
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
     .baseUrl(BASE_URL)
     .build()
 
-// Создайте MarsApiService интерфейс и определите getProperties() метод для запроса строки ответа JSON.
+// Создайте SkyApiService интерфейс и определите getProperties() метод для запроса строки ответа JSON.
 // Аннотируйте метод с помощью @GET, указав конечную точку для ответа по skyeng JSON,
 // и создайте Call объект Retrofit , который запустит HTTP-запрос.
 // В Основном через него приложение и обращается через API к интернету
@@ -56,26 +56,25 @@ interface SkyApiService {
 
     @GET("api/public/v1/words/search")
     suspend fun getSearch(@Query("search") type: String): List<Word>
-    //Deferred<List<MarsProperty>> // 8.9.3 Изменить на Deferred список MarsProperty: для корутин
 // Если вверху добавили фабрику из пакета корутин RetroFit то теперь можно здесь убрать обратный вызов и
-// естественно переделывать вызов интерфейса MarsApiService из ViewModel на "корутинный"   8,9,...
+// естественно переделывать вызов интерфейса SkyApiService из ViewModel на "корутинный"
 
     @GET("api/public/v1/meanings")
    suspend fun getMeanings(@Query("ids") type: String): List<Meaning>
 }
 
-// Передав API сервиса, который вы только что определили,
+// Передав API сервиса, который только что определили,
 // создайте публичный объект, который называется SkyApi
 // для предоставления Retrofit сервиса остальной части приложения:
 object SkyApi {
     val retrofitService : SkyApiService by lazy { retrofit.create(SkyApiService::class.java) }
     // Метод Retrofit create()создает сервис Retrofit с SkyApiService интерфейсом
 }
-// Так здесь создали объект MarsApi для обращения от программы и запроса функций
+// Так здесь создали объект SkyApi для обращения от программы и запроса функций
 // Внутри этого объекта встроены: (RetroFit  + (URL-> Конверторы)) + Интерфейс
 
-// Здесь только создан мехпнизм для обращения но использование его в ViewModel
-// В OverviewViewModel.kt, используйте, SkyApi.retrofitService
+// Здесь только создан мехпнизм для обращения но использование его xthtp SkyRepository bp ViewModel
+// В SkyRepository.kt OverviewViewModel.kt, используйте, SkyApi.retrofitService
 // чтобы поставить в очередь запрос Retrofit getSearch(),
 // переопределяя требуемые обратные вызовы Retrofit,
 // чтобы назначить ответ JSON или сообщение об ошибке значению _response LiveData.

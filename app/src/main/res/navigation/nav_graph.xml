@@ -48,5 +48,11 @@
             android:defaultValue="null" />
     </dialog>
 
+    <fragment
+        android:id="@+id/SkyAboutFragment"
+        android:name="com.dinadurykina.skylexicon.ui.about.SkyAboutFragment"
+        android:label="SkyAboutFragment" >
+    </fragment>
+
 
 </navigation>
