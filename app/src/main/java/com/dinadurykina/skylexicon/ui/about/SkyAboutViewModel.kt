@@ -21,9 +21,12 @@ class SkyAboutViewModel(application: Application) : AndroidViewModel(application
     val nicknameText: LiveData<Boolean?>
         get() = _nicknameText
 
+    var testS:String  = "сестраБрат"
+
     fun onDoneButtonClick() {
         _editNickname.value = false
         _doneButton.value = true
+        testS = "ПапаМама"
     }
     fun onDoneButtonClicked() {
         _doneButton.value = null
