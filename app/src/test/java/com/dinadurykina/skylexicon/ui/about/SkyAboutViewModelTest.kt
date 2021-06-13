@@ -89,7 +89,6 @@ class SkyAboutViewModelTest {
     @Test
     fun onDoneButtonClick() {
 
-
         // When Click button
         skyAboutViewModel.onDoneButtonClick()
         // Then the event is triggered

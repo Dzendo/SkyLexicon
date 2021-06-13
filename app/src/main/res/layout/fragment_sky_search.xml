@@ -30,9 +30,6 @@
             android:onClick="@{() -> viewModel.onSearchGo(viewModel.slovo)}"
             tools:ignore="MissingConstraints"
             android:imeOptions="actionGo"/>
-      <!--  app:customOnEditorActionListener="@{viewModel::onSearchGo}"-->
-        <!--android:onClick="@{() -> viewModel.onSearchGo(viewModel.slovo)}"-->
-        <!--app:customOnEditorActionListener="@{() -> viewModel.onSearchGo(viewModel.slovo)}"-->
 
         <TextView
             android:id="@+id/recycler_size"
@@ -41,6 +38,14 @@
             android:text='@{String.valueOf(viewModel.wordsListRecycler.size())}'
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/history_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{String.valueOf(viewModel.skyHistory.historyWord.size)}"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_size" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_sky"
@@ -55,8 +60,6 @@
             tools:itemCount="8"/>
             <!-- app:listData зовется из BindingAdapters.kt
             и заменяет skySearchAdapter.submitList(it) в фрагменте -->
-        <!--app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"-->
-        <!--app:spanCount="2"-->
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

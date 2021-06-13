@@ -18,7 +18,8 @@
 package com.dinadurykina.skylexicon.ui.meanings
 
 import androidx.lifecycle.*
-import com.dinadurykina.skylexicon.launcher.skyHistory
+import com.dinadurykina.skylexicon.ui.about.SkyHistory
+
 import com.dinadurykina.skylexicon.network.DataItem
 import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.Meaning
@@ -30,7 +31,11 @@ import kotlinx.coroutines.launch
  * The [ViewModel] that is attached to the [SkyMeaningsFragment].
  */
 //class SkyMeaningsViewModel : ViewModel() {
-class SkyMeaningsViewModel(private val skyRepository : SkyRepository, ids:String) : ViewModel() {
+class SkyMeaningsViewModel(
+    private val skyRepository : SkyRepository,
+    ids:String,
+    private val skyHistory: SkyHistory,
+    ) : ViewModel() {
     // private val skyRepository = SkyRepository()
 
     // Вводимое слово связано двухсторонним биндингом с полем
@@ -99,9 +104,10 @@ class SkyMeaningsViewModel(private val skyRepository : SkyRepository, ids:String
 @Suppress("UNCHECKED_CAST")
 class SkyMeaningsViewModelFactory (
     private val skyRepository: SkyRepository,
-    private val slovo: String
+    private val ids: String,
+    private val skyHistory: SkyHistory
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        (SkyMeaningsViewModel(skyRepository,slovo) as T)
+        (SkyMeaningsViewModel(skyRepository,ids,skyHistory) as T)
 }
 

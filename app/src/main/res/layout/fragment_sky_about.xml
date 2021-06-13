@@ -75,8 +75,6 @@
             android:text="@{myName.name}"
             android:textAlignment="center"
             tools:text="Full Name"/>
-        <!-- Use "@={aboutMe.name}" annotation to reference a property -->
-        <!-- Reference the declared object (aboutMe) and the property (name). -->
 
         <EditText
             android:id="@+id/nickname_edit"
@@ -111,9 +109,6 @@
             android:textAlignment="center"
             android:onClick="@{() -> viewModel.onNicknameTextClick()}"
             android:visibility="@{viewModel.editNickname ? View.GONE : View.VISIBLE }"/>
-        <!-- Use "@={aboutMe.name}" annotation to reference a property -->
-        <!-- Reference the declared object (aboutMe) and the property (name). -->
-        <!--android:text="@={myName.nickname}"-->
 
         <ImageView
             android:id="@+id/star_image"

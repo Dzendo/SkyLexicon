@@ -27,7 +27,9 @@ class SkySearchFragment : Fragment() {
 
     // Теперь вы можете использовать FakeTestRepository вместо реального репозитория в TasksFragment и TaskDetailFragment.
     private val skySearchViewModel by viewModels<SkySearchViewModel> {
-        SkySearchViewModelFactory((requireContext().applicationContext as SkyApplication).skyRepository,args.slovo)
+        SkySearchViewModelFactory((requireContext().applicationContext as SkyApplication).skyRepository,
+            args.slovo,
+            (requireContext().applicationContext as SkyApplication).skyHistory)
     }
 
     override fun onCreateView(
@@ -62,20 +64,7 @@ class SkySearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
-/*
-        binding.slovo.setOnEditorActionListener { v, actionId, event ->
-           val slovo = binding.slovo.text.toString()
-            when(actionId){
-                EditorInfo.IME_ACTION_GO -> {
-                    Toast.makeText(activity, "Go $slovo", Toast.LENGTH_SHORT).show()
-                    skySearchViewModel.onSearchGo(slovo)
-                    hideKeyboard()
-                    true
-                }
-                else -> false
-            }
-        }
-*/
+
         // событие нажатия на картинку -> показ большой картинки в окошке alert
         skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->
             imageUri?.let { uri ->

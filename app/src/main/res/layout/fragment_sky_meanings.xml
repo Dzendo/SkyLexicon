@@ -103,7 +103,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="1938" />
-        <!--android:text="@{constants.ids}"-->
 
         <TextView
             android:id="@+id/wordId"

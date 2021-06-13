@@ -9,12 +9,11 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.dinadurykina.skylexicon.databinding.FragmentSkyAboutBinding
-import com.dinadurykina.skylexicon.launcher.skyHistory
+import com.dinadurykina.skylexicon.launcher.SkyApplication
 
 
 class SkyAboutFragment : Fragment() {
     private lateinit var binding: FragmentSkyAboutBinding
-
    // private lateinit var viewModel: SkyAboutViewModel
     private val viewModel by viewModels<SkyAboutViewModel>()
     // viewModel = ViewModelProvider(this).get(SkyAboutViewModel::class.java)
@@ -29,7 +28,7 @@ class SkyAboutFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.myName = viewModel.myName
-        binding.history = skyHistory
+        binding.history = (requireContext().applicationContext as SkyApplication).skyHistory
 
         // Inflate the layout for this fragment
         return binding.root
@@ -37,9 +36,6 @@ class SkyAboutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-       // binding.doneButton.setOnClickListener { addNickname() }
-       // binding.nicknameText.setOnClickListener { updateNickname() }
 
         // событие кнопку Done
         viewModel.doneButton.observe(viewLifecycleOwner) { done ->

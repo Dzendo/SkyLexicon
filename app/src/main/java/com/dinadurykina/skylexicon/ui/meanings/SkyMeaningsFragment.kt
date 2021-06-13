@@ -20,7 +20,9 @@ class SkyMeaningsFragment : Fragment() {
     private val args: SkyMeaningsFragmentArgs by navArgs()
     private lateinit var binding: FragmentSkyMeaningsBinding
     val skyMeaningsViewModel: SkyMeaningsViewModel by viewModels(){
-        SkyMeaningsViewModelFactory((requireContext().applicationContext as SkyApplication).skyRepository,args.id)
+        SkyMeaningsViewModelFactory((requireContext().applicationContext as SkyApplication).skyRepository,
+            args.id,
+            (requireContext().applicationContext as SkyApplication).skyHistory)
     }
 
     override fun onCreateView(

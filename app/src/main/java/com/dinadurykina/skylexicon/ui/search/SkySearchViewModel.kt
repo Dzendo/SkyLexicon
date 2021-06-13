@@ -18,9 +18,9 @@
 package com.dinadurykina.skylexicon.ui.search
 
 import androidx.lifecycle.*
-import com.dinadurykina.skylexicon.launcher.skyHistory
 import com.dinadurykina.skylexicon.network.WordRecycler
 import com.dinadurykina.skylexicon.repository.SkyRepository
+import com.dinadurykina.skylexicon.ui.about.SkyHistory
 import com.dinadurykina.skylexicon.ui.playSound
 import kotlinx.coroutines.launch
 
@@ -28,7 +28,11 @@ import kotlinx.coroutines.launch
  * The [ViewModel] that is attached to the [SkySearchFragment].
  */
 
-class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String) : ViewModel() {
+class SkySearchViewModel(
+    val skyRepository : SkyRepository,
+    slovo:String,
+    val skyHistory: SkyHistory
+    ) : ViewModel() {
     // Вводимое слово связано двухсторонним биндингом с полем
     // наблюдается из фрагмента и при изменении зовется поиск
     val slovo: MutableLiveData<String> = MutableLiveData<String>(slovo) //("Chair")
@@ -100,9 +104,10 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
 @Suppress("UNCHECKED_CAST")
 class SkySearchViewModelFactory (
     private val skyRepository: SkyRepository,
-    private val slovo: String
+    private val slovo: String,
+    private val skyHistory: SkyHistory
 ) : ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel> create(modelClass: Class<T>) =
-        (SkySearchViewModel(skyRepository,slovo) as T)
+        (SkySearchViewModel(skyRepository,slovo,skyHistory) as T)
 }
 
