@@ -30,7 +30,9 @@
             android:onClick="@{() -> viewModel.onSearchGo(viewModel.slovo)}"
             tools:ignore="MissingConstraints"
             android:imeOptions="actionGo"/>
-        <!--app:customOnEditorActionListener="@{viewModel::onSearchGo}"-->
+      <!--  app:customOnEditorActionListener="@{viewModel::onSearchGo}"-->
+        <!--android:onClick="@{() -> viewModel.onSearchGo(viewModel.slovo)}"-->
+        <!--app:customOnEditorActionListener="@{() -> viewModel.onSearchGo(viewModel.slovo)}"-->
 
         <TextView
             android:id="@+id/recycler_size"

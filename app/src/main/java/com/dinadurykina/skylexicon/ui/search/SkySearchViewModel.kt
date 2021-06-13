@@ -34,6 +34,7 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
     val slovo: MutableLiveData<String> = MutableLiveData<String>(slovo) //("Chair")
 
 
+
    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
     val response: LiveData<String>
@@ -72,6 +73,7 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
             }
         }
     }
+    // https://stackoverflow.com/questions/51648366/how-to-call-edittext-oneditoraction-from-xml-using-data-binding
     fun onSearchGo(slovo:String) {
         viewModelScope.launch {
             try {

@@ -2,14 +2,9 @@ package com.dinadurykina.skylexicon.ui.search
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -99,14 +94,6 @@ class SkySearchFragment : Fragment() {
                 )
                 skySearchViewModel.onSkyMeaningsNavigated()
             }
-        }
-    }
-    private fun hideKeyboard() {
-        binding.apply {
-            invalidateAll()   // обновить экран
-            val imm =
-                ContextCompat.getSystemService(slovo.context, InputMethodManager::class.java)
-            imm!!.hideSoftInputFromWindow(slovo.windowToken, 0)
         }
     }
 }
