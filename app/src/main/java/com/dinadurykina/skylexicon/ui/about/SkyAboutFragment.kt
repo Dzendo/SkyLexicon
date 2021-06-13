@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.dinadurykina.skylexicon.databinding.FragmentSkyAboutBinding
+import com.dinadurykina.skylexicon.launcher.skyHistory
 
 
 class SkyAboutFragment : Fragment() {
@@ -28,6 +29,7 @@ class SkyAboutFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
         binding.myName = viewModel.myName
+        binding.history = skyHistory
 
         // Inflate the layout for this fragment
         return binding.root

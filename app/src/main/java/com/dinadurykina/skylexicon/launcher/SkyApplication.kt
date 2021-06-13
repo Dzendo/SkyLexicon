@@ -18,6 +18,7 @@ package com.dinadurykina.skylexicon.launcher
 
 import android.app.Application
 import com.dinadurykina.skylexicon.repository.SkyRepository
+import com.dinadurykina.skylexicon.ui.about.SkyHistory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -41,12 +42,14 @@ import timber.log.Timber
  */
 // https://developer.android.com/codelabs/advanced-android-kotlin-training-testing-basics?index=..%2F..index#4
 class SkyApplication : Application() {
-    val applicationContext = this  // может пригодиться где-нибудь
+    val skyApplication= this  // может пригодиться где-нибудь
     // Важно, чтобы вы всегда создавали только один экземпляр класса репозитория.
     // Чтобы в этом убедиться, вы воспользуетесь локатором служб в классе TodoApplication.
     // назначьте ему репозиторий, полученный с использованием ServiceLocator.provideTaskRepository
     val skyRepository: SkyRepository = SkyRepository()
         get() = field  //ServiceLocator.provideTasksRepository(this)
+
+    //val skyHistory: SkyHistory = SkyHistory()
 
 
     override fun onCreate() {

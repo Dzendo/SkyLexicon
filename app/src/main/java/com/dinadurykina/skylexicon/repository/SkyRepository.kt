@@ -39,6 +39,8 @@ class SkyRepository {
         return MutableLiveData(rezult)
     }
 
+    suspend fun getSkySearch0(slovo: String): Word? = getSkySearch(slovo).value?.get(0)
+
     // основная функция поиска значения слова
     suspend fun getSkyMeanings(ids: String): LiveData<List<Meaning>> {
         val rezult: List<Meaning>

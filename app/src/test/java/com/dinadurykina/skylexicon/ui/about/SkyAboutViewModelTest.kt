@@ -69,11 +69,13 @@ class SkyAboutViewModelTest {
     }
 
     @Test
-    fun getMyName() {
+    fun getMyName123() {
     }
 
     @Test
     fun getEditNickname() {
+
+
     }
 
     @Test
@@ -97,6 +99,7 @@ class SkyAboutViewModelTest {
         // тодо test LiveData см LiveDataTestUtil
 
         assertThat(skyAboutViewModel.testS,`is`("ПапаМама"))
+
         assertThat(skyAboutViewModel.doneButton.value,`is`(true))  // плохо
 
         val doneButton = skyAboutViewModel.doneButton.getOrAwaitValue()
@@ -106,6 +109,8 @@ class SkyAboutViewModelTest {
         val editNickname = skyAboutViewModel.editNickname.getOrAwaitValue()
         assertThat(editNickname, not(nullValue()))
         assertThat(editNickname,`is`(false))
+
+        assertThat(skyAboutViewModel.testS,`is`("ПапаМама"))
 
         //MatcherAssert.assertThat(value.getContentIfNotHandled(), Matchers.not(Matchers.nullValue()))
         // Что такое getContentIfNoteHandled?

@@ -12,6 +12,10 @@
         <variable
             name="viewModel"
             type="com.dinadurykina.skylexicon.ui.about.SkyAboutViewModel" />
+        <variable
+            name="history"
+            type="com.dinadurykina.skylexicon.ui.about.SkyHistory" />
+
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +25,6 @@
     tools:context=".ui.about.SkyAboutFragment">
 
     <LinearLayout
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -29,13 +32,47 @@
         android:paddingStart="@dimen/padding_about"
         android:paddingEnd="@dimen/padding_about">
 
+         <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/padding_about"
+                android:paddingEnd="@dimen/padding_about">
+
+
+                <TextView
+                    android:id="@+id/size_search"
+                    style="@style/NameStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:text="@{String.valueOf(history.sizeHistoryWord())}"
+                    android:textAlignment="center"
+                    android:paddingStart="@dimen/padding_about"
+                    android:paddingEnd="@dimen/padding_about"
+                    tools:text="Full Name"/>
+
+                 <TextView
+                     android:id="@+id/size_meaning"
+                     style="@style/NameStyle"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:visibility="visible"
+                     android:text="@{String.valueOf(history.sizeHistoryMeaning())}"
+                     android:textAlignment="center"
+                     android:paddingStart="@dimen/padding_about"
+                     android:paddingEnd="@dimen/padding_about"
+                     tools:text="Full Name"/>
+
+         </LinearLayout>
         <TextView
             android:id="@+id/name_text"
             style="@style/NameStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="visible"
-            android:text="@={myName.name}"
+            android:text="@{myName.name}"
             android:textAlignment="center"
             tools:text="Full Name"/>
         <!-- Use "@={aboutMe.name}" annotation to reference a property -->

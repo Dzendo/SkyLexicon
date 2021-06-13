@@ -18,6 +18,7 @@
 package com.dinadurykina.skylexicon.ui.search
 
 import androidx.lifecycle.*
+import com.dinadurykina.skylexicon.launcher.skyHistory
 import com.dinadurykina.skylexicon.network.WordRecycler
 import com.dinadurykina.skylexicon.repository.SkyRepository
 import com.dinadurykina.skylexicon.ui.playSound
@@ -31,6 +32,7 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
     // Вводимое слово связано двухсторонним биндингом с полем
     // наблюдается из фрагмента и при изменении зовется поиск
     val slovo: MutableLiveData<String> = MutableLiveData<String>(slovo) //("Chair")
+
 
    // Для Json нерасшифрованного (отладка)
     private val _response = MutableLiveData<String>()
@@ -69,6 +71,18 @@ class SkySearchViewModel(private val skyRepository : SkyRepository, slovo:String
                 _response.value = "Failure: ${e.message}"
             }
         }
+    }
+    fun onSearchGo(slovo:String) {
+        viewModelScope.launch {
+            try {
+                val historyWord = skyRepository.getSkySearch0(slovo)
+                skyHistory.addHistoryWord(historyWord!!)
+                _response.value = "good"
+            } catch (e: Exception) {
+                _response.value = "Failure: ${e.message}"
+            }
+        }
+
     }
 
     fun onSkyImageClicked(imageUri:String) {

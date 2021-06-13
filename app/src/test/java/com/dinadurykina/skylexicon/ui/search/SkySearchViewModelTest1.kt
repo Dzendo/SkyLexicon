@@ -9,7 +9,7 @@ import org.junit.runner.RunWith
 class SkySearchViewModelTest1{
     // Given a fresh TasksViewModel
     // Учитывая свежую TasksViewModel
-    //val tasksViewModel = SkySearchViewModel(ApplicationProvider.getApplicationContext())
+    // val tasksViewModel = SkySearchViewModel(ApplicationProvider.getApplicationContext())
 
     // When adding a new task
     // При добавлении новой задачи

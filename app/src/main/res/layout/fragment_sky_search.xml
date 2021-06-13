@@ -27,7 +27,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            android:onClick="@{() -> viewModel.onSearchGo(viewModel.slovo)}"
+            tools:ignore="MissingConstraints"
+            android:imeOptions="actionGo"/>
+        <!--app:customOnEditorActionListener="@{viewModel::onSearchGo}"-->
 
         <TextView
             android:id="@+id/recycler_size"

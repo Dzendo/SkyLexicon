@@ -18,6 +18,7 @@
 package com.dinadurykina.skylexicon.ui.meanings
 
 import androidx.lifecycle.*
+import com.dinadurykina.skylexicon.launcher.skyHistory
 import com.dinadurykina.skylexicon.network.DataItem
 import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.Meaning
@@ -74,6 +75,8 @@ class SkyMeaningsViewModel(private val skyRepository : SkyRepository, ids:String
                 _imagesListRecycler.value = skyRepository.getSkyMeaning0(ids).value?.images
 
                 _meaning.value = skyRepository.getSkyMeaning0(ids).value
+
+                skyHistory.addHistoryMeaning(meaning.value!!)
 
             } catch (e: Exception) {
                 _response.value = "Failure: ${e.message}"

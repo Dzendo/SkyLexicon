@@ -9,8 +9,8 @@ plugins {
 }
 
 android {
-    compileSdkVersion 'android-S'
-    buildToolsVersion '31.0.0 rc4'
+    compileSdkVersion 30 //'android-S'
+    buildToolsVersion '30.0.3' //'31.0.0 rc4'
 
     buildFeatures {
         // построит из xml спецклассы java см. java (generated)
@@ -64,9 +64,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
     // ViewModel and LiveData
-    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0-alpha01'  // liveData
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0-alpha01' // ViewModelScope,
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha01'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1' //2.4.0-alpha01'  // liveData
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1' //2.4.0-alpha01' // ViewModelScope,
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1' //2.4.0-alpha01'
 
     //  Coroutines поддержка основных библиотек сопрограмм Kotlin 1.4.3
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'

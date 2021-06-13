@@ -1,5 +1,6 @@
 package com.dinadurykina.skylexicon.ui.about
 
+//import android.app.Application
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -10,6 +11,9 @@ class SkyAboutViewModel(application: Application) : AndroidViewModel(application
 
     val myName: MyName = MyName("My Dzen DO Binding")
 
+    /**
+     *
+     */
     private val _editNickname = MutableLiveData<Boolean?>(true)
     val editNickname: LiveData<Boolean?>
         get() = _editNickname
