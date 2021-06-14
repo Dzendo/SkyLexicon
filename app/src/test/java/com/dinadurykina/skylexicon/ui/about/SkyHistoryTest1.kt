@@ -3,7 +3,8 @@ package com.dinadurykina.skylexicon.ui.about
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.network.Word
 import org.junit.Assert.*
-
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.`is`
 import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
@@ -23,8 +24,10 @@ import org.junit.Test
  * Наконец-то у вас есть ожидаемый результат ( returnsHundredZero).
  *
  */
-
-class SkyHistoryTest {
+// https://www.youtube.com/watch?v=pK7W5npkhho&t=222s
+// testImplementation "com.google.truth:truth:1.1.3"
+// Junit4 --> Junit5
+class SkyHistoryTest1 {
 
     @Before
     fun setUp() {
@@ -47,6 +50,7 @@ class SkyHistoryTest {
             testHistory.addHistoryWord(Word(text="Chair $i"))
         }
         assertEquals(testHistory.sizeHistoryWord(), 50)
+        assertThat(testHistory.sizeHistoryWord(), `is`(50))
 
     }
 
