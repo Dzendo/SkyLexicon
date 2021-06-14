@@ -1,12 +1,11 @@
 package com.dinadurykina.skylexicon.ui.about
 
+import androidx.collection.arraySetOf
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.network.Word
 import org.junit.Assert.*
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.`is`
-import org.junit.After
-import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 
@@ -100,7 +99,7 @@ class SkyHistoryTest1 {
     fun clearHistory_noEmpty_0() {
         val testHistory = SkyHistory()
         val result = testHistory.clearHistory()
-        assertEquals(result, true)
+        assertEquals(result, false)
 
         // testHistory.sizeHistoryWord()
         // Запрашиваю у класса размер истории поиска Word
@@ -117,7 +116,7 @@ class SkyHistoryTest1 {
 
     @Test
     fun clearHistory_5_0() {
-        val historyWord: MutableList<Word> = arrayListOf(
+        val historyWord: MutableSet<Word> = arraySetOf(
             Word(text="Chair"),
             Word(text="Chairr"),
             Word(text="Chairrr"),
@@ -125,7 +124,7 @@ class SkyHistoryTest1 {
             Word(text="Chairrrrr"),
         )
 
-        val historyMeaning: MutableList<Meaning> = arrayListOf(
+        val historyMeaning: MutableSet<Meaning> = arraySetOf(
             Meaning(id="1938"),
             Meaning(id="1938r"),
             Meaning(id="1938rr"),
@@ -157,12 +156,12 @@ class SkyHistoryTest1 {
 
     @Test
     fun clearHistory_500_0() {
-        val historyWord: MutableList<Word> = arrayListOf()
+        val historyWord: MutableSet<Word> = arraySetOf()
         for(i in 1..500){
             historyWord.add(Word(text="Chair $i"))
         }
 
-        val historyMeaning: MutableList<Meaning> = arrayListOf()
+        val historyMeaning: MutableSet<Meaning> = arraySetOf()
         for(i in 1..300){
             historyMeaning.add(Meaning(text="1938 $i"))
         }
@@ -197,7 +196,7 @@ class SkyHistoryTest1 {
         // Create an active task
         // Создание активной задачи
         // Создаем список истрии поиска слов пустой
-        val historyWord: MutableList<Word> = arrayListOf()
+        val historyWord: MutableSet<Word> = arraySetOf()
 
         // SkyHistory(historyWord) -
         // Создаем экземпляр класса История и передаем ему
@@ -227,7 +226,7 @@ class SkyHistoryTest1 {
         // Создание активной задачи
         // Создаем список истории поиска слов из 5 записей
         // * остальные поля записи генерируются по умолчанию
-        val historyWord: MutableList<Word> = arrayListOf(
+        val historyWord: MutableSet<Word> = arraySetOf(
             Word(text="Chair"),
             Word(text="Chairr"),
             Word(text="Chairrr"),
@@ -268,7 +267,7 @@ class SkyHistoryTest1 {
         // Create an active task
         // Создание активной задачи
         // Создаем пустую историю
-        val historyWord: MutableList<Word> = arrayListOf()
+        val historyWord: MutableSet<Word> = arraySetOf()
 
         // В пустой список нагоняем записи.
         // Создаем тестовый случай
@@ -305,7 +304,7 @@ class SkyHistoryTest1 {
         // Create an active task
         // Создание активной задачи
         // Создаем пустую историю
-        val historyWord: MutableList<Word> = arrayListOf()
+        val historyWord: MutableSet<Word> = arraySetOf()
 
         // В пустой список нагоняем записи.
         // Создаем тестовый случай
@@ -340,7 +339,7 @@ class SkyHistoryTest1 {
     fun sizeHistoryMeaning_0Meaning_equal0() {
         // Create an active task
         // Создание активной задачи
-        val historyMeaning: MutableList<Meaning> = arrayListOf()
+        val historyMeaning: MutableSet<Meaning> = arraySetOf()
         val testHistory = SkyHistory(historyMeaning=historyMeaning)
         // Call your function
         // Вызовите свою функцию
@@ -353,7 +352,7 @@ class SkyHistoryTest1 {
     fun sizeHistoryMeaning_5Meaning_equal5() {
         // Create an active task
         // Создание активной задачи
-        val historyMeaning: MutableList<Meaning> = arrayListOf(
+        val historyMeaning: MutableSet<Meaning> = arraySetOf(
             Meaning(id="1938"),
             Meaning(id="1938r"),
             Meaning(id="1938rr"),
@@ -373,7 +372,7 @@ class SkyHistoryTest1 {
     fun sizeHistoryMeaning_ManyMeanings_equalNO() {
         // Create an active task
         // Создание активной задачи
-        val historyMeaning: MutableList<Meaning> = arrayListOf()
+        val historyMeaning: MutableSet<Meaning> = arraySetOf()
         for(i in 1..50){
             historyMeaning.add(Meaning(text="1938 $i"))
         }
@@ -392,7 +391,7 @@ class SkyHistoryTest1 {
     fun sizeHistoryMeaning_LotMeanings_equalNoSpace() {
         // Create an active task
         // Создание активной задачи
-        val historyMeaning: MutableList<Meaning> = arrayListOf()
+        val historyMeaning: MutableSet<Meaning> = arraySetOf()
         for(i in 1..Int.MAX_VALUE){
             historyMeaning.add(Meaning(text="1938 $i"))
         }

@@ -1,5 +1,6 @@
 package com.dinadurykina.skylexicon.ui.about
 
+import androidx.collection.arraySetOf
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.network.Word
 
@@ -12,8 +13,8 @@ import com.dinadurykina.skylexicon.network.Word
  */
 
 class SkyHistory (
-    private val historyWord: MutableList<Word> = arrayListOf(),
-    private val historyMeaning: MutableList<Meaning> = arrayListOf(),
+    private val historyWord: MutableSet<Word> = arraySetOf(),
+    private val historyMeaning: MutableSet<Meaning> = arraySetOf(),
     ){
     /**
      * Добавление слова в историю поиска
@@ -21,10 +22,11 @@ class SkyHistory (
      * @return Должно возвращать true - успешно добавила
      * false - отказалась добавлять (пока не сделано)
      */
-    fun addHistoryWord(word:Word): Boolean {
-        historyWord.add(word)
-    return true
-    }
+    fun addHistoryWord(word:Word): Boolean = historyWord.add(word)
+       // for (w in historyWord) if (w==word) return false
+       // historyWord.add(word)
+       // return true
+
 
     /**
      * Добавление расшифровки слова в историю поиска
@@ -32,15 +34,16 @@ class SkyHistory (
      * @return Должно возвращать true - успешно добавила
      * false - отказалась добавлять (пока не сделано)
      */
-    fun addHistoryMeaning(meaning: Meaning): Boolean {
-        historyMeaning.add(meaning)
-        return true
-    }
+    fun addHistoryMeaning(meaning: Meaning): Boolean =historyMeaning.add(meaning)
+        //for (m in historyMeaning) if (m==meaning) return false
+        //historyMeaning.add(meaning)
+        //return true
 
     /**
      * Функция очистки истории поиска
      */
     fun clearHistory(): Boolean{
+        if (historyWord.isEmpty() and historyMeaning.isEmpty()) return false
         historyWord.clear()
         historyMeaning.clear()
         return true
