@@ -5,8 +5,8 @@ import com.dinadurykina.skylexicon.network.Word
 
 
 class SkyHistory (
-    val historyWord: MutableList<Word> = arrayListOf(),
-    val historyMeaning: MutableList<Meaning> = arrayListOf(),
+    private val historyWord: MutableList<Word> = arrayListOf(),
+    private val historyMeaning: MutableList<Meaning> = arrayListOf(),
     ){
     fun addHistoryWord(word:Word): Boolean {
         historyWord.add(word)
@@ -16,11 +16,12 @@ class SkyHistory (
         historyMeaning.add(meaning)
         return true
     }
-    fun sizeHistoryWord() :Int {
-        return historyWord.size
+    fun clearHistory(): Boolean{
+        historyWord.clear()
+        historyMeaning.clear()
+        return true
     }
-    /*
-        fun sizeHistoryWord() :LiveData<Int> = MutableLiveData<Int>(historyWord.size)
-     */
+    fun sizeHistoryWord() :Int = historyWord.size
+
     fun sizeHistoryMeaning() : Int = historyMeaning.size
 }
