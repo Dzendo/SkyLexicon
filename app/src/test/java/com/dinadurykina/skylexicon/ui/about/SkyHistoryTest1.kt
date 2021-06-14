@@ -27,58 +27,206 @@ import org.junit.Test
 // https://www.youtube.com/watch?v=pK7W5npkhho&t=222s
 // testImplementation "com.google.truth:truth:1.1.3"
 // Junit4 --> Junit5
+
+/**
+ * Пример простейшего Unit test с ручным внедрением зависимостей
+ * без дополнительных лишних сложностей
+ * Тестируем класс сохранения истории поиска и расшифровки слов и его функции
+ */
 class SkyHistoryTest1 {
 
-    @Before
-    fun setUp() {
-    }
-
-    @After
-    fun tearDown() {
-    }
-
+    /**
+     * Проверка, что функция добавляет слова в историю и их становится больше
+     */
     @Test
-    fun addHistoryWord() {
+    fun addHistoryWord_noWord_null() {
         val testHistory = SkyHistory()
         assertEquals(testHistory.sizeHistoryWord(), 0)
-        val result = testHistory.addHistoryWord(Word(text="Chairr"))
+    }
+
+    /**
+     * Проверка, что функция добавляет слова в историю и их становится больше
+     */
+    @Test
+    fun addHistoryWord_OneWord_One() {
+        val testHistory = SkyHistory()
+        val result = testHistory.addHistoryWord(Word(text="Chair"))
         assertEquals(result, true)
         val resultSize = testHistory.sizeHistoryWord()
         assertEquals(resultSize, 1)
-        testHistory.clearHistory()
+    }
+
+    @Test
+    fun addHistoryWord_50Word_50() {
+        val testHistory = SkyHistory()
         for(i in 1..50){
             testHistory.addHistoryWord(Word(text="Chair $i"))
         }
         assertEquals(testHistory.sizeHistoryWord(), 50)
         assertThat(testHistory.sizeHistoryWord(), `is`(50))
-
     }
 
-    //@Test
-    fun addHistoryMeaning() {
+    /**
+     * Проверка, что функция добавляет слова в историю и их становится больше
+     */
+    @Test
+    fun addHistoryMeaning_noMeaning_null() {
+        val testHistory = SkyHistory()
+        assertEquals(testHistory.sizeHistoryMeaning(), 0)
     }
 
-    //@Test
-    fun clearHistory() {
+    /**
+     * Проверка, что функция добавляет слова в историю и их становится больше
+     */
+    @Test
+    fun addHistoryMeaning_OneMeaning_One() {
+        val testHistory = SkyHistory()
+        val result = testHistory.addHistoryMeaning(Meaning(text="Chair"))
+        assertEquals(result, true)
+        val resultSize = testHistory.sizeHistoryMeaning()
+        assertEquals(resultSize, 1)
     }
 
+    @Test
+    fun addHistoryMeaning_50Meaning_50() {
+        val testHistory = SkyHistory()
+        for(i in 1..50){
+            testHistory.addHistoryMeaning(Meaning(text="Chair $i"))
+        }
+        assertEquals(testHistory.sizeHistoryMeaning(), 50)
+        assertThat(testHistory.sizeHistoryMeaning(), `is`(50))
+    }
+    @Test
+    fun clearHistory_noEmpty_0() {
+        val testHistory = SkyHistory()
+        val result = testHistory.clearHistory()
+        assertEquals(result, true)
+
+        // testHistory.sizeHistoryWord()
+        // Запрашиваю у класса размер истории поиска Word
+        // val sizeWord
+        // Объявляю переменную с именем sizeWord
+        // = т.е. то, что справа от равно присваиваю тому что слева от равно
+        // итого sizeWord  хранит 0
+        val sizeWord=testHistory.sizeHistoryWord()
+        // утверждаю что sizeWord равен 0
+        assertEquals(sizeWord, 0)
+        val sizeMeaning=testHistory.sizeHistoryMeaning()
+        assertEquals(sizeMeaning, 0)
+    }
+
+    @Test
+    fun clearHistory_5_0() {
+        val historyWord: MutableList<Word> = arrayListOf(
+            Word(text="Chair"),
+            Word(text="Chairr"),
+            Word(text="Chairrr"),
+            Word(text="Chairrrr"),
+            Word(text="Chairrrrr"),
+        )
+
+        val historyMeaning: MutableList<Meaning> = arrayListOf(
+            Meaning(id="1938"),
+            Meaning(id="1938r"),
+            Meaning(id="1938rr"),
+            Meaning(id="1938rrr"),
+            Meaning(id="1938rrrr"),
+        )
+
+        val testHistory = SkyHistory(historyWord, historyMeaning)
+        val sizeWord5=testHistory.sizeHistoryWord()
+        // утверждаю что sizeWord равен 0
+        assertEquals(sizeWord5, 5)
+        val sizeMeaning5=testHistory.sizeHistoryMeaning()
+        assertEquals(sizeMeaning5, 5)
+        val result = testHistory.clearHistory()
+        assertEquals(result, true)
+
+        // testHistory.sizeHistoryWord()
+        // Запрашиваю у класса размер истории поиска Word
+        // val sizeWord
+        // Объявляю переменную с именем sizeWord
+        // = т.е. то, что справа от равно присваиваю тому что слева от равно
+        // итого sizeWord  хранит 0
+        val sizeWord=testHistory.sizeHistoryWord()
+        // утверждаю что sizeWord равен 0
+        assertEquals(sizeWord, 0)
+        val sizeMeaning=testHistory.sizeHistoryMeaning()
+        assertEquals(sizeMeaning, 0)
+    }
+
+    @Test
+    fun clearHistory_500_0() {
+        val historyWord: MutableList<Word> = arrayListOf()
+        for(i in 1..500){
+            historyWord.add(Word(text="Chair $i"))
+        }
+
+        val historyMeaning: MutableList<Meaning> = arrayListOf()
+        for(i in 1..300){
+            historyMeaning.add(Meaning(text="1938 $i"))
+        }
+
+        val testHistory = SkyHistory(historyWord, historyMeaning)
+        val sizeWord500=testHistory.sizeHistoryWord()
+        // утверждаю что sizeWord равен 0
+        assertEquals(sizeWord500, 500)
+        val sizeMeaning300=testHistory.sizeHistoryMeaning()
+        assertEquals(sizeMeaning300, 300)
+        val result = testHistory.clearHistory()
+        assertEquals(result, true)
+
+        // testHistory.sizeHistoryWord()
+        // Запрашиваю у класса размер истории поиска Word
+        // val sizeWord
+        // Объявляю переменную с именем sizeWord
+        // = т.е. то, что справа от равно присваиваю тому что слева от равно
+        // итого sizeWord  хранит 0
+        val sizeWord=testHistory.sizeHistoryWord()
+        // утверждаю что sizeWord равен 0
+        assertEquals(sizeWord, 0)
+        val sizeMeaning=testHistory.sizeHistoryMeaning()
+        assertEquals(sizeMeaning, 0)
+    }
+
+    /**
+     * Тест: пустая история размером 0
+     */
     @Test
     fun sizeHistoryWord_0words_equal0() {
         // Create an active task
         // Создание активной задачи
+        // Создаем список истрии поиска слов пустой
         val historyWord: MutableList<Word> = arrayListOf()
+
+        // SkyHistory(historyWord) -
+        // Создаем экземпляр класса История и передаем ему
+        // пустой список Истории
+        // testHistory - ссылка на ново созданный объект
         val testHistory = SkyHistory(historyWord)
+
         // Call your function
         // Вызовите свою функцию
+        // Вызываем из новосозданного экземпляра функцию, которую тестируем
+        // В ответ дает размер истории (Int), который загоняем в result
         val result = testHistory.sizeHistoryWord()
+
         // Check the result
         // Проверьте результат
+        // Штатный вопрос JUnit на равентсво
+        // assert - утверждаю Equals - что равно
         assertEquals(result, 0)
     }
+
+    /**
+     * Тест: что размер истории из 5 записей равен 5
+     */
     @Test
     fun sizeHistoryWord_5words_equal5() {
         // Create an active task
         // Создание активной задачи
+        // Создаем список истории поиска слов из 5 записей
+        // * остальные поля записи генерируются по умолчанию
         val historyWord: MutableList<Word> = arrayListOf(
             Word(text="Chair"),
             Word(text="Chairr"),
@@ -86,49 +234,105 @@ class SkyHistoryTest1 {
             Word(text="Chairrrr"),
             Word(text="Chairrrrr"),
             )
+
+        // SkyHistory(historyWord) -
+        // Создаем экземпляр класса История и передаем ему
+        // не пустой список Истории
+        // testHistory - ссылка на ново созданный объект
         val testHistory = SkyHistory(historyWord)
+
         // Call your function
         // Вызовите свою функцию
+        // Вызываем из новосозданного экземпляра функцию, которую тестируем
+        // В ответ дает размер истории (Int), который загоняем в result
         val result = testHistory.sizeHistoryWord()
+
         // Check the result
         // Проверьте результат
+        // Штатный вопрос JUnit на равентсво
+        // assert - утверждаю Equals - что равно 5
         assertEquals(result, 5)
+
+        // Check the result
+        // Проверьте результат
+        // Не Штатный вопрос hamcrest на равентсво
+        // assert - утверждаю Equals - что равно 5
+        assertThat(result, `is`(5))
     }
 
+    /**
+     * Тест: что размер истории из записей от 1 до 500
+     */
     @Test
     fun sizeHistoryWord_ManyWords_equalNO() {
         // Create an active task
         // Создание активной задачи
+        // Создаем пустую историю
         val historyWord: MutableList<Word> = arrayListOf()
-        for(i in 1..50){
+
+        // В пустой список нагоняем записи.
+        // Создаем тестовый случай
+        // * остальные поля записи генерируются по умолчанию
+          for(i in 1..500){
             historyWord.add(Word(text="Chair $i"))
         }
 
+        // Создаем экземпляр класса История и передаем ему
+        // не пустой список Истории
+        // testHistory - ссылка на ново созданный объект
         val testHistory = SkyHistory(historyWord)
+
         // Call your function
         // Вызовите свою функцию
+        // Вызываем из новосозданного экземпляра функцию, которую тестируем
+        // В ответ дает размер истории (Int), который загоняем в result
         val result = testHistory.sizeHistoryWord()
+
         // Check the result
         // Проверьте результат
-        assertEquals(result, 50)
+        // Штатный вопрос JUnit на равентсво
+        // assert - утверждаю Equals - что равно 500
+        assertEquals(result, 500)
     }
-// 2 147 483 647
+
+    /**
+     * Тест: что размер истории из 2 147 483 647 записей создастся не может и будет превышение
+     * размера кучи
+     */
     @Test
     @Ignore
     fun sizeHistoryWord_LotWords_equalNoSpace() {
         // Create an active task
         // Создание активной задачи
+        // Создаем пустую историю
         val historyWord: MutableList<Word> = arrayListOf()
+
+        // В пустой список нагоняем записи.
+        // Создаем тестовый случай
+        // * остальные поля записи генерируются по умолчанию
         for(i in 1..Int.MAX_VALUE){
             historyWord.add(Word(text="Chair $i"))
+            // На каком-то i память и закончится и будет ошибка
         }
 
+        // Создаем экземпляр класса История и передаем ему
+        // не пустой список Истории
+        // testHistory - ссылка на ново созданный объект
         val testHistory = SkyHistory(historyWord)
+        // На самом деле, сюда программа не доходит, уже ломается
+
         // Call your function
         // Вызовите свою функцию
+        // Вызываем из новосозданного экземпляра функцию, которую тестируем
+        // В ответ дает размер истории (Int), который загоняем в result
         val result = testHistory.sizeHistoryWord()
+        // На самом деле, сюда программа не доходит, уже ломается
+
         // Check the result
         // Проверьте результат
+        // Штатный вопрос JUnit на равентсво
+        // assert - утверждаю Equals - что
+        // TODO Сделать правильный вопрос на ошибку
         assertEquals(result, Int.MAX_VALUE)
     }
 
