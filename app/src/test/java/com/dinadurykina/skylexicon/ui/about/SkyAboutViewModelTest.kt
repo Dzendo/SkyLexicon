@@ -97,8 +97,6 @@ class SkyAboutViewModelTest {
         // Then the new task event is triggered Затем запускается новое событие задачи
         // тодо test LiveData см LiveDataTestUtil
 
-        assertThat(skyAboutViewModel.testS,`is`("ПапаМама"))
-
         assertThat(skyAboutViewModel.doneButton.value,`is`(true))  // плохо
 
         val doneButton = skyAboutViewModel.doneButton.getOrAwaitValue()
@@ -108,8 +106,6 @@ class SkyAboutViewModelTest {
         val editNickname = skyAboutViewModel.editNickname.getOrAwaitValue()
         assertThat(editNickname, not(nullValue()))
         assertThat(editNickname,`is`(false))
-
-        assertThat(skyAboutViewModel.testS,`is`("ПапаМама"))
 
         //MatcherAssert.assertThat(value.getContentIfNotHandled(), Matchers.not(Matchers.nullValue()))
         // Что такое getContentIfNoteHandled?

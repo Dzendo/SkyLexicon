@@ -148,6 +148,11 @@ sealed class DataItem {
         const val ITEM_VIEW_TYPE_EXAMPLE = 0
         const val ITEM_VIEW_TYPE_SIMILAR = 1
         const val ITEM_VIEW_TYPE_ALTERNATIVE = 2
+        enum class ViewType {
+            ITEM_VIEW_TYPE_EXAMPLE,
+            ITEM_VIEW_TYPE_SIMILAR,
+            ITEM_VIEW_TYPE_ALTERNATIVE
+        }
     }
 }
 
