@@ -4,13 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.dinadurykina.skylexicon.network.Example
-import com.dinadurykina.skylexicon.network.MeaningsWithSimilarTranslation
-import com.dinadurykina.skylexicon.network.AlternativeTranslations
 import com.dinadurykina.skylexicon.databinding.RowItemExampleMeaningBinding
 import com.dinadurykina.skylexicon.databinding.RowItemSimilarMeaningBinding
 import com.dinadurykina.skylexicon.databinding.RowItemAlternativeMeaningBinding
-import com.dinadurykina.skylexicon.network.DataItem
+import com.dinadurykina.skylexicon.network.*
 import com.dinadurykina.skylexicon.ui.DiffCallback
 
 /** An adapter
@@ -31,24 +28,20 @@ class SkyMeaningAdapter(private val skyMeaningsViewModel: SkyMeaningsViewModel) 
     ListAdapter<DataItem, ViewHolder>(DiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return with(DataItem) {
-            when (getItem(position)) {
-                is DataItem.ExampleItem -> ITEM_VIEW_TYPE_EXAMPLE
-                is DataItem.MeaningWithSimilarTranslationItem -> ITEM_VIEW_TYPE_SIMILAR
-                is DataItem.AlternativeTranslationsItem -> ITEM_VIEW_TYPE_ALTERNATIVE
-            }
+        return when (getItem(position)) {
+            is DataItem.ExampleItem -> VIEW_TYPE.ITEM_VIEW_TYPE_EXAMPLE.ordinal
+            is DataItem.MeaningWithSimilarTranslationItem -> VIEW_TYPE.ITEM_VIEW_TYPE_SIMILAR.ordinal
+            is DataItem.AlternativeTranslationsItem -> VIEW_TYPE.ITEM_VIEW_TYPE_ALTERNATIVE.ordinal
         }
     }
     // Стандартный метод RecyclerView  - Создает View строчки-карточки место куда Bind занесет данные
     // Он отвечает за внешний вид строчки RecyclerView: конструирует ее и отдает на высветку
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return with(DataItem) {
-            when (viewType) {
-                ITEM_VIEW_TYPE_EXAMPLE -> ExampleViewHolder.from(parent)
-                ITEM_VIEW_TYPE_SIMILAR -> SimilarViewHolder.from(parent)
-                ITEM_VIEW_TYPE_ALTERNATIVE -> AlternativeViewHolder.from(parent)
-                else -> throw ClassCastException("Unknown viewType $viewType")
-            }
+        return when (viewType) {
+            VIEW_TYPE.ITEM_VIEW_TYPE_EXAMPLE.ordinal -> ExampleViewHolder.from(parent)
+            VIEW_TYPE.ITEM_VIEW_TYPE_SIMILAR.ordinal -> SimilarViewHolder.from(parent)
+            VIEW_TYPE.ITEM_VIEW_TYPE_ALTERNATIVE.ordinal -> AlternativeViewHolder.from(parent)
+            else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
 
@@ -87,7 +80,7 @@ class ExampleViewHolder(private val binding: RowItemExampleMeaningBinding) :
         }
     }
 }
-
+// три класса для каждого вида данных - создатели - держатели места - вида
 class SimilarViewHolder(private val binding: RowItemSimilarMeaningBinding) :
             ViewHolder(binding.root) {
 
@@ -104,7 +97,7 @@ class SimilarViewHolder(private val binding: RowItemSimilarMeaningBinding) :
         }
     }
 }
-
+// три класса для каждого вида данных - создатели - держатели места - вида
 class AlternativeViewHolder(private val binding: RowItemAlternativeMeaningBinding) :
             ViewHolder(binding.root) {
 
@@ -120,4 +113,10 @@ class AlternativeViewHolder(private val binding: RowItemAlternativeMeaningBindin
             return AlternativeViewHolder(binding)
         }
     }
+}
+// Номер числовой типа данных для вывода в RecyclerView
+enum class VIEW_TYPE {
+    ITEM_VIEW_TYPE_EXAMPLE,
+    ITEM_VIEW_TYPE_SIMILAR,
+    ITEM_VIEW_TYPE_ALTERNATIVE
 }

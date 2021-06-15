@@ -6,28 +6,6 @@ package com.dinadurykina.skylexicon.launcher
 
 // https://metanit.com/kotlin/tutorial/4.13.php
 // Файл для описания констант и временных переменных вместо setting
-// String representation of a part of speech
-// Строковое представление части речи
-// TODO пока не задействовано
-enum class PartOfSpeech(val partOfSpeechEng: String = " ", val partOfSpeechRus: String = " "){
-    n ("noun","существительное"),
-    v ("verb","глагол"),
-    j ("adjective","прилагательное"),
-    r ("adverb","наречие"),
-    prp ("preposition","предлог"),
-    prn ("pronoun","местоимение"),
-    crd ("cardinal number","кардинальное число"),
-    cjc ("conjunction","связи"),
-    exc ("interjection","междометие"),
-    det ("article","статьи"),
-    abb ("abbreviation","аббревиатура"),
-    x ("particle","частица"),
-    ord ("ordinal number","порядковый номер"),
-    md ("modal verb","модальный глагол"),
-    ph ("phrase","фразы"),
-    phi ("idiom","идиома");
-
-}
 
 // Создайте область сопрограммы для использования в вашем приложении чтобы не блокировать экраны
 // идея создания такой области сопрограмм что она будет работать до остановки app не обращая внимания на экраны

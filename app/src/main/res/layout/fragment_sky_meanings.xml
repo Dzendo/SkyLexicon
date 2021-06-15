@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
             type="com.dinadurykina.skylexicon.ui.meanings.SkyMeaningsViewModel" />
@@ -57,7 +57,8 @@
             android:id="@+id/prefix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{ viewModel.meaning.prefix == null ? "" : viewModel.meaning.prefix + " "}'
+            android:visibility="@{viewModel.meaning.isPrefix? View.GONE : View.VISIBLE }"
+            android:text='@{ viewModel.meaning.prefix  + " "}'
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@id/sky_image"
             app:layout_constraintTop_toTopOf="parent"
@@ -88,7 +89,8 @@
             android:id="@+id/note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{ viewModel.meaning.translation.note == null ? "" : viewModel.meaning.translation.note}'
+            android:visibility="@{viewModel.meaning.translation.isNote? View.GONE : View.VISIBLE }"
+            android:text='@{ viewModel.meaning.translation.note }'
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@id/translation"
             app:layout_constraintTop_toTopOf="@id/translation" />
@@ -120,7 +122,7 @@
             android:id="@+id/partOfSpeechCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{" partOfSpeechCode = " + viewModel.meaning.partOfSpeechCode}'
+            android:text='@{" part = " + viewModel.meaning.partOfSpeechCodeRus}'
             android:textSize="12sp"
             app:layout_constraintBottom_toTopOf="@id/mnemonics"
             app:layout_constraintLeft_toRightOf="@id/sky_image"

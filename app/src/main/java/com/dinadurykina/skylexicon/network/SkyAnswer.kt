@@ -18,6 +18,7 @@
 package com.dinadurykina.skylexicon.network
 
 import android.os.Parcelable
+import kotlinx.parcelize.IgnoredOnParcel
 import kotlinx.parcelize.Parcelize
 import kotlinx.parcelize.RawValue
 
@@ -45,7 +46,10 @@ data class Meaning2(
         val imageUrl: String="", //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=640&h=480",
         val transcription: String="", //"ʧeə",
         val soundUrl: String="" //"//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair"
-)
+){
+    val partOfSpeechCodeEng = PartOfSpeech.valueOf(partOfSpeechCode).partOfSpeechEng
+    val partOfSpeechCodeRus = PartOfSpeech.valueOf(partOfSpeechCode).partOfSpeechRus
+}
 
 @Parcelize
 data class Meaning(
@@ -66,12 +70,22 @@ data class Meaning(
     val examples: List<@RawValue Example> = arrayListOf(), // Usage examples.
     val meaningsWithSimilarTranslation: List<@RawValue MeaningsWithSimilarTranslation> = arrayListOf(), // Collection of meanings with similar translations.
     val alternativeTranslations: List<@RawValue AlternativeTranslations> = arrayListOf() // Collection of alternative translations.
-) : Parcelable
+) : Parcelable {
+    @IgnoredOnParcel
+    val isPrefix = (prefix != null) and (prefix != "")
+    @IgnoredOnParcel
+    val partOfSpeechCodeEng = PartOfSpeech.valueOf(partOfSpeechCode).partOfSpeechEng
+    @IgnoredOnParcel
+    val partOfSpeechCodeRus = PartOfSpeech.valueOf(partOfSpeechCode).partOfSpeechRus
+}
 
 data class Translation(
         val text: String="",  // "стул" A text of a translation.
         val note: String?=""  // null   A note about translation.
-)
+) {
+    // isNote логическое значение и установите его значение в зависимости от того есть ли Note
+    val isNote  = (note != null) and (note != "")
+}
 
 data class Properties(
     val collocation: Boolean = false, // false,
@@ -125,8 +139,33 @@ data class WordRecycler(
     val soundUrl: String="" //"//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair"
 )  {
     // isNote логическое значение и установите его значение в зависимости от того есть ли Note
-    val isNote  // true - есть false - нет
-        get() = (note == "") or (note == null)
+    val isNote  = (note != null) and (note != "")
+    val partOfSpeechCodeEng = PartOfSpeech.valueOf(partOfSpeechCode).partOfSpeechEng
+    val partOfSpeechCodeRus = PartOfSpeech.valueOf(partOfSpeechCode).partOfSpeechRus
+    }
+
+
+// String representation of a part of speech
+// Строковое представление части речи
+// TODO пока не задействовано
+enum class PartOfSpeech(val partOfSpeechEng: String = " ", val partOfSpeechRus: String = " "){
+    n ("noun","существительное"),
+    v ("verb","глагол"),
+    j ("adjective","прилагательное"),
+    r ("adverb","наречие"),
+    prp ("preposition","предлог"),
+    prn ("pronoun","местоимение"),
+    crd ("cardinal number","кардинальное число"),
+    cjc ("conjunction","связи"),
+    exc ("interjection","междометие"),
+    det ("article","статьи"),
+    abb ("abbreviation","аббревиатура"),
+    x ("particle","частица"),
+    ord ("ordinal number","порядковый номер"),
+    md ("modal verb","модальный глагол"),
+    ph ("phrase","фразы"),
+    phi ("idiom","идиома");
+
 }
 
 // Вспомогательный класс для RecyclerView на втором экране - переводы -примеры-значения
@@ -143,17 +182,7 @@ sealed class DataItem {
     data class AlternativeTranslationsItem(
         val alternativeTranslations: AlternativeTranslations= AlternativeTranslations()
     ) : DataItem()
-    // Номер числовой типа данных для вывода в RecyclerView
-    companion object {
-        const val ITEM_VIEW_TYPE_EXAMPLE = 0
-        const val ITEM_VIEW_TYPE_SIMILAR = 1
-        const val ITEM_VIEW_TYPE_ALTERNATIVE = 2
-        enum class ViewType {
-            ITEM_VIEW_TYPE_EXAMPLE,
-            ITEM_VIEW_TYPE_SIMILAR,
-            ITEM_VIEW_TYPE_ALTERNATIVE
-        }
-    }
 }
+
 
 

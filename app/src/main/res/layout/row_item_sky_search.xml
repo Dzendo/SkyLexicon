@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
         <variable
             name="word"
             type="com.dinadurykina.skylexicon.network.WordRecycler" />
@@ -107,6 +107,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{word.note}"
+                    android:visibility="@{word.isNote? View.GONE : View.VISIBLE }"
                     android:textAppearance="?attr/textAppearanceListItem"
                     android:textColor="#303F9F"
                     android:textSize="12sp"

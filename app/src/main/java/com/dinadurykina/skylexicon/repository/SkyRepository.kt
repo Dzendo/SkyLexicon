@@ -79,8 +79,7 @@ class SkyRepository {
     }
 
     suspend fun getDataItemMeaningsRecycler(ids: String): LiveData<List<DataItem>> {
-        val result = getSkyMeanings(ids)
-        val oneMeanig = result.value?.get(0)!!
+        val oneMeanig = getSkyMeaning0(ids).value!!
 
         val example = oneMeanig.examples
             .map { DataItem.ExampleItem(it) }
