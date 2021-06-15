@@ -40,7 +40,7 @@ data class Word(  // в ответ идет List из 15 штук этих кл�
 
 data class Meaning2(
         val id: String="", // 1938 - вообще-то это не String а Long
-        val partOfSpeechCode: String="",  // "n"
+        val partOfSpeechCode: String="n",  // "n"
         val translation: @RawValue Translation=Translation(),  // "стул" null
         val previewUrl: String="", //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=96&h=72",
         val imageUrl: String="", //"//d2zkmv5t5kao9.cloudfront.net/images/b905a618b56c721ce683164259ac02c4.jpeg?w=640&h=480",
@@ -56,7 +56,7 @@ data class Meaning(
     val id: String="", // "1938", Meaning id.
     val wordId: Long=0, // 838, - это id из Word Слово-это группа значений. Мы объединяем значения словом сущность.
     val difficultyLevel: Int?=0, //1, There are 6 difficultyLevels: 1, 2, 3, 4, 5, 6.
-    val partOfSpeechCode: String="", // "n", enum class PartOfSpeechCode
+    val partOfSpeechCode: String="n", // "n", enum class PartOfSpeechCode
     val prefix: String?="", // "a", Infinitive particle (to) or articles (a, the).
     val text: String="", // "chair",  Meaning text.
     val soundUrl: String="", // "//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair", URL to meaning sound.
@@ -107,7 +107,7 @@ data class Example(
 data class MeaningsWithSimilarTranslation(
     val meaningId: Long=0L, // 1938,
     val frequencyPercent: String="", // "50.0",  Percentage of frequency among all other usages. Процент частоты среди всех других видов использования.
-    val partOfSpeechAbbreviation: String="", // "сущ.",
+    val partOfSpeechAbbreviation: String="n", // "сущ.",
     val translation: @RawValue Translation= Translation()
 )
 
@@ -127,7 +127,7 @@ data class WordRecycler(
 
     //val meanings: List<@RawValue Meaning2>  // и таких 6 штук стульев Кисы Воробьянинова
     val idRus: String="", // 1938 - вообще-то это не String а Long
-    val partOfSpeechCode: String="",  // "n" код части речи
+    val partOfSpeechCode: String="n",  // "n" код части речи
 
     //val translation: @RawValue Translation,  // "стул" null
     val textRus: String="",  // meaning2.translation.text "стул" A text of a translation.
@@ -138,6 +138,7 @@ data class WordRecycler(
     val transcription: String="", //"ʧeə",
     val soundUrl: String="" //"//d2fmfepycn0xw0.cloudfront.net?gender=male&accent=british&text=chair"
 )  {
+
     // isNote логическое значение и установите его значение в зависимости от того есть ли Note
     val isNote  = (note != null) and (note != "")
     val partOfSpeechCodeEng = PartOfSpeech.valueOf(partOfSpeechCode).partOfSpeechEng
