@@ -10,9 +10,9 @@ import org.junit.Ignore
 import org.junit.Test
 
 /**
- * Create Call Check (CCC) == Создание Вызовите Проверьте
- * Arrange, Act, Assert (AAA)  == «Упорядочить, Действовать, Утвердить» (AAA)
- * Given, When, Then (GWT) ==  Дано, Когда, Затем
+ * Create Call Check (CCC) == Создание Вызовите Проверьте == 创建呼叫检查
+ * Arrange, Act, Assert (AAA)  == «Упорядочить, Действовать, Утвердить» (AAA) == 组织，行动，批准
+ * Given, When, Then (GWT) ==  Дано, Когда, Затем == 定, 当, 然后
  */
 
 /**
