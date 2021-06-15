@@ -35,7 +35,8 @@ import org.junit.Test
 class SkyHistoryTest1 {
 
     /**
-     * Проверка, что функция добавляет слова в историю и их становится больше
+     * Проверка, что функция добавления слов в историю работает на пустой истории,
+     * если ничегог не добавили
      */
     @Test
     fun addHistoryWord_noWord_null() {
@@ -44,7 +45,7 @@ class SkyHistoryTest1 {
     }
 
     /**
-     * Проверка, что функция добавляет слова в историю и их становится больше
+     * Проверка, что функция добавления слов в историю работает при добавлении одного слова
      */
     @Test
     fun addHistoryWord_OneWord_One() {
@@ -54,7 +55,9 @@ class SkyHistoryTest1 {
         val resultSize = testHistory.sizeHistoryWord()
         assertEquals(resultSize, 1)
     }
-
+    /**
+     * Проверка, что функция добавления слов в историю работает при добавлении много слов до 50-ти
+     */
     @Test
     fun addHistoryWord_50Word_50() {
         val testHistory = SkyHistory()
@@ -66,7 +69,8 @@ class SkyHistoryTest1 {
     }
 
     /**
-     * Проверка, что функция добавляет слова в историю и их становится больше
+     * Проверка, что функция добавления расшифровки слов в историю работает на пустой истории,
+     * если ничегог не расшифровывали
      */
     @Test
     fun addHistoryMeaning_noMeaning_null() {
@@ -75,7 +79,8 @@ class SkyHistoryTest1 {
     }
 
     /**
-     * Проверка, что функция добавляет слова в историю и их становится больше
+     * Проверка, что функция добавления слов в историю работает при добавлении одного
+     * расшифрованногое слова     *
      */
     @Test
     fun addHistoryMeaning_OneMeaning_One() {
@@ -86,6 +91,10 @@ class SkyHistoryTest1 {
         assertEquals(resultSize, 1)
     }
 
+    /**
+     * Проверка, что функция добавления слов в историю работает при добавлении много расшифрованных
+     * слов до 50-ти
+     */
     @Test
     fun addHistoryMeaning_50Meaning_50() {
         val testHistory = SkyHistory()
@@ -93,6 +102,8 @@ class SkyHistoryTest1 {
             testHistory.addHistoryMeaning(Meaning(text="Chair $i"))
         }
         assertEquals(testHistory.sizeHistoryMeaning(), 50)
+
+        // То же самое утверждение с библиотекой hamcrest
         assertThat(testHistory.sizeHistoryMeaning(), `is`(50))
     }
     @Test
