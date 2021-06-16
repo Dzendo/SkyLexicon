@@ -15,6 +15,7 @@ import com.dinadurykina.skylexicon.network.Word
 class SkyHistory (
     private val historyWord: MutableSet<Word> = arraySetOf(),
     private val historyMeaning: MutableSet<Meaning> = arraySetOf(),
+    private val historySeans:MutableList<HistorySeans> = arrayListOf()
     ){
     /**
      * Добавление слова в историю поиска
@@ -22,10 +23,7 @@ class SkyHistory (
      * @return Должно возвращать true - успешно добавила
      * false - отказалась добавлять (пока не сделано)
      */
-    fun addHistoryWord(word:Word): Boolean = historyWord.add(word)
-       // for (w in historyWord) if (w==word) return false
-       // historyWord.add(word)
-       // return true
+    fun addHistoryWord(word:Word): Boolean = historyWord.add(word).also { addHistorySeans(1) }
 
 
     /**
@@ -34,10 +32,7 @@ class SkyHistory (
      * @return Должно возвращать true - успешно добавила
      * false - отказалась добавлять (пока не сделано)
      */
-    fun addHistoryMeaning(meaning: Meaning): Boolean =historyMeaning.add(meaning)
-        //for (m in historyMeaning) if (m==meaning) return false
-        //historyMeaning.add(meaning)
-        //return true
+    fun addHistoryMeaning(meaning: Meaning): Boolean =historyMeaning.add(meaning).also { addHistorySeans(2) }
 
     /**
      * Функция очистки истории поиска
@@ -46,6 +41,7 @@ class SkyHistory (
         if (historyWord.isEmpty() and historyMeaning.isEmpty()) return false
         historyWord.clear()
         historyMeaning.clear()
+        clearHistorySeans()
         return true
     }
 
@@ -60,4 +56,51 @@ class SkyHistory (
      * Отвечает  - целое число, сколько запомнено слов в истории
      */
     fun sizeHistoryMeaning() : Int = historyMeaning.size
+
+    fun clearHistorySeans(timerNomber:Int=-1):Boolean{
+        historySeans.clear()
+        return true
+    }
+    fun addHistorySeans(timerNomber:Int=-1): Boolean {
+        val time = System.currentTimeMillis()
+        if (historySeans.isNotEmpty()) with(historySeans){
+            this[lastIndex].dataStop = time
+            this[lastIndex].duration =
+                this[lastIndex].dataStop - this[lastIndex].dataStart
+            this[lastIndex].timerNomber = timerNomber
+        }
+        historySeans.add(HistorySeans(time))
+        return true
+    }
+
+    fun pause(timerNomber:Int=-1):Boolean = false
+    fun run(timerNomber:Int=-1):Boolean = false
+
+    fun sizeSeans(timerNomber:Int = -1) :Int = historySeans.size
+    fun durationSeans(timerNomber:Int = -1): Long = historySeans.sumOf { it.duration }
 }
+data class HistorySeans(val dataStart:Long=-2, var dataStop:Long=-2, var duration:Long=-2,
+                 var timerNomber: Int=-2, val what:String="null")
+enum class SKYTIMER{
+    TIMER_FAG,
+    TIMER_WORD,
+    TIMER_MEANING
+}
+
+/*
+sealed class DataItem {
+    data class ExampleItem(val example: Example=Example()
+    ) : DataItem()
+    data class MeaningWithSimilarTranslationItem(
+        val meaningWithSimilarTranslation: MeaningsWithSimilarTranslation= MeaningsWithSimilarTranslation()
+    ) : DataItem()
+    data class AlternativeTranslationsItem(
+        val alternativeTranslations: AlternativeTranslations= AlternativeTranslations()
+    ) : DataItem()
+    enum class VIEW_TYPE {
+        ITEM_VIEW_TYPE_EXAMPLE,
+        ITEM_VIEW_TYPE_SIMILAR,
+        ITEM_VIEW_TYPE_ALTERNATIVE
+    }
+}
+ */
