@@ -73,11 +73,9 @@ class SkyHistory (
         return true
     }
 
-    fun pause(timerNomber:Int=-1):Boolean = false
-    fun run(timerNomber:Int=-1):Boolean = false
-
-    fun sizeSeans(timerNomber:Int = -1) :Int = historySeans.size
-    fun durationSeans(timerNomber:Int = -1): Long = historySeans.sumOf { it.duration }
+    fun sizeSeans(timerNomber:Int = -1) :Int  = historySeans.count{ it.timerNomber == timerNomber }
+                                              //  = historySeans.filter { it.timerNomber == timerNomber }.size
+    fun durationSeans(timerNomber:Int = -1): Long = historySeans.filter { it.timerNomber == timerNomber  }.sumOf { it.duration }
 }
 data class HistorySeans(val dataStart:Long=-2, var dataStop:Long=-2, var duration:Long=-2,
                  var timerNomber: Int=-2, val what:String="null")

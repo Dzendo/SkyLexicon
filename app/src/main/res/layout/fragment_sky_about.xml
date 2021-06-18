@@ -51,7 +51,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/padding_about"
                     android:paddingEnd="@dimen/padding_about"
-                    android:text="@{String.valueOf(history.sizeHistoryWord())}"
+                    android:text='@{"Слов: " + String.valueOf(history.sizeHistoryWord())}'
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/padding_about"
                     android:paddingEnd="@dimen/padding_about"
-                    android:text="@{String.valueOf(history.sizeSeans(1))}"
+                    android:text='@{"С-ов: " + String.valueOf(history.sizeSeans(1))}'
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />
@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/padding_about"
                     android:paddingEnd="@dimen/padding_about"
-                    android:text="@{String.valueOf(history.durationSeans(1))}"
+                    android:text='@{"Длит: " +String.valueOf(history.durationSeans(1)/1000) + "сек"}'
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/padding_about"
                     android:paddingEnd="@dimen/padding_about"
-                    android:text="@{String.valueOf(history.sizeHistoryMeaning())}"
+                    android:text='@{"Знач: " + String.valueOf(history.sizeHistoryMeaning())}'
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />
@@ -111,7 +111,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/padding_about"
                     android:paddingEnd="@dimen/padding_about"
-                    android:text="@{String.valueOf(history.sizeSeans(2))}"
+                    android:text='@{"С-ов: " + String.valueOf(history.sizeSeans(2))}'
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/padding_about"
                     android:paddingEnd="@dimen/padding_about"
-                    android:text="@{String.valueOf(history.durationSeans(2))}"
+                    android:text='@{"Длит: " + String.valueOf(history.durationSeans(2)/1000) + "сек"}'
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />

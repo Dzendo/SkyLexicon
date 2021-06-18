@@ -57,7 +57,7 @@
             android:id="@+id/prefix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.meaning.isPrefix? View.GONE : View.VISIBLE }"
+            android:visibility="@{viewModel.meaning.isPrefix? View.VISIBLE : View.GONE  }"
             android:text='@{ viewModel.meaning.prefix  + " "}'
             android:textSize="22sp"
             app:layout_constraintLeft_toRightOf="@id/sky_image"
@@ -89,11 +89,11 @@
             android:id="@+id/note"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.meaning.translation.isNote? View.GONE : View.VISIBLE }"
+            android:visibility="@{viewModel.meaning.translation.isNote? View.VISIBLE : View.GONE }"
             android:text='@{ viewModel.meaning.translation.note }'
             android:textSize="22sp"
-            app:layout_constraintLeft_toRightOf="@id/translation"
-            app:layout_constraintTop_toTopOf="@id/translation" />
+            app:layout_constraintLeft_toLeftOf="@id/translation"
+            app:layout_constraintTop_toBottomOf="@id/translation" />
 
         <TextView
             android:id="@+id/ids"
