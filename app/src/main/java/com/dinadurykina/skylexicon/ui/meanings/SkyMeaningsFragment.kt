@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.dinadurykina.skylexicon.databinding.FragmentSkyMeaningsBinding
 import com.dinadurykina.skylexicon.launcher.SkyApplication
+import com.dinadurykina.skylexicon.ui.observeEvent
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -53,12 +54,11 @@ class SkyMeaningsFragment : Fragment() {
         binding.recyclerMeaningSky.adapter = SkyMeaningAdapter(skyMeaningsViewModel)
 
 
-        skyMeaningsViewModel.navigateToSkySearch.observe(viewLifecycleOwner){
+        skyMeaningsViewModel.navigateToSkySearch.observeEvent(viewLifecycleOwner){
             it?.let{ slovo ->
             this.findNavController().navigate(
                 SkyMeaningsFragmentDirections.actionSkyMeaningsFragmentToSkySearchFragment(slovo)
             )
-            skyMeaningsViewModel.onSkySearchNavigated()
             }
         }
     }

@@ -24,6 +24,7 @@ import com.dinadurykina.skylexicon.network.DataItem
 import com.dinadurykina.skylexicon.network.ImageUrl
 import com.dinadurykina.skylexicon.network.Meaning
 import com.dinadurykina.skylexicon.repository.SkyRepository
+import com.dinadurykina.skylexicon.ui.Event
 import com.dinadurykina.skylexicon.ui.playSound
 import kotlinx.coroutines.launch
 
@@ -93,12 +94,11 @@ class SkyMeaningsViewModel(
 
     fun onClickSimilar(meaningId:Long) { ids.value = meaningId.toString() }
 
-    private val _navigateToSkySearch = MutableLiveData<String?>(null)
-    val navigateToSkySearch: LiveData<String?>
+    private val _navigateToSkySearch = MutableLiveData<Event<String?>>(Event(null))
+    val navigateToSkySearch: LiveData<Event<String?>>
         get() = _navigateToSkySearch
 
-    fun onSkySearchNavigate(text:String) { _navigateToSkySearch.value = text }
-    fun onSkySearchNavigated() { _navigateToSkySearch.value = null }
+    fun onSkySearchNavigate(text:String) { _navigateToSkySearch.value = Event(text) }
 
 }
 @Suppress("UNCHECKED_CAST")

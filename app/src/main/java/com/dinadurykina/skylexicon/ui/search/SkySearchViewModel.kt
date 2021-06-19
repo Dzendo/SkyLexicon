@@ -20,6 +20,7 @@ package com.dinadurykina.skylexicon.ui.search
 import androidx.lifecycle.*
 import com.dinadurykina.skylexicon.network.WordRecycler
 import com.dinadurykina.skylexicon.repository.SkyRepository
+import com.dinadurykina.skylexicon.ui.Event
 import com.dinadurykina.skylexicon.ui.about.SkyHistory
 import com.dinadurykina.skylexicon.ui.playSound
 import kotlinx.coroutines.launch
@@ -50,20 +51,17 @@ class SkySearchViewModel(
             get() = _wordsListRecycler
 
     // Для перехода ко второму экрану
-    private val _navigateToSkyMeanings = MutableLiveData<String?>()
-    val navigateToSkyMeanings: LiveData<String?>
+    private val _navigateToSkyMeanings = MutableLiveData<Event<String?>>()
+    val navigateToSkyMeanings: LiveData<Event<String?>>
         get() = _navigateToSkyMeanings
 
-    private val _showImage = MutableLiveData<String?>()
-    val showImage : LiveData<String?>
+    private val _showImage = MutableLiveData<Event<String?>>()
+    val showImage : LiveData<Event<String?>>
         get() = _showImage
 
     // Для перехода ко второму экрану
     fun onSkySearchClicked(id:String) {
-        _navigateToSkyMeanings.value = id
-    }
-    fun onSkyMeaningsNavigated() {
-        _navigateToSkyMeanings.value = null
+        _navigateToSkyMeanings.value = Event(id)
     }
 
     fun searchSlovo(slovo:String) {
@@ -92,10 +90,7 @@ class SkySearchViewModel(
     }
 
     fun onSkyImageClicked(imageUri:String) {
-        _showImage.value = imageUri
-    }
-    fun onShowImageNavigated() {
-        _showImage.value = null
+        _showImage.value = Event(imageUri)
     }
 
     fun onClickSound(imageUrl:String) = playSound(imageUrl)

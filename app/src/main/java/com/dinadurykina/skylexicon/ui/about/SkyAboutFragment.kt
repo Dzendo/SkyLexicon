@@ -11,7 +11,7 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.dinadurykina.skylexicon.databinding.FragmentSkyAboutBinding
 import com.dinadurykina.skylexicon.launcher.SkyApplication
-import com.dinadurykina.skylexicon.ui.EventObserver
+import com.dinadurykina.skylexicon.ui.observeEvent
 
 
 class SkyAboutFragment : Fragment() {
@@ -40,16 +40,26 @@ class SkyAboutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // событие кнопку Done
-        viewModel.keyBoard.observe(viewLifecycleOwner , EventObserver {
-            it?.let {
-                if (it) showKeyboard()
+       /* viewModel.keyBoard.observe(viewLifecycleOwner , EventObserver { show ->
+            show?.let {show ->
+                if (show) showKeyboard()
                 else  hideKeyboard()
             }
-        })
+        })*/
+        viewModel.starClicked.observeEvent(viewLifecycleOwner) {
+            Toast.makeText(activity, it, Toast.LENGTH_LONG).show()
+        }
+        viewModel.keyBoard.observeEvent(viewLifecycleOwner) {
+            it?.let {
+                if (it) showKeyboard()
+                else hideKeyboard()
+            }
+        }
 
-        viewModel.starClicked.observe(viewLifecycleOwner, EventObserver{
+
+       /* viewModel.starClicked.observe(viewLifecycleOwner, EventObserver{
             Toast.makeText(activity,it,Toast.LENGTH_LONG).show()
-        })
+        })*/
 
     }
 

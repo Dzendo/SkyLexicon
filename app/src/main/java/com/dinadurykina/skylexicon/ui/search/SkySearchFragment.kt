@@ -12,6 +12,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.dinadurykina.skylexicon.databinding.FragmentSkySearchBinding
 import com.dinadurykina.skylexicon.launcher.SkyApplication
+import com.dinadurykina.skylexicon.ui.observeEvent
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -66,22 +67,20 @@ class SkySearchFragment : Fragment() {
         skySearchViewModel.slovo.observe(viewLifecycleOwner) {skySearchViewModel.searchSlovo(it)}
 
         // событие нажатия на картинку -> показ большой картинки в окошке alert
-        skySearchViewModel.showImage.observe(viewLifecycleOwner) { imageUri ->
+        skySearchViewModel.showImage.observeEvent(viewLifecycleOwner) { imageUri ->
             imageUri?.let { uri ->
                 this.findNavController().navigate(
                     SkySearchFragmentDirections.actionSkySearchFragmentToDialogImageFragment(uri)
                 )
-                skySearchViewModel.onShowImageNavigated()
             }
         }
 
         // событие нажатия на item -> переход к второму экрану meanings
-        skySearchViewModel.navigateToSkyMeanings.observe(viewLifecycleOwner) { id ->
+        skySearchViewModel.navigateToSkyMeanings.observeEvent(viewLifecycleOwner) { id ->
             id?.let {
                 this.findNavController().navigate(
                     SkySearchFragmentDirections.actionSkySearchFragmentToSkyMeaningsFragment(id)
                 )
-                skySearchViewModel.onSkyMeaningsNavigated()
             }
         }
     }
