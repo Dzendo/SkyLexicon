@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.dinadurykina.skylexicon.ui.Event
 
 class SkyAboutViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -12,7 +13,29 @@ class SkyAboutViewModel(application: Application) : AndroidViewModel(application
     /**
      *
      */
-    private val _editNickname = MutableLiveData<Boolean?>(true)
+    private val _starClicked = MutableLiveData<Event<String?>>()
+    val starClicked: LiveData<Event<String?>>
+        get() = _starClicked
+
+    private val _keyBoard =  MutableLiveData<Event<Boolean?>>(Event(true))
+    val keyBoard: LiveData<Event<Boolean?>>
+        get() = _keyBoard
+
+    fun onDoneButtonClick() {
+        _keyBoard.value = Event(false)
+    }
+
+    fun onNicknameTextClick() {
+        _keyBoard.value = Event(true)
+    }
+
+    fun onStarClick() {
+        _starClicked.value = Event("on Star Clicked")
+    }
+
+}
+/*
+  private val _editNickname = MutableLiveData<Boolean?>(true)
     val editNickname: LiveData<Boolean?>
         get() = _editNickname
     private val _doneButton = MutableLiveData<Boolean?>(null)
@@ -37,5 +60,4 @@ class SkyAboutViewModel(application: Application) : AndroidViewModel(application
     fun onNicknameTextClicked() {
         _nicknameText.value = null
     }
-
-}
+ */

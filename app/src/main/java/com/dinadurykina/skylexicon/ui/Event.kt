@@ -17,6 +17,117 @@ package com.dinadurykina.skylexicon.ui
 
 import androidx.lifecycle.Observer
 
+open class Event<out T>(private val content: T) {
+    @Suppress("MemberVisibilityCanBePrivate")
+    var hasBeenHandled = false
+        private set
+    //  Returns the content and prevents its use again.
+  fun getContentIfNotHandled(): T? = if (hasBeenHandled) null  else content.also { hasBeenHandled = true }
+    //  Returns the content, even if it's already been handled.
+  fun peekContent(): T = content
+}
+
+class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Observer<Event<T>> {
+    override fun onChanged(event: Event<T>?) {
+        event?.getContentIfNotHandled()?.let { onEventUnhandledContent(it) }
+    }
+}
+
+/* использовать оболочку событий см выше open class Even
+class ListViewModel : ViewModel {
+    private val _navigateToDetails = MutableLiveData<Event<String>>()
+    val navigateToDetails : LiveData<Event<String>>
+        get() = _navigateToDetails
+
+
+    fun userClicksOnButton(itemId: String) {
+        _navigateToDetails.value = Event(itemId)
+         // Trigger the event by setting a new Event as a new value
+         // Запустить   событие, установив новое событие как новое значение
+    }
+}
+// в фрагменте
+myViewModel.navigateToDetails.observe(this, Observer {
+    it.getContentIfNotHandled()?.let {
+    // Only proceed if the event has never been handled
+    // Продолжаем, только если событие никогда не обрабатывалось
+        startActivity(DetailsActivity...)
+    }
+})
+
+        viewModel.openTaskEvent.observe(viewLifecycleOwner, EventObserver {
+            openTaskDetails(it)
+        })
+        viewModel.newTaskEvent.observe(viewLifecycleOwner, EventObserver {
+            navigateToAddNewTask()
+        })
+
+Преимущество этого подхода состоит в том, что пользователю необходимо указать намерение,
+ используя getContentIfNotHandled() или peekContent().
+  Этот метод моделирует события как часть состояния:
+   теперь они просто сообщение, которое было использовано или нет.
+
+ */
+
+/* ОК: использовать SingleLiveEvent он ограничен одним наблюдателем
+class ListViewModel : ViewModel {
+    private val _navigateToDetails = SingleLiveEvent<Any>()
+    val navigateToDetails : LiveData<Any>
+        get() = _navigateToDetails
+
+    fun userClicksOnButton() {
+        _navigateToDetails.call()
+    }
+}
+// в фрагменте:
+myViewModel.navigateToDetails.observe ( this , Observer {
+    startActivity ( DetailsActivity ...)
+})
+ */
+
+/*
+class SingleLiveEvent<T> : MutableLiveData<T>() {
+
+    private val pending = AtomicBoolean(false)
+
+    @MainThread
+    override fun observe(owner: LifecycleOwner, observer: Observer<in T>) {
+        if (hasActiveObservers()) {
+            Log.w(TAG, "Multiple observers registered but only one will be notified of changes.")
+        }
+
+        // Observe the internal MutableLiveData
+        super.observe(owner, Observer<T> { t ->
+            if (pending.compareAndSet(true, false)) {
+                observer.onChanged(t)
+            }
+        })
+    }
+
+    @MainThread
+    override fun setValue(t: T?) {
+        pending.set(true)
+        super.setValue(t)
+    }
+
+    /**
+     * Used for cases where T is Void, to make calls cleaner.
+     */
+    @MainThread
+    fun call() {
+        value = null
+    }
+
+    companion object {
+        private const val TAG = "SingleLiveEvent"
+    }
+}
+ */
+// https://proandroiddev.com/android-singleliveevent-redux-with-kotlin-flow-b755c70bb055
+
+/*
+import androidx.lifecycle.Observer
+
 /**
  * Used as a wrapper for data that is exposed via a LiveData that represents an event.
  * Используется в качестве оболочки для данных, которые отображаются через живые данные, представляющие событие.
@@ -44,14 +155,7 @@ open class Event<out T>(private val content: T) {
      * Возвращает содержимое и предотвращает его повторное использование.
      * IfNotHandled Если Не Обработано
      */
-    fun getContentIfNotHandled(): T? {
-        return if (hasBeenHandled) {
-            null
-        } else {
-            hasBeenHandled = true
-            content
-        }
-    }
+    fun getContentIfNotHandled(): T? = if (hasBeenHandled) null  else content.also { hasBeenHandled = true }
 
     /**
      * Returns the content, even if it's already been handled.
@@ -75,59 +179,4 @@ class EventObserver<T>(private val onEventUnhandledContent: (T) -> Unit) : Obser
         }
     }
 }
-
-/* использовать оболочку событий см выше open class Even
-class ListViewModel : ViewModel {
-    private val _navigateToDetails = MutableLiveData<Event<String>>()
-
-    val navigateToDetails : LiveData<Event<String>>
-        get() = _navigateToDetails
-
-
-    fun userClicksOnButton(itemId: String) {
-        _navigateToDetails.value = Event(itemId)
-         // Trigger the event by setting a new Event as a new value
-         // Запустить   событие, установив новое событие как новое значение
-    }
-}
-// в фрагменте
-myViewModel.navigateToDetails.observe(this, Observer {
-    it.getContentIfNotHandled()?.let { // Only proceed if the event has never been handled
-    // Продолжаем, только если событие никогда не обрабатывалось
-        startActivity(DetailsActivity...)
-    }
-})
-
-        viewModel.openTaskEvent.observe(viewLifecycleOwner, EventObserver {
-            openTaskDetails(it)
-        })
-        viewModel.newTaskEvent.observe(viewLifecycleOwner, EventObserver {
-            navigateToAddNewTask()
-        })
-
-Преимущество этого подхода состоит в том, что пользователю необходимо указать намерение,
- используя getContentIfNotHandled() или peekContent().
-  Этот метод моделирует события как часть состояния:
-   теперь они просто сообщение, которое было использовано или нет.
-
  */
-
-/* ОК: использовать SingleLiveEvent он ограничен одним наблюдателем
-class ListViewModel : ViewModel {
-    private val _navigateToDetails = SingleLiveEvent<Any>()
-
-    val navigateToDetails : LiveData<Any>
-        get() = _navigateToDetails
-
-
-    fun userClicksOnButton() {
-        _navigateToDetails.call()
-    }
-}
-// в фрагменте:
-myViewModel.navigateToDetails.observe ( this , Observer {
-    startActivity ( DetailsActivity ...)
-})
- */
-
-

@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.viewModels
 import com.dinadurykina.skylexicon.databinding.FragmentSkyAboutBinding
 import com.dinadurykina.skylexicon.launcher.SkyApplication
+import com.dinadurykina.skylexicon.ui.EventObserver
 
 
 class SkyAboutFragment : Fragment() {
@@ -38,20 +40,20 @@ class SkyAboutFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // событие кнопку Done
-        viewModel.doneButton.observe(viewLifecycleOwner) { done ->
-            done?.let {
-                hideKeyboard()
-                viewModel.onDoneButtonClicked()
+        viewModel.keyBoard.observe(viewLifecycleOwner , EventObserver {
+            it?.let {
+                if (it) showKeyboard()
+                else  hideKeyboard()
             }
-        }
-        // событие поле никнаме
-        viewModel.nicknameText.observe(viewLifecycleOwner) { nickname ->
-            nickname?.let {
-                showKeyboard()
-                viewModel.onNicknameTextClicked()
-            }
-        }
+        })
+
+        viewModel.starClicked.observe(viewLifecycleOwner, EventObserver{
+            Toast.makeText(activity,it,Toast.LENGTH_LONG).show()
+        })
+
     }
+
+
     private fun hideKeyboard() {
         binding.apply {
             invalidateAll()   // обновить экран

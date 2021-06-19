@@ -42,6 +42,35 @@
                 android:orientation="horizontal"
                 android:paddingStart="@dimen/padding_about"
                 android:paddingEnd="@dimen/padding_about">
+                <Button
+                    android:id="@+id/show_history_button"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_thin"
+                    android:onClick="@{() -> history.clearHistory()}"
+                    android:text="Clear History"/>
+                    <!--android:visibility="@{viewModel.editNickname ? View.VISIBLE : View.GONE}"-->
+
+                <Button
+                    android:id="@+id/clear_history_button"
+                    style="@style/Widget.AppCompat.Button.Colored"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto_thin"
+                    android:onClick="@{() -> history.clearHistory()}"
+                    android:text="Show History"/>
+                    <!--android:visibility="@{viewModel.editNickname ? View.VISIBLE : View.GONE}"-->
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="@dimen/padding_about"
+                android:paddingEnd="@dimen/padding_about">
 
 
                 <TextView
@@ -67,6 +96,7 @@
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />
+
                 <TextView
                     android:id="@+id/duration_seans_search"
                     style="@style/NameStyle"
@@ -78,7 +108,6 @@
                     android:textAlignment="center"
                     android:visibility="visible"
                     tools:text="Full Name" />
-
 
 
             </LinearLayout>
@@ -151,7 +180,7 @@
                 android:inputType="textPersonName"
                 android:paddingBottom="@dimen/small_padding_about"
                 android:text="@={myName.nickname}"
-                android:visibility="@{viewModel.editNickname ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{viewModel.keyBoard.peekContent() ? View.VISIBLE : View.GONE}" />
 
             <Button
                 android:id="@+id/done_button"
@@ -161,7 +190,7 @@
                 android:fontFamily="@font/roboto_thin"
                 android:onClick="@{() -> viewModel.onDoneButtonClick()}"
                 android:text="Готово_Bind"
-                android:visibility="@{viewModel.editNickname ? View.VISIBLE : View.GONE}" />
+                android:visibility="@{viewModel.keyBoard.peekContent() ? View.VISIBLE : View.GONE}" />
 
             <TextView
                 android:id="@+id/nickname_text"
@@ -171,7 +200,7 @@
                 android:onClick="@{() -> viewModel.onNicknameTextClick()}"
                 android:text="@={myName.nickname}"
                 android:textAlignment="center"
-                android:visibility="@{viewModel.editNickname ? View.GONE : View.VISIBLE }" />
+                android:visibility="@{viewModel.keyBoard.peekContent() ? View.GONE : View.VISIBLE }" />
 
             <ImageView
                 android:id="@+id/star_image"
@@ -179,6 +208,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/layout_margin_about"
                 android:contentDescription="@string/yelllow_star"
+                android:onClick="@{() -> viewModel.onStarClick()}"
                 app:srcCompat="@android:drawable/btn_star_big_on" />
 
             <ScrollView
@@ -195,6 +225,7 @@
                     android:lineSpacingMultiplier="1.2"
                     android:text="@string/bio" />
             </ScrollView>
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
