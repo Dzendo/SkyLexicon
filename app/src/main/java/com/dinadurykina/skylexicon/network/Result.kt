@@ -20,6 +20,12 @@ package com.dinadurykina.skylexicon.network
  * A generic class that holds a value with its loading status.
  * Универсальный класс, который содержит значение со статусом загрузки.
  * @param <T>
+ *     https://github.com/Kotlin/KEEP/blob/497c86126b7320f3651807eb070f5efe80bcdb3a/proposals/stdlib/result.md
+ *     https://github.com/Kotlin/KEEP/commit/497c86126b7320f3651807eb070f5efe80bcdb3a
+ *     https://github.com/Kotlin/KEEP/blob/497c86126b7320f3651807eb070f5efe80bcdb3a/proposals/stdlib/result.md
+ *     N:\_AndroidGradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-common\1.5.10\86ff32fa15b7f66f3b5ced4164c2311c0530adde\kotlin-stdlib-common-1.5.10-sources.jar!\kotlin\util\Result.kt
+ *     \kotlin-stdlib-common-1.5.10-sources.jar!\kotlin\util\Result.kt
+ *
  */
 sealed class Result<out R> {
 
@@ -27,13 +33,13 @@ sealed class Result<out R> {
     data class Error(val exception: Exception) : Result<Nothing>()
     object Loading : Result<Nothing>()
 
-    override fun toString(): String {
-        return when (this) {
+    override fun toString(): String =
+        when (this) {
             is Success<*> -> "Success[data=$data]"
             is Error -> "Error[exception=$exception]"
             Loading -> "Loading"
         }
-    }
+
 }
 
 /**
@@ -42,6 +48,10 @@ sealed class Result<out R> {
  */
 val Result<*>.succeeded
     get() = this is Result.Success && data != null
+
+// Not obligatory
+fun <T> Result<T>.successOr(fallback: T): T = (this as? Result.Success<T>)?.data ?: fallback
+
 
 /*
  private suspend fun getTasks(forceUpdate: Boolean = false): Result<List<Task>> {
