@@ -39,6 +39,13 @@ class SkyRepository {
         return MutableLiveData(rezult)
     }
 
+    suspend fun getSkySearchResult(slovo: String): LiveData<Result<List<Word>>> {
+        val rezult: List<Word>
+        withContext(Dispatchers.IO) {
+            rezult = SkyApi.retrofitService.getSearch(slovo)//.await()  // await говорит что это корутинный  Deferred
+        }
+        return (MutableLiveData(Result.success(rezult)))
+    }
     suspend fun getSkySearch0(slovo: String): Word? = getSkySearch(slovo).value?.get(0)
 
     // основная функция поиска значения слова

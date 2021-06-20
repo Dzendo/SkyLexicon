@@ -1,9 +1,7 @@
+/**
+@file:Suppress("UNCHECKED_CAST", "RedundantVisibilityModifier")
 package com.dinadurykina.skylexicon.utils
 
-import androidx.lifecycle.LiveData
-
-//fun observeTasks(): LiveData<Result<List<Task>>>
-/**
 /*
  * Copyright 2010-2018 JetBrains s.r.o. and Kotlin Programming Language contributors.
  * Use of this source code is governed by the Apache 2.0 license that can be found in the license/LICENSE.txt file.
@@ -11,12 +9,10 @@ import androidx.lifecycle.LiveData
  * Использование этого исходного кода регулируется лицензией Apache 2.0, которую можно найти в license/LICENSE.txt файл.
  */
 
-@file:Suppress("UNCHECKED_CAST", "RedundantVisibilityModifier")
-
-package kotlin
+//package kotlin
 
 import kotlin.contracts.*
-import kotlin.internal.InlineOnly
+//import kotlin.internal.InlineOnly
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmInline
 import kotlin.jvm.JvmName
@@ -27,12 +23,13 @@ import kotlin.jvm.JvmName
  * Дискриминируемое объединение, которое инкапсулирует успешный результат со значением типа [T]
  * или сбой с произвольным исключением [Throwable].
  */
+@ExperimentalContracts
 @SinceKotlin("1.3")
 @JvmInline
 public value class Result<out T> @PublishedApi internal constructor(
     @PublishedApi
     internal val value: Any?
-) : Serializable {
+) : java.io.Serializable {    // Serializable
     // discovery открытие
 
     /**
@@ -64,7 +61,7 @@ public value class Result<out T> @PublishedApi internal constructor(
      * Эта функция является сокращением для "getOrElse { null}" (см. [getOrElse]) или
      * `fold(onSuccess = { it }, OnFailure = { null }) ' (см. [fold]).
      */
-    @InlineOnly
+    //@InlineOnly
     public inline fun getOrNull(): T? =
         when {
             isFailure -> null
@@ -114,7 +111,7 @@ public value class Result<out T> @PublishedApi internal constructor(
          * Возвращает экземпляр, который инкапсулирует данное [значение] в качестве успешного значения.
          */
         @Suppress("INAPPLICABLE_JVM_NAME")
-        @InlineOnly
+        //@InlineOnly
         @JvmName("success")
         public inline fun <T> success(value: T): Result<T> =
             Result(value)
@@ -124,7 +121,7 @@ public value class Result<out T> @PublishedApi internal constructor(
          * Возвращает экземпляр, который инкапсулирует данное [Throwable] [исключение] как сбой.
          */
         @Suppress("INAPPLICABLE_JVM_NAME")
-        @InlineOnly
+        //@InlineOnly
         @JvmName("failure")
         public inline fun <T> failure(exception: Throwable): Result<T> =
             Result(createFailure(exception))
@@ -133,7 +130,7 @@ public value class Result<out T> @PublishedApi internal constructor(
     internal class Failure(
         @JvmField
         val exception: Throwable
-    ) : Serializable {
+    ) : java.io.Serializable {  // Serializable
         override fun equals(other: Any?): Boolean = other is Failure && exception == other.exception
         override fun hashCode(): Int = exception.hashCode()
         override fun toString(): String = "Failure($exception)"
@@ -146,6 +143,7 @@ public value class Result<out T> @PublishedApi internal constructor(
  * Создает экземпляр внутреннего маркера [Результат.Failure] class to
  * убедитесь, что этот класс не отображается в ABI.
  */
+@ExperimentalContracts
 @PublishedApi
 @SinceKotlin("1.3")
 internal fun createFailure(exception: Throwable): Any =
@@ -159,6 +157,7 @@ internal fun createFailure(exception: Throwable): Any =
  * встроенный байт-код для [getorthow] и гарантирует, что в будущем мы сможем
  * добавьте сюда некоторую логику увеличения исключений (если это необходимо).
  */
+@ExperimentalContracts
 @PublishedApi
 @SinceKotlin("1.3")
 internal fun Result<*>.throwOnFailure() {
@@ -171,7 +170,8 @@ internal fun Result<*>.throwOnFailure() {
  * Вызывает указанную функцию [блок] и возвращает ее инкапсулированный результат, если вызов был успешным.,
  * перехват любого исключения [Throwable] , которое было вызвано выполнением функции [block], и инкапсуляция его как сбоя.
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R> runCatching(block: () -> R): Result<R> {
     return try {
@@ -187,7 +187,8 @@ public inline fun <R> runCatching(block: () -> R): Result<R> {
  * Вызывает указанную функцию [блок] со значением "this" в качестве получателя и возвращает ее инкапсулированный результат, если вызов был успешным.,
  * перехват любого исключения [Throwable] , которое было вызвано выполнением функции [block], и инкапсуляция его как сбоя.
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <T, R> T.runCatching(block: T.() -> R): Result<R> {
     return try {
@@ -209,7 +210,8 @@ public inline fun <T, R> T.runCatching(block: T.() -> R): Result<R> {
  * This function is a shorthand for `getOrElse { throw it }` (see [getOrElse]).
  * Эта функция является сокращением для "getOrElse { throw it}" (см. [getOrElse]).
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <T> Result<T>.getOrThrow(): T {
     throwOnFailure()
@@ -228,7 +230,8 @@ public inline fun <T> Result<T>.getOrThrow(): T {
  * This function is a shorthand for `fold(onSuccess = { it }, onFailure = onFailure)` (see [fold]).
  * Эта функция является сокращением для "fold(onSuccess = { it }, OnFailure = OnFailure)" (см. [fold]).
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R, T : R> Result<T>.getOrElse(onFailure: (exception: Throwable) -> R): R {
     contract {
@@ -249,7 +252,8 @@ public inline fun <R, T : R> Result<T>.getOrElse(onFailure: (exception: Throwabl
  * This function is a shorthand for `getOrElse { defaultValue }` (see [getOrElse]).
  * Эта функция является сокращением для "getOrElse { defaultValue}" (см. [getOrElse]).
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R, T : R> Result<T>.getOrDefault(defaultValue: R): R {
     if (isFailure) return defaultValue
@@ -265,7 +269,8 @@ public inline fun <R, T : R> Result<T>.getOrDefault(defaultValue: R): R {
  * Note, that this function rethrows any [Throwable] exception thrown by [onSuccess] or by [onFailure] function.
  * Обратите внимание, что эта функция переосмысливает любое исключение [Throwable], вызванное функцией [onSuccess] или функцией [OnFailure].
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R, T> Result<T>.fold(
     onSuccess: (value: T) -> R,
@@ -297,7 +302,8 @@ public inline fun <R, T> Result<T>.fold(
  * Обратите внимание, что эта функция переосмысливает любое исключение [Throwable], вызванное функцией [transform].
  * Альтернативу, инкапсулирующую исключения, см. в разделе [mapCatching].
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R, T> Result<T>.map(transform: (value: T) -> R): Result<R> {
     contract {
@@ -322,7 +328,8 @@ public inline fun <R, T> Result<T>.map(transform: (value: T) -> R): Result<R> {
  * See [map] for an alternative that rethrows exceptions from `transform` function.
  * См. [карта] для альтернативы, которая переосмысливает исключения из функции " преобразование`.
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R, T> Result<T>.mapCatching(transform: (value: T) -> R): Result<R> {
     return when {
@@ -344,7 +351,8 @@ public inline fun <R, T> Result<T>.mapCatching(transform: (value: T) -> R): Resu
  * Обратите внимание, что эта функция переосмысливает любое исключение [Throwable], вызванное функцией [transform].
  * Альтернативу, инкапсулирующую исключения, см. в разделе [recoverCatching].
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R, T : R> Result<T>.recover(transform: (exception: Throwable) -> R): Result<R> {
     contract {
@@ -369,7 +377,8 @@ public inline fun <R, T : R> Result<T>.recover(transform: (exception: Throwable)
  * Эта функция улавливает любое исключение [Throwable] , вызванное функцией [transform], и инкапсулирует его как сбой.
  * См. [восстановление] для альтернативы, которая переосмысливает исключения.
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <R, T : R> Result<T>.recoverCatching(transform: (exception: Throwable) -> R): Result<R> {
     return when (val exception = exceptionOrNull()) {
@@ -387,7 +396,8 @@ public inline fun <R, T : R> Result<T>.recoverCatching(transform: (exception: Th
  * Выполняет заданное [действие] над инкапсулированным значением, если этот экземпляр представляет [success][Result.isSuccess].
  * Возвращает исходный " Результат` без изменений.
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <T> Result<T>.onFailure(action: (exception: Throwable) -> Unit): Result<T> {
     contract {
@@ -403,7 +413,8 @@ public inline fun <T> Result<T>.onFailure(action: (exception: Throwable) -> Unit
  * Выполняет заданное [действие] над инкапсулированным значением, если этот экземпляр представляет [success][Result.isSuccess].
  * Возвращает исходный " Результат` без изменений.
  */
-@InlineOnly
+@ExperimentalContracts
+//@InlineOnly
 @SinceKotlin("1.3")
 public inline fun <T> Result<T>.onSuccess(action: (value: T) -> Unit): Result<T> {
     contract {
