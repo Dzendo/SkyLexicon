@@ -97,13 +97,13 @@ class SkyAboutViewModelTest {
         // Then the new task event is triggered Затем запускается новое событие задачи
         // тодо test LiveData см LiveDataTestUtil
 
-        assertThat(skyAboutViewModel.doneButton.value,`is`(true))  // плохо
+       // assertThat(skyAboutViewModel.keyBoard.value,`is`(true))  // плохо
 
-        val doneButton = skyAboutViewModel.doneButton.getOrAwaitValue()
+        val doneButton = skyAboutViewModel.keyBoard.getOrAwaitValue()
         assertThat(doneButton, not(nullValue()))
         assertThat(doneButton,`is`(true))
 
-        val editNickname = skyAboutViewModel.editNickname.getOrAwaitValue()
+        val editNickname = skyAboutViewModel.myName.nickname
         assertThat(editNickname, not(nullValue()))
         assertThat(editNickname,`is`(false))
 
